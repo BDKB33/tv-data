@@ -1,1 +1,66 @@
-.github/workflows/receive_tradingview.yml
+name: Receive TradingView Data
+
+on:
+  repository_dispatch:
+    types: [tradingview_alert]
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Extract symbol
+        id: sym
+        run: |
+          SYMBOL="${{ github.event.client_payload.symbol }}"
+          if [ -z "$SYMBOL" ]; then SYMBOL="UNKNOWN"; fi
+          echo "symbol=$SYMBOL" >> $GITHUB_OUTPUT
+
+      - name: Write symbol file and data.json
+        run: |
+          SYMBOL="${{ steps.sym.outputs.symbol }}"
+          RECEIVED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo '${{ toJson(github.event.client_payload) }}' | node -e "
+            const chunks = [];
+            process.stdin.on('data', d => chunks.push(d));
+            process.stdin.on('end', () => {
+              const obj = JSON.parse(chunks.join(''));
+              obj._received = '$RECEIVED';
+              obj._sample = false;
+              const out = JSON.stringify(obj, null, 2);
+              require('fs').writeFileSync('${SYMBOL}.json', out);
+              require('fs').writeFileSync('data.json', out);
+            });
+          "
+
+      - name: Update history files
+        run: |
+          SYMBOL="${{ steps.sym.outputs.symbol }}"
+          for f in "history_${SYMBOL}.json" "history_ALL.json"; do
+            [ ! -f "$f" ] && echo "[]" > "$f"
+          done
+          node -e "
+            const fs = require('fs');
+            const entry = JSON.parse(fs.readFileSync('${SYMBOL}.json','utf8'));
+            const sf = 'history_${SYMBOL}.json';
+            const sh = JSON.parse(fs.readFileSync(sf,'utf8'));
+            sh.push(entry);
+            fs.writeFileSync(sf, JSON.stringify(sh.slice(-500), null, 2));
+            const ah = JSON.parse(fs.readFileSync('history_ALL.json','utf8'));
+            ah.push(entry);
+            fs.writeFileSync('history_ALL.json', JSON.stringify(ah.slice(-2000), null, 2));
+          "
+
+      - name: Commit
+        run: |
+          SYMBOL="${{ steps.sym.outputs.symbol }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${SYMBOL}.json" data.json "history_${SYMBOL}.json" history_ALL.json
+          git diff --staged --quiet || git commit -m "tv: ${SYMBOL} @ ${{ github.event.client_payload.timestamp }}"
+          git push
