@@ -101,6 +101,7 @@ main { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
 .signal-dot { width: 7px; height: 7px; border-radius: 50%; }
 .loading { text-align: center; padding: 3rem; font-family: var(--mono); font-size: 13px; color: var(--text3); }
 .footer { text-align: center; padding: 1.5rem; font-family: var(--mono); font-size: 10px; color: var(--text3); border-top: 1px solid var(--border); margin-top: 2rem; }
+.rate-warning { font-family: var(--mono); font-size: 10px; color: var(--warn); background: var(--warn-bg); padding: 6px 12px; border-radius: 4px; margin-bottom: 1rem; display: none; }
 </style>
 </head>
 <body>
@@ -114,6 +115,7 @@ main { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
   </div>
 </header>
 <main>
+  <div class="rate-warning" id="rate-warning">GitHub API rate limit — showing cached data</div>
   <div class="section-label">Market compass — 1H</div>
   <div class="token-grid" id="token-grid"><div class="loading">Fetching live data...</div></div>
   <div class="section-label">Multi-timeframe consensus</div>
@@ -129,10 +131,21 @@ const SYMBOLS = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS  = ['BTC','ETH','SOL','XRP','ADA','SUI'];
 const TIMEFRAMES = ['1H','2H','4H','8H','1D','1W'];
 let marketData = {};
+let rateLimited = false;
 
 async function fetchFile(sym, tf) {
   try {
-    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);
+    const apiUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${sym}_${tf}.json`;
+    const r = await fetch(apiUrl, {
+      headers: { 'Accept': 'application/vnd.github.v3.raw' }
+    });
+    if (r.status === 403 || r.status === 429) {
+      rateLimited = true;
+      const fallback = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);
+      if (!fallback.ok) return null;
+      const d = await fallback.json();
+      return (d && Object.keys(d).length > 2) ? d : null;
+    }
     if (!r.ok) return null;
     const d = await r.json();
     return (d && Object.keys(d).length > 2) ? d : null;
@@ -141,6 +154,7 @@ async function fetchFile(sym, tf) {
 
 async function loadAll() {
   document.getElementById('last-update').textContent = 'Refreshing...';
+  rateLimited = false;
   const fetches = [];
   for (const sym of SYMBOLS) {
     marketData[sym] = {};
@@ -149,6 +163,7 @@ async function loadAll() {
     }
   }
   await Promise.all(fetches);
+  document.getElementById('rate-warning').style.display = rateLimited ? 'block' : 'none';
   renderTokenGrid();
   renderMTF();
   renderPosition();
@@ -239,10 +254,10 @@ function renderTokenGrid() {
       '<div class="tc-change ' + (chg >= 0 ? 'up' : 'dn') + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(2) + '% vs open</div>' +
       '<div class="divider"></div>' +
       '<div class="ind-grid">' +
-        '<div class="ind-row"><span class="ind-label">SMA50</span><span class="ind-val ' + (d.close > d.sma50 ? 'bull' : 'bear') + '">' + (d.close > d.sma50 ? 'ABOVE' : 'BELOW') + '</span></div>' +
-        '<div class="ind-row"><span class="ind-label">SMA200</span><span class="ind-val ' + (d.close > d.sma200 ? 'bull' : 'bear') + '">' + (d.close > d.sma200 ? 'ABOVE' : 'BELOW') + '</span></div>' +
-        '<div class="ind-row"><span class="ind-label">VWAP</span><span class="ind-val ' + (d.close > d.vwap ? 'bull' : 'bear') + '">' + (d.close > d.vwap ? 'ABOVE' : 'BELOW') + '</span></div>' +
-        '<div class="ind-row"><span class="ind-label">MACD</span><span class="ind-val ' + (d.macdHist > 0 ? 'bull' : 'bear') + '">' + (d.macdHist > 0 ? 'BULL' : 'BEAR') + '</span></div>' +
+        '<div class="ind-row"><span class="ind-label">SMA50</span><span class="ind-val ' + (d.sma50 ? (d.close > d.sma50 ? 'bull' : 'bear') : 'neut') + '">' + (d.sma50 ? (d.close > d.sma50 ? 'ABOVE' : 'BELOW') : '—') + '</span></div>' +
+        '<div class="ind-row"><span class="ind-label">SMA200</span><span class="ind-val ' + (d.sma200 ? (d.close > d.sma200 ? 'bull' : 'bear') : 'neut') + '">' + (d.sma200 ? (d.close > d.sma200 ? 'ABOVE' : 'BELOW') : '—') + '</span></div>' +
+        '<div class="ind-row"><span class="ind-label">VWAP</span><span class="ind-val ' + (d.vwap ? (d.close > d.vwap ? 'bull' : 'bear') : 'neut') + '">' + (d.vwap ? (d.close > d.vwap ? 'ABOVE' : 'BELOW') : '—') + '</span></div>' +
+        '<div class="ind-row"><span class="ind-label">MACD</span><span class="ind-val ' + (d.macdHist != null ? (d.macdHist > 0 ? 'bull' : 'bear') : 'neut') + '">' + (d.macdHist != null ? (d.macdHist > 0 ? 'BULL' : 'BEAR') : '—') + '</span></div>' +
         '<div class="ind-row"><span class="ind-label">RSI</span><span class="ind-val ' + rsiC + '">' + (d.rsi != null ? d.rsi.toFixed(1) : '—') + '</span></div>' +
         '<div class="ind-row"><span class="ind-label">STOCH K</span><span class="ind-val ' + stochC + '">' + (d.stochK != null ? d.stochK.toFixed(1) : '—') + '</span></div>' +
         '<div class="ind-row"><span class="ind-label">BB WIDTH</span><span class="ind-val neut">' + (d.bbWidth != null ? d.bbWidth.toFixed(2) : '—') + '</span></div>' +
@@ -280,7 +295,7 @@ function renderMTF() {
 
 function renderPosition() {
   const ethD = marketData['ETHUSDT']?.['1H'];
-  const currentPrice = ethD?.close || 2242.21;
+  const currentPrice = ethD?.close || 2248.82;
   const entry = 2229.00;
   const liq = 2293.53;
   const tp = 1999.00;
@@ -311,7 +326,7 @@ function renderPosition() {
     '</div>' +
     '<div class="counsel-box"><div class="counsel-label">SIGNAL COUNSEL</div>' +
     '<div class="signal-row"><div class="signal-dot" style="background:' + sigColor + '"></div><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:' + sigColor + '">1H: ' + sl(s) + ' (' + (s > 0 ? '+' : '') + s + ')</span><span style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-left:4px;">' + (conflictsShort ? '— CONFLICTS WITH SHORT' : '— SUPPORTS SHORT') + '</span></div>' +
-    '<div class="counsel-text">' + (conflictsShort ? '<strong>Position under pressure.</strong> 1H signal is bullish. Liq at $' + liq + ' is ' + distToLiq + '% away. No stop loss set is critical risk. Elliott Wave: ' + ewStr + '. Fractal resistance at ' + fracRes + '. Consider adding margin or closing.' : '<strong>Short thesis supported.</strong> Signal aligns with position. Monitor StochRSI crossover and MACD for confirmation. TP at $' + tp + ' remains valid. Elliott Wave: ' + ewStr + '.') + '</div></div>';
+    '<div class="counsel-text">' + (conflictsShort ? '<strong>Position under pressure.</strong> 1H signal bullish. Liq at $' + liq + ' is ' + distToLiq + '% away. No stop loss set is critical risk. Elliott Wave: ' + ewStr + '. Fractal resistance at ' + fracRes + '. Consider adding margin or closing.' : '<strong>Short thesis supported.</strong> Signal aligns with position. Monitor StochRSI and MACD for confirmation. TP at $' + tp + ' remains valid. Elliott Wave: ' + ewStr + '.') + '</div></div>';
 }
 
 loadAll();
