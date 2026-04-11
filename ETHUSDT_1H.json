@@ -5,7 +5,7 @@
   "open": 2305.69,
   "high": 2326.61,
   "low": 2305.69,
-  "close": 2312.87,
+  "close": 2312.54,
   "volume": 0,
   "ewCount": -1,
   "ewDirection": -1,
@@ -15,7 +15,7 @@
   "fracSupActive": 1,
   "rsiDiv": 0,
   "atr": 15.564096438240913,
-  "bbWidth": 1.8373982518335152,
+  "bbWidth": 1.8332027283269183,
   "sma50": null,
   "sma200": null,
   "vwap": null,
@@ -25,6 +25,6 @@
   "macdLine": null,
   "macdHist": null,
   "trendBias": 0,
-  "_received": "2026-04-11T19:21:52.813Z",
+  "_received": "2026-04-11T19:24:26.241Z",
   "_sample": false
 }
