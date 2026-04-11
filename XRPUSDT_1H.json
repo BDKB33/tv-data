@@ -4,9 +4,9 @@
   "time": "2026-04-11T00:00:00Z",
   "open": 1.3559,
   "high": 1.3565,
-  "low": 1.3537,
+  "low": 1.3532,
   "close": 1.3541,
-  "volume": 773724.5,
+  "volume": 1582377.2,
   "ewCount": -1,
   "ewDirection": 1,
   "fracResistance": 1.366,
@@ -14,7 +14,7 @@
   "fracResActive": 1,
   "fracSupActive": 1,
   "rsiDiv": 0,
-  "atr": 0.007417502318099,
+  "atr": 0.0074532166038132,
   "bbWidth": 1.3006318269205397,
   "bbUpper": 1.3496900000000032,
   "bbLower": 1.3319041741839956,
@@ -38,6 +38,6 @@
   "rsi": null,
   "macdLine": null,
   "macdHist": null,
-  "_received": "2026-04-11T00:35:02.551Z",
+  "_received": "2026-04-11T01:00:04.169Z",
   "_sample": false
 }
