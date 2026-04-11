@@ -101,7 +101,6 @@ main { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
 .signal-dot { width: 7px; height: 7px; border-radius: 50%; }
 .loading { text-align: center; padding: 3rem; font-family: var(--mono); font-size: 13px; color: var(--text3); }
 .footer { text-align: center; padding: 1.5rem; font-family: var(--mono); font-size: 10px; color: var(--text3); border-top: 1px solid var(--border); margin-top: 2rem; }
-.rate-warning { font-family: var(--mono); font-size: 10px; color: var(--warn); background: var(--warn-bg); padding: 6px 12px; border-radius: 4px; margin-bottom: 1rem; display: none; }
 </style>
 </head>
 <body>
@@ -115,7 +114,6 @@ main { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
   </div>
 </header>
 <main>
-  <div class="rate-warning" id="rate-warning">GitHub API rate limit — showing cached data</div>
   <div class="section-label">Market compass — 1H</div>
   <div class="token-grid" id="token-grid"><div class="loading">Fetching live data...</div></div>
   <div class="section-label">Multi-timeframe consensus</div>
@@ -131,21 +129,11 @@ const SYMBOLS = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS  = ['BTC','ETH','SOL','XRP','ADA','SUI'];
 const TIMEFRAMES = ['1H','2H','4H','8H','1D','1W'];
 let marketData = {};
-let rateLimited = false;
 
 async function fetchFile(sym, tf) {
   try {
-    const apiUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${sym}_${tf}.json`;
-    const r = await fetch(apiUrl, {
-      headers: { 'Accept': 'application/vnd.github.v3.raw' }
-    });
-    if (r.status === 403 || r.status === 429) {
-      rateLimited = true;
-      const fallback = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);
-      if (!fallback.ok) return null;
-      const d = await fallback.json();
-      return (d && Object.keys(d).length > 2) ? d : null;
-    }
+    const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`;
+    const r = await fetch(url);
     if (!r.ok) return null;
     const d = await r.json();
     return (d && Object.keys(d).length > 2) ? d : null;
@@ -154,7 +142,6 @@ async function fetchFile(sym, tf) {
 
 async function loadAll() {
   document.getElementById('last-update').textContent = 'Refreshing...';
-  rateLimited = false;
   const fetches = [];
   for (const sym of SYMBOLS) {
     marketData[sym] = {};
@@ -163,7 +150,6 @@ async function loadAll() {
     }
   }
   await Promise.all(fetches);
-  document.getElementById('rate-warning').style.display = rateLimited ? 'block' : 'none';
   renderTokenGrid();
   renderMTF();
   renderPosition();
