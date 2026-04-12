@@ -1,1 +1,17 @@
-{}
+{
+  "symbol": "ETHUSDT",
+  "timeframe": "480",
+  "indicator": "precsniper",
+  "close": 2214.79,
+  "sma50": null,
+  "sma200": null,
+  "vwap": null,
+  "rsi": null,
+  "macdLine": null,
+  "macdHist": null,
+  "stochK": null,
+  "stochD": null,
+  "trendBias": 0,
+  "_received": "2026-04-12T21:03:50.588Z",
+  "_sample": false
+}
