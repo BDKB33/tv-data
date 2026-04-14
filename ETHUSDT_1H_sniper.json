@@ -2,7 +2,7 @@
   "symbol": "ETHUSDT",
   "timeframe": "60",
   "indicator": "precsniper",
-  "close": 2352.74,
+  "close": 2369.46,
   "sma50": null,
   "sma200": null,
   "vwap": null,
@@ -12,6 +12,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-13T23:00:11.488Z",
+  "_received": "2026-04-14T00:00:19.294Z",
   "_sample": false
 }
