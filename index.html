@@ -16,6 +16,7 @@
   --neut:#5a6380;--neut-dim:rgba(90,99,128,0.12);
   --accent:#3d8bff;--accent-dim:rgba(61,139,255,0.12);
   --gold:#f0b429;--gold-dim:rgba(240,180,41,0.12);
+  --sniper:#b06aff;--sniper-dim:rgba(176,106,255,0.12);
   --mono:'Space Mono',monospace;
   --display:'Barlow Condensed',sans-serif;
 }
@@ -106,6 +107,32 @@ main{padding:1.5rem 2rem;max-width:1600px;margin:0 auto;}
 .mtf-val{font-weight:700;}
 .mtf-val.bull{color:var(--bull);}.mtf-val.bear{color:var(--bear);}.mtf-val.neut{color:var(--text3);}
 .tf-weight{font-size:8px;color:var(--text3);display:block;margin-top:1px;}
+.sniper-section{margin-bottom:2rem;}
+.sniper-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);animation:fadeIn 0.4s ease;}
+.sniper-card{background:var(--bg2);padding:1.1rem 1.25rem;display:flex;flex-direction:column;gap:8px;transition:background 0.15s;border-top:2px solid transparent;}
+.sniper-card:hover{background:var(--bg3);}
+.sniper-card.bull-card{border-top-color:var(--bull);}
+.sniper-card.bear-card{border-top-color:var(--bear);}
+.sniper-card.neut-card{border-top-color:var(--neut);}
+.sniper-sym{font-size:14px;font-weight:800;letter-spacing:1px;color:var(--text);}
+.sniper-price{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);}
+.sniper-row{display:flex;justify-content:space-between;align-items:center;}
+.sniper-lbl{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:1px;}
+.sniper-val{font-family:var(--mono);font-size:10px;font-weight:700;}
+.sniper-divider{height:1px;background:var(--border);}
+.sniper-signal-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 8px;letter-spacing:1px;text-align:center;}
+.sig-bull{color:var(--bull);background:var(--bull-dim);border:1px solid rgba(0,232,122,0.25);}
+.sig-bear{color:var(--bear);background:var(--bear-dim);border:1px solid rgba(255,51,85,0.25);}
+.sig-neut{color:var(--neut);background:var(--neut-dim);border:1px solid rgba(90,99,128,0.2);}
+.sig-counter{color:var(--sniper);background:var(--sniper-dim);border:1px solid rgba(176,106,255,0.25);}
+.sniper-time{font-family:var(--mono);font-size:8px;color:var(--text3);}
+.sniper-tf-row{display:flex;gap:3px;flex-wrap:wrap;}
+.sniper-tf-chip{font-family:var(--mono);font-size:8px;padding:2px 5px;background:var(--bg4);color:var(--text3);}
+.sniper-tf-chip.active-bull{color:var(--bull);background:var(--bull-dim);}
+.sniper-tf-chip.active-bear{color:var(--bear);background:var(--bear-dim);}
+.counter-alert{background:var(--sniper-dim);border:1px solid rgba(176,106,255,0.2);padding:6px 10px;margin-top:4px;}
+.counter-label{font-family:var(--mono);font-size:8px;color:var(--sniper);letter-spacing:1px;font-weight:700;}
+.counter-text{font-family:var(--mono);font-size:9px;color:var(--text2);margin-top:2px;}
 .no-pos{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;text-align:center;margin-bottom:2rem;}
 .no-pos-dash{font-family:var(--mono);font-size:24px;color:var(--text3);margin-bottom:8px;}
 .no-pos-title{font-size:12px;font-weight:700;color:var(--text3);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
@@ -150,6 +177,10 @@ footer{text-align:center;padding:1.25rem;font-family:var(--mono);font-size:9px;c
       <tbody id="mtf-body"><tr><td colspan="9" class="loading">LOADING...</td></tr></tbody>
     </table>
   </div>
+  <div class="sec-label">PrecSniper Intelligence</div>
+  <div class="sniper-section">
+    <div class="sniper-grid" id="sniper-grid"><div class="loading" style="grid-column:1/-1">LOADING...</div></div>
+  </div>
   <div class="sec-label">Open Position</div>
   <div class="no-pos">
     <div class="no-pos-dash">—</div>
@@ -157,14 +188,15 @@ footer{text-align:center;padding:1.25rem;font-family:var(--mono);font-size:9px;c
     <div class="no-pos-sub">BloFin live feed · coming soon</div>
   </div>
 </main>
-<footer>SIGNAL DESK V2 &nbsp;·&nbsp; BDKB33/tv-data &nbsp;·&nbsp; Auto-refresh 5 min &nbsp;·&nbsp; <span id="footer-ts"></span></footer>
+<footer>SIGNAL DESK V2 · PRECSNIPER INTELLIGENCE &nbsp;·&nbsp; BDKB33/tv-data &nbsp;·&nbsp; Auto-refresh 5 min &nbsp;·&nbsp; <span id="footer-ts"></span></footer>
 
 <script>
 const OWNER='BDKB33',REPO='tv-data',BRANCH='main';
 const SYMBOLS=['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS=['BTC','ETH','SOL','XRP','ADA','SUI'];
 const TIMEFRAMES=['1H','2H','4H','8H','1D','1W'];
-let mkt={};
+const SNIPER_TFS=['1H','4H','8H','1D','1W'];
+let mkt={},sniper={};
 
 async function fetchFile(sym,tf){
   try{
@@ -175,10 +207,23 @@ async function fetchFile(sym,tf){
   }catch{return null;}
 }
 
+async function fetchSniper(sym,tf){
+  try{
+    const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}_sniper.json?t=${Date.now()}`);
+    if(!r.ok)return null;
+    const d=await r.json();
+    return(d&&d.indicator==='precsniper')?d:null;
+  }catch{return null;}
+}
+
 async function loadAll(){
   document.getElementById('ts').textContent='Refreshing...';
   const fetches=[];
-  for(const sym of SYMBOLS){mkt[sym]={};for(const tf of TIMEFRAMES){fetches.push(fetchFile(sym,tf).then(d=>{if(d)mkt[sym][tf]=d;}));}}
+  for(const sym of SYMBOLS){
+    mkt[sym]={};sniper[sym]={};
+    for(const tf of TIMEFRAMES){fetches.push(fetchFile(sym,tf).then(d=>{if(d)mkt[sym][tf]=d;}));}
+    for(const tf of SNIPER_TFS){fetches.push(fetchSniper(sym,tf).then(d=>{if(d)sniper[sym][tf]=d;}));}
+  }
   await Promise.all(fetches);
   render();
   const now=new Date();
@@ -188,10 +233,8 @@ async function loadAll(){
 
 function structureScore(d){
   if(!d)return 0;
-  const aboveRes=d.fracResActive===0;
-  const aboveSup=d.fracSupActive===1;
-  const ewBull=d.ewDirection===1&&d.ewCount>0;
-  const ewBear=d.ewDirection===-1&&d.ewCount<0;
+  const aboveRes=d.fracResActive===0,aboveSup=d.fracSupActive===1;
+  const ewBull=d.ewDirection===1&&d.ewCount>0,ewBear=d.ewDirection===-1&&d.ewCount<0;
   if(aboveRes&&aboveSup&&ewBull)return 1;
   if(!aboveRes&&!aboveSup&&ewBear)return -1;
   if(aboveSup&&ewBull)return 0.5;
@@ -217,30 +260,11 @@ function macdScore(d){
 }
 function vwapScore(d){if(!d||!d.close||!d.vwap)return 0;return d.close>d.vwap?1:-1;}
 function rsiDivScore(d){if(!d||!d.rsiDiv)return 0;return d.rsiDiv;}
-
-function score1H(d){
-  if(!d)return 0;
-  return Math.round(structureScore(d)*25+emaScore(d)*20+vwapScore(d)*15+volumeScore(d)*15+rsiScore(d)*10+rsiDivScore(d)*15);
-}
-function score4H(d){
-  if(!d)return 0;
-  return Math.round(structureScore(d)*25+emaScore(d)*25+volumeScore(d)*15+vwapScore(d)*15+rsiScore(d)*10+macdScore(d)*10);
-}
-function score1D(d){
-  if(!d)return 0;
-  return Math.round(structureScore(d)*30+emaScore(d)*25+volumeScore(d)*15+vwapScore(d)*10+rsiScore(d)*10+macdScore(d)*10);
-}
-function scoreGen(d){
-  if(!d)return 0;
-  return Math.round(structureScore(d)*27+emaScore(d)*23+volumeScore(d)*15+vwapScore(d)*12+rsiScore(d)*10+macdScore(d)*10+rsiDivScore(d)*3);
-}
-function getTFScore(d,tf){
-  if(tf==='1H')return score1H(d);
-  if(tf==='4H')return score4H(d);
-  if(tf==='1D')return score1D(d);
-  return scoreGen(d);
-}
-
+function score1H(d){if(!d)return 0;return Math.round(structureScore(d)*25+emaScore(d)*20+vwapScore(d)*15+volumeScore(d)*15+rsiScore(d)*10+rsiDivScore(d)*15);}
+function score4H(d){if(!d)return 0;return Math.round(structureScore(d)*25+emaScore(d)*25+volumeScore(d)*15+vwapScore(d)*15+rsiScore(d)*10+macdScore(d)*10);}
+function score1D(d){if(!d)return 0;return Math.round(structureScore(d)*30+emaScore(d)*25+volumeScore(d)*15+vwapScore(d)*10+rsiScore(d)*10+macdScore(d)*10);}
+function scoreGen(d){if(!d)return 0;return Math.round(structureScore(d)*27+emaScore(d)*23+volumeScore(d)*15+vwapScore(d)*12+rsiScore(d)*10+macdScore(d)*10+rsiDivScore(d)*3);}
+function getTFScore(d,tf){if(tf==='1H')return score1H(d);if(tf==='4H')return score4H(d);if(tf==='1D')return score1D(d);return scoreGen(d);}
 function mtfScore(sym){
   const d1H=mkt[sym]?.['1H'],d4H=mkt[sym]?.['4H'],d1D=mkt[sym]?.['1D'];
   if(!d1H&&!d4H&&!d1D)return 0;
@@ -250,7 +274,6 @@ function mtfScore(sym){
   if(d1D){t+=score1D(d1D)*0.40;w+=0.40;}
   return Math.round(t/w);
 }
-
 function getState(s){if(s>=80)return'CONFIRMED';if(s>=65)return'SETUP';if(s>=50)return'WATCHLIST';return'NOTRADE';}
 function getGrade(s){if(s>=85)return'A+';if(s>=75)return'A';if(s>=65)return'B';return'NO TRADE';}
 function getDirection(sym){
@@ -265,7 +288,46 @@ function isTradeReady(sym){
   const mtf=mtfScore(sym),s1=score1H(mkt[sym]?.['1H']),dir=getDirection(sym);
   return mtf>=75&&s1>=80&&(dir==='LONG'||dir==='SHORT');
 }
-
+function getSniperAnalysis(sym){
+  const results={};
+  for(const tf of SNIPER_TFS){
+    const s=sniper[sym]?.[tf];
+    if(!s||!s.p0)continue;
+    const emaFast=s.p0,emaSlow=s.p1,emaTrend=s.p2,close=s.close;
+    const bullStack=emaFast>emaSlow&&emaSlow>emaTrend;
+    const bearStack=emaFast<emaSlow&&emaSlow<emaTrend;
+    results[tf]={emaFast,emaSlow,emaTrend,close,bullStack,bearStack,aboveTrend:close>emaTrend,aboveSlow:close>emaSlow,aboveFast:close>emaFast,received:s._received};
+  }
+  return results;
+}
+function getSniperBias(analysis){
+  let bull=0,bear=0,total=0;
+  for(const tf of SNIPER_TFS){
+    if(!analysis[tf])continue;
+    total++;
+    if(analysis[tf].bullStack)bull++;
+    else if(analysis[tf].bearStack)bear++;
+  }
+  if(!total)return'NEUTRAL';
+  if(bull/total>0.6)return'BULL';
+  if(bear/total>0.6)return'BEAR';
+  return'MIXED';
+}
+function isCounterTrend(sym){
+  const s1H=score1H(mkt[sym]?.['1H']),s4H=score4H(mkt[sym]?.['4H']),s1D=score1D(mkt[sym]?.['1D']);
+  const dir=s=>s>15?'LONG':s<-15?'SHORT':'NEUTRAL';
+  const d1=dir(s1H),d4=dir(s4H),dD=dir(s1D);
+  if(d1==='NEUTRAL'||d4==='NEUTRAL'||dD==='NEUTRAL')return null;
+  if(d1!==d4&&d4===dD)return{scalp:d1,htfBias:d4};
+  return null;
+}
+function timeSince(iso){
+  if(!iso)return'—';
+  const diff=Date.now()-new Date(iso).getTime();
+  const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000);
+  if(h>0)return h+'h '+m+'m ago';
+  return m+'m ago';
+}
 function fmtP(n){
   if(n==null||isNaN(n))return'—';
   if(n>=10000)return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -282,23 +344,15 @@ function ewLabel(cnt,dir){
 function sColor(s){if(s>=65)return'var(--bull)';if(s>=0)return'var(--gold)';return'var(--bear)';}
 function mtfClass(s){if(!s&&s!==0)return'neut';if(s>15)return'bull';if(s<-15)return'bear';return'neut';}
 
-function render(){renderSummary();renderTokenGrid();renderAlignment();renderMTF();}
+function render(){renderSummary();renderTokenGrid();renderAlignment();renderMTF();renderSniper();}
 
 function renderSummary(){
   let html='';
   SYMBOLS.forEach((sym,i)=>{
     const d=mkt[sym]?.['1H'];
     const chg=d?.open?((d.close-d.open)/d.open*100):0;
-    const s=getTFScore(d,'1H');
-    const state=d?getState(s):'NOTRADE';
-    html+=`<div class="sum-cell">
-      <div class="sum-token">${LABELS[i]}</div>
-      <div class="sum-price">${d?fmtP(d.close):'—'}</div>
-      <div class="sum-bottom">
-        <span class="sum-chg ${d&&chg>=0?'up':'dn'}">${d?(chg>=0?'+':'')+chg.toFixed(2)+'%':'—'}</span>
-        <span class="state-badge state-${state}">${state==='NOTRADE'?'NO TRADE':state}</span>
-      </div>
-    </div>`;
+    const s=getTFScore(d,'1H'),state=d?getState(s):'NOTRADE';
+    html+=`<div class="sum-cell"><div class="sum-token">${LABELS[i]}</div><div class="sum-price">${d?fmtP(d.close):'—'}</div><div class="sum-bottom"><span class="sum-chg ${d&&chg>=0?'up':'dn'}">${d?(chg>=0?'+':'')+chg.toFixed(2)+'%':'—'}</span><span class="state-badge state-${state}">${state==='NOTRADE'?'NO TRADE':state}</span></div></div>`;
   });
   document.getElementById('summary-bar').innerHTML=html;
 }
@@ -308,26 +362,16 @@ function renderTokenGrid(){
   SYMBOLS.forEach((sym,i)=>{
     const d=mkt[sym]?.['1H'];
     if(!d){html+=`<div class="token-card"><div class="tc-top"><div><div class="tc-sym">${LABELS[i]} / USDT</div><div class="tc-tf">1H · No data</div></div></div><div style="font-family:var(--mono);font-size:10px;color:var(--text3);padding-top:8px;">Awaiting candle close...</div></div>`;return;}
-    const s=score1H(d);
-    const state=getState(s);
-    const chg=d.open?((d.close-d.open)/d.open*100):0;
+    const s=score1H(d),state=getState(s),chg=d.open?((d.close-d.open)/d.open*100):0;
     const timeStr=d._received?d._received.substring(11,16)+' UTC':'—';
-    const barW=Math.min(100,Math.abs(s));
-    const barColor=sColor(s);
-    const str=structureScore(d);
-    const ema=emaScore(d);
-    const vol=volumeScore(d);
-    const vwap=vwapScore(d);
+    const barW=Math.min(100,Math.abs(s)),barColor=sColor(s);
+    const str=structureScore(d),ema=emaScore(d),vol=volumeScore(d),vwap=vwapScore(d);
     const rsiC=d.rsi>70?'warn':d.rsi<30?'bull':'neut';
     const stochC=d.stochK>80?'warn':d.stochK<20?'bull':'neut';
-    const ewStr=ewLabel(d.ewCount,d.ewDirection);
-    const ewImp=d.ewCount>0;
+    const ewStr=ewLabel(d.ewCount,d.ewDirection),ewImp=d.ewCount>0;
     const rsiDivStr=d.rsiDiv===1?'<span class="ind-val bull">BULL DIV</span>':d.rsiDiv===-1?'<span class="ind-val bear">BEAR DIV</span>':'<span class="ind-val neut">NONE</span>';
     html+=`<div class="token-card">
-      <div class="tc-top">
-        <div><div class="tc-sym">${LABELS[i]} / USDT</div><div class="tc-tf">1H · ${timeStr}</div></div>
-        <span class="state-badge state-${state}">${state==='NOTRADE'?'NO TRADE':state}</span>
-      </div>
+      <div class="tc-top"><div><div class="tc-sym">${LABELS[i]} / USDT</div><div class="tc-tf">1H · ${timeStr}</div></div><span class="state-badge state-${state}">${state==='NOTRADE'?'NO TRADE':state}</span></div>
       <div class="tc-price">${fmtP(d.close)}</div>
       <div class="tc-chg ${chg>=0?'up':'dn'}">${(chg>=0?'+':'')+chg.toFixed(2)}% vs open</div>
       <div class="divider"></div>
@@ -352,20 +396,10 @@ function renderTokenGrid(){
         <div class="ind-row"><span class="ind-lbl">FRAC RES</span><span class="ind-val bear">${d.fracResistance?fmtP(d.fracResistance):'—'}</span></div>
         <div class="ind-row"><span class="ind-lbl">FRAC SUP</span><span class="ind-val bull">${d.fracSupport?fmtP(d.fracSupport):'—'}</span></div>
       </div>
-      <div class="ind-row" style="margin-top:6px;gap:6px;justify-content:flex-start;">
-        <span class="ind-lbl">ELLIOTT</span>
-        <span class="ew-tag ${ewImp?'ew-imp':'ew-corr'}">${ewStr}</span>
-      </div>
+      <div class="ind-row" style="margin-top:6px;gap:6px;justify-content:flex-start;"><span class="ind-lbl">ELLIOTT</span><span class="ew-tag ${ewImp?'ew-imp':'ew-corr'}">${ewStr}</span></div>
       <div class="score-block">
-        <div class="score-top">
-          <span class="score-lbl">1H SIGNAL SCORE</span>
-          <span class="score-num" style="color:${barColor}">${s>0?'+':''}${s}</span>
-        </div>
-        <div class="meter-track">
-          <div class="meter-fill" style="width:${barW}%;background:${barColor}"></div>
-          <div class="meter-thresh" style="left:65%"></div>
-          <div class="meter-thresh" style="left:80%"></div>
-        </div>
+        <div class="score-top"><span class="score-lbl">1H SIGNAL SCORE</span><span class="score-num" style="color:${barColor}">${s>0?'+':''}${s}</span></div>
+        <div class="meter-track"><div class="meter-fill" style="width:${barW}%;background:${barColor}"></div><div class="meter-thresh" style="left:65%"></div><div class="meter-thresh" style="left:80%"></div></div>
       </div>
     </div>`;
   });
@@ -376,10 +410,7 @@ function renderAlignment(){
   let html='<div class="align-header">MTF ALIGNMENT ENGINE</div>';
   SYMBOLS.forEach((sym,i)=>{
     const s1=score1H(mkt[sym]?.['1H']),s4=score4H(mkt[sym]?.['4H']),sD=score1D(mkt[sym]?.['1D']);
-    const mtf=mtfScore(sym);
-    const grade=getGrade(mtf);
-    const dir=getDirection(sym);
-    const ready=isTradeReady(sym);
+    const mtf=mtfScore(sym),grade=getGrade(mtf),dir=getDirection(sym),ready=isTradeReady(sym);
     const gc=grade==='A+'?'grade-Ap':grade==='A'?'grade-A':grade==='B'?'grade-B':'grade-NT';
     const barColor=mtf>=65?'var(--bull)':mtf>=0?'var(--gold)':'var(--bear)';
     const barW=Math.min(100,Math.max(0,(mtf+100)/2));
@@ -410,14 +441,11 @@ function renderMTF(){
   SYMBOLS.forEach((sym,i)=>{
     html+=`<tr><td class="sym">${LABELS[i]}</td>`;
     TIMEFRAMES.forEach(tf=>{
-      const d=mkt[sym]?.[tf];
-      const s=getTFScore(d,tf);
-      const cls=d?mtfClass(s):'neut';
+      const d=mkt[sym]?.[tf],s=getTFScore(d,tf),cls=d?mtfClass(s):'neut';
       const arrow=s>15?'▲':s<-15?'▼':'—';
       html+=`<td style="opacity:${d?1:0.2}"><span class="mtf-val ${cls}">${d?arrow+' '+Math.abs(s):'·'}</span></td>`;
     });
-    const mtf=mtfScore(sym);
-    const grade=getGrade(mtf);
+    const mtf=mtfScore(sym),grade=getGrade(mtf);
     const mc=mtf>=65?'var(--bull)':mtf>=0?'var(--gold)':'var(--bear)';
     const gc=grade==='A+'?'grade-Ap':grade==='A'?'grade-A':grade==='B'?'grade-B':'grade-NT';
     const has=mkt[sym]?.['1H']||mkt[sym]?.['4H']||mkt[sym]?.['1D'];
@@ -426,6 +454,57 @@ function renderMTF(){
     html+='</tr>';
   });
   document.getElementById('mtf-body').innerHTML=html;
+}
+
+function renderSniper(){
+  let html='';
+  SYMBOLS.forEach((sym,i)=>{
+    const analysis=getSniperAnalysis(sym);
+    const bias=getSniperBias(analysis);
+    const counter=isCounterTrend(sym);
+    const s1H=score1H(mkt[sym]?.['1H']);
+    const s4H=score4H(mkt[sym]?.['4H']);
+    const s1D=score1D(mkt[sym]?.['1D']);
+    const d1H=mkt[sym]?.['1H'];
+    const cardClass=bias==='BULL'?'bull-card':bias==='BEAR'?'bear-card':'neut-card';
+    const latest=sniper[sym]?.['1H']||sniper[sym]?.['4H']||sniper[sym]?.['1D'];
+    const lastSeen=latest?timeSince(latest._received):'No data';
+    let tfChips='';
+    for(const tf of SNIPER_TFS){
+      if(!analysis[tf])continue;
+      const a=analysis[tf];
+      const cls=a.bullStack?'active-bull':a.bearStack?'active-bear':'';
+      tfChips+=`<span class="sniper-tf-chip ${cls}">${tf} ${a.bullStack?'▲':a.bearStack?'▼':'—'}</span>`;
+    }
+    let sigBadge='';
+    if(counter){sigBadge=`<span class="sniper-signal-badge sig-counter">⚡ SCALP ${counter.scalp}</span>`;}
+    else if(bias==='BULL'){sigBadge=`<span class="sniper-signal-badge sig-bull">▲ BULL ALIGNED</span>`;}
+    else if(bias==='BEAR'){sigBadge=`<span class="sniper-signal-badge sig-bear">▼ BEAR ALIGNED</span>`;}
+    else{sigBadge=`<span class="sniper-signal-badge sig-neut">— MIXED</span>`;}
+    const a1H=analysis['1H'];
+    const emaRows=a1H?`
+      <div class="sniper-row"><span class="sniper-lbl">vs EMA FAST</span><span class="sniper-val" style="color:${a1H.aboveFast?'var(--bull)':'var(--bear)'}">${a1H.aboveFast?'ABOVE':'BELOW'} ${fmtP(a1H.emaFast)}</span></div>
+      <div class="sniper-row"><span class="sniper-lbl">vs EMA SLOW</span><span class="sniper-val" style="color:${a1H.aboveSlow?'var(--bull)':'var(--bear)'}">${a1H.aboveSlow?'ABOVE':'BELOW'} ${fmtP(a1H.emaSlow)}</span></div>
+      <div class="sniper-row"><span class="sniper-lbl">vs EMA TREND</span><span class="sniper-val" style="color:${a1H.aboveTrend?'var(--bull)':'var(--bear)'}">${a1H.aboveTrend?'ABOVE':'BELOW'} ${fmtP(a1H.emaTrend)}</span></div>
+    `:'<div style="font-family:var(--mono);font-size:9px;color:var(--text3)">No 1H sniper data</div>';
+    const counterBox=counter?`<div class="counter-alert"><div class="counter-label">⚡ COUNTER-TREND SCALP DETECTED</div><div class="counter-text">1H: ${counter.scalp} vs HTF: ${counter.htfBias} · 1H:${s1H} 4H:${s4H} 1D:${s1D}</div></div>`:'';
+    html+=`<div class="sniper-card ${cardClass}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="sniper-sym">${LABELS[i]}</div>${sigBadge}</div>
+      <div class="sniper-price">${d1H?fmtP(d1H.close):'—'}</div>
+      <div class="sniper-divider"></div>
+      ${emaRows}
+      <div class="sniper-divider"></div>
+      <div class="sniper-lbl" style="margin-bottom:4px;">EMA STACK BY TF</div>
+      <div class="sniper-tf-row">${tfChips||'<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">No data</span>'}</div>
+      <div class="sniper-divider"></div>
+      <div class="sniper-row"><span class="sniper-lbl">SD SCORE 1H</span><span class="sniper-val" style="color:${sColor(s1H)}">${s1H>0?'+':''}${s1H}</span></div>
+      <div class="sniper-row"><span class="sniper-lbl">SD SCORE 4H</span><span class="sniper-val" style="color:${sColor(s4H)}">${s4H>0?'+':''}${s4H}</span></div>
+      <div class="sniper-row"><span class="sniper-lbl">SD SCORE 1D</span><span class="sniper-val" style="color:${sColor(s1D)}">${s1D>0?'+':''}${s1D}</span></div>
+      ${counterBox}
+      <div class="sniper-time">Last update: ${lastSeen}</div>
+    </div>`;
+  });
+  document.getElementById('sniper-grid').innerHTML=html||'<div class="loading" style="grid-column:1/-1">No PrecSniper data available</div>';
 }
 
 loadAll();
