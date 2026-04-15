@@ -47,14 +47,19 @@ jobs:
               'ACCESS-TIMESTAMP': timestamp,
               'ACCESS-NONCE': nonce,
               'ACCESS-PASSPHRASE': PASSPHRASE,
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
           };
 
           const req = https.request(options, (res) => {
             let data = '';
+            console.log('HTTP Status:', res.statusCode);
+            console.log('Response headers:', JSON.stringify(res.headers));
             res.on('data', chunk => { data += chunk; });
             res.on('end', () => {
+              console.log('Raw response (first 300):', data.substring(0, 300));
               try {
                 const parsed = JSON.parse(data);
                 console.log('BloFin response code:', parsed.code);
@@ -88,7 +93,6 @@ jobs:
                 console.log('Written ' + positions.length + ' position(s) to positions.json');
               } catch(e) {
                 console.error('Parse error:', e.message);
-                console.error('Raw:', data.substring(0, 500));
                 const output = {
                   positions: [],
                   count: 0,
