@@ -177,6 +177,23 @@ main{padding:1.5rem 2rem;max-width:1600px;margin:0 auto;}
 .no-pos-sub{font-family:var(--mono);font-size:10px;color:var(--text3);}
 footer{text-align:center;padding:1.25rem;font-family:var(--mono);font-size:9px;color:var(--text3);border-top:1px solid var(--border);letter-spacing:1px;}
 .loading{text-align:center;padding:3rem;font-family:var(--mono);font-size:11px;color:var(--text3);letter-spacing:2px;}
+.pos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);}
+.pos-card{background:var(--bg2);padding:1.25rem;display:flex;flex-direction:column;gap:8px;border-top:2px solid transparent;transition:background 0.15s;}
+.pos-card:hover{background:var(--bg3);}
+.pos-card.long-card{border-top-color:var(--bull);}
+.pos-card.short-card{border-top-color:var(--bear);}
+.pos-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.pos-sym{font-size:16px;font-weight:800;letter-spacing:1px;color:var(--text);}
+.pos-side{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 10px;letter-spacing:1px;}
+.pos-side.long{color:var(--bull);background:var(--bull-dim);border:1px solid rgba(0,232,122,0.25);}
+.pos-side.short{color:var(--bear);background:var(--bear-dim);border:1px solid rgba(255,51,85,0.25);}
+.pos-pnl{font-family:var(--mono);font-size:24px;font-weight:700;}
+.pos-pnl.pos{color:var(--bull);}.pos-pnl.neg{color:var(--bear);}
+.pos-pnl-pct{font-family:var(--mono);font-size:11px;margin-left:6px;}
+.pos-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid var(--border);}
+.pos-lbl{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px;}
+.pos-val{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--text);}
+.pos-updated{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:4px;}
 </style>
 </head>
 <body>
@@ -239,12 +256,8 @@ footer{text-align:center;padding:1.25rem;font-family:var(--mono);font-size:9px;c
   <div class="sniper-section">
     <div class="sniper-grid" id="sniper-grid"><div class="loading" style="grid-column:1/-1">LOADING...</div></div>
   </div>
-  <div class="sec-label">Open Position</div>
-  <div class="no-pos">
-    <div class="no-pos-dash">—</div>
-    <div class="no-pos-title">No Open Positions</div>
-    <div class="no-pos-sub">BloFin live feed · coming soon</div>
-  </div>
+  <div class="sec-label">Open Positions · BloFin</div>
+  <div id="positions-panel" style="margin-bottom:2rem;"></div>
 </main>
 <footer>SIGNAL DESK V2 · PRECSNIPER INTELLIGENCE &nbsp;·&nbsp; BDKB33/tv-data &nbsp;·&nbsp; Auto-refresh 5 min &nbsp;·&nbsp; <span id="footer-ts"></span></footer>
 
@@ -280,11 +293,57 @@ async function loadAll(){
     for(const tf of TIMEFRAMES){fetches.push(fetchFile(sym,tf).then(d=>{if(d)mkt[sym][tf]=d;}));}
     for(const tf of SNIPER_TFS){fetches.push(fetchSniper(sym,tf).then(d=>{if(d)sniper[sym][tf]=d;}));}
   }
+  // Fetch BloFin positions
+  fetches.push(
+    fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/positions.json?t=${Date.now()}`)
+      .then(r=>r.ok?r.json():null)
+      .then(d=>renderPositions(d))
+      .catch(()=>renderPositions(null))
+  );
   await Promise.all(fetches);
   render();
   const now=new Date();
   document.getElementById('ts').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' ET';
   document.getElementById('footer-ts').textContent=now.toISOString().substring(0,19)+' UTC';
+}
+
+function renderPositions(data){
+  const panel=document.getElementById('positions-panel');
+  if(!data||!data.positions||data.positions.length===0){
+    const updated=data?._updated?timeSince(data._updated):'—';
+    panel.innerHTML=`<div class="no-pos">
+      <div class="no-pos-dash">—</div>
+      <div class="no-pos-title">No Open Positions</div>
+      <div class="no-pos-sub">Last sync: ${updated}${data?._error?' · Error: '+data._error:''}</div>
+    </div>`;
+    return;
+  }
+  let html='<div class="pos-grid">';
+  for(const p of data.positions){
+    const sym=p.symbol.replace('-USDT','').replace('USDT','');
+    const isLong=p.side==='long'||p.side==='net'&&p.size>0;
+    const pnlPos=p.unrealizedPnl>=0;
+    const pnlPct=(p.unrealizedPnlPct*100).toFixed(2);
+    html+=`<div class="pos-card ${isLong?'long-card':'short-card'}">
+      <div class="pos-top">
+        <div class="pos-sym">${sym} / USDT</div>
+        <span class="pos-side ${isLong?'long':'short'}">${isLong?'▲ LONG':'▼ SHORT'} ${p.leverage}x</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="pos-pnl ${pnlPos?'pos':'neg'}">${pnlPos?'+':''}$${p.unrealizedPnl.toFixed(2)}</span>
+        <span class="pos-pnl-pct" style="color:${pnlPos?'var(--bull)':'var(--bear)'}">${pnlPos?'+':''}${pnlPct}%</span>
+      </div>
+      <div class="pos-row"><span class="pos-lbl">ENTRY</span><span class="pos-val">${fmtP(p.entryPrice)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">MARK</span><span class="pos-val">${fmtP(p.markPrice)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">LIQ PRICE</span><span class="pos-val" style="color:var(--bear)">${fmtP(p.liqPrice)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">SIZE</span><span class="pos-val">${p.size}</span></div>
+      <div class="pos-row"><span class="pos-lbl">MARGIN</span><span class="pos-val">${fmtP(p.margin)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">MODE</span><span class="pos-val">${p.marginMode?.toUpperCase()||'—'}</span></div>
+      <div class="pos-updated">Updated: ${timeSince(p._updated)}</div>
+    </div>`;
+  }
+  html+='</div>';
+  panel.innerHTML=html;
 }
 
 // ── EXACT SCORING FUNCTIONS ──
