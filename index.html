@@ -873,7 +873,7 @@ footer {
   <div class="journal-top">
     <div class="journal-stats" id="journal-stats">
       <div class="js-cell"><div class="js-label">TOTAL TRADES</div><div class="js-val" id="jstat-total">0</div></div>
-      <div class="js-cell"><div class="js-label">OPEN</div><div class="js-val" id="jstat-open">0</div></div>
+      <div class="js-cell"><div class="js-label">OPEN · UNREALIZED</div><div class="js-val" id="jstat-open">0</div></div>
       <div class="js-cell"><div class="js-label">REALIZED PNL</div><div class="js-val" id="jstat-pnl">$0.00</div></div>
       <div class="js-cell"><div class="js-label">WIN RATE</div><div class="js-val" id="jstat-wr">—</div></div>
     </div>
@@ -1559,54 +1559,111 @@ function deleteTrade(id) {
   renderJournal();
 }
 
+// ── PNL CALCULATION ──────────────────────────────────────────────────────────
+// Closed trades: use exit price
+// Open trades:   use latest 1H candle close from mkt data (updates on refresh)
+// Token field stores short label (BTC, ETH, etc) — map back to symbol key
+
+const TOKEN_TO_SYMBOL = {
+  'BTC':'BTCUSDT','ETH':'ETHUSDT','SOL':'SOLUSDT',
+  'XRP':'XRPUSDT','ADA':'ADAUSDT','SUI':'SUIUSDT'
+};
+
+function getLivePrice(token) {
+  const sym = TOKEN_TO_SYMBOL[token];
+  if (!sym) return null;
+  return mkt[sym]?.['1H']?.close || null;
+}
+
 function calcPnL(e) {
-  if (!e.exit||!e.entry||!e.size) return null;
-  const pct = (e.side==='LONG' ? (e.exit-e.entry)/e.entry : (e.entry-e.exit)/e.entry) * e.leverage;
-  return e.size * pct;
+  // Closed trade — use exit price
+  if (e.exit && e.entry && e.size) {
+    const pct = (e.side==='LONG' ? (e.exit-e.entry)/e.entry : (e.entry-e.exit)/e.entry) * e.leverage;
+    return { pnl: e.size * pct, isLive: false, markPrice: null };
+  }
+  // Open trade — use latest 1H close as mark price
+  if (!e.exit && e.entry && e.size) {
+    const mark = getLivePrice(e.token);
+    if (mark == null) return { pnl: null, isLive: true, markPrice: null };
+    const pct = (e.side==='LONG' ? (mark-e.entry)/e.entry : (e.entry-mark)/e.entry) * e.leverage;
+    return { pnl: e.size * pct, isLive: true, markPrice: mark };
+  }
+  return { pnl: null, isLive: false, markPrice: null };
 }
 
 function renderJournal() {
   const journal = loadJournal();
   const closed  = journal.filter(e=>e.exit);
-  const pnls    = closed.map(calcPnL).filter(p=>p!=null);
-  const totalPnl= pnls.reduce((a,b)=>a+b,0);
-  const wins    = pnls.filter(p=>p>0).length;
-  const wr      = pnls.length>0 ? Math.round(wins/pnls.length*100)+'%' : '—';
+
+  // Realized PnL = closed trades only
+  const realizedPnls = closed.map(e => calcPnL(e).pnl).filter(p=>p!=null);
+  const totalPnl     = realizedPnls.reduce((a,b)=>a+b,0);
+  const wins         = realizedPnls.filter(p=>p>0).length;
+  const wr           = realizedPnls.length>0 ? Math.round(wins/realizedPnls.length*100)+'%' : '—';
+
+  // Unrealized PnL = open trades using live 1H close
+  const openTrades   = journal.filter(e=>!e.exit);
+  const unrealPnls   = openTrades.map(e => calcPnL(e).pnl).filter(p=>p!=null);
+  const totalUnreal  = unrealPnls.reduce((a,b)=>a+b,0);
 
   document.getElementById('jstat-total').textContent = journal.length;
-  document.getElementById('jstat-open').textContent  = journal.filter(e=>!e.exit).length;
+  document.getElementById('jstat-open').textContent  = openTrades.length;
   document.getElementById('jstat-pnl').textContent   = (totalPnl>=0?'+':'')+'$'+totalPnl.toFixed(2);
   document.getElementById('jstat-pnl').style.color   = totalPnl>=0?'var(--bull)':'var(--bear)';
   document.getElementById('jstat-wr').textContent    = wr;
+
+  // Show unrealized PnL in open cell if any open trades have live prices
+  const openCell = document.getElementById('jstat-open');
+  if (unrealPnls.length > 0) {
+    openCell.innerHTML = `${openTrades.length}<span style="display:block;font-size:10px;font-family:var(--mono);color:${totalUnreal>=0?'var(--bull)':'var(--bear)'};font-weight:400">${totalUnreal>=0?'+':''}$${totalUnreal.toFixed(2)}</span>`;
+  } else {
+    openCell.textContent = openTrades.length;
+  }
 
   const wrap = document.getElementById('journal-table-wrap');
   if (!journal.length) {
     wrap.innerHTML = `<div class="journal-empty"><div class="journal-empty-title">NO TRADES LOGGED</div><div class="journal-empty-sub">Click + LOG TRADE to record your first entry</div></div>`;
     return;
   }
+
   let html = `<div class="trade-table-wrap"><table class="trade-table"><thead><tr>
     <th>DATE</th><th>TOKEN</th><th>SIDE</th><th>MODE</th>
-    <th>ENTRY</th><th>SL</th><th>TP1</th><th>TP2</th><th>TP3</th>
+    <th>ENTRY</th><th>MARK</th><th>SL</th><th>TP1</th><th>TP2</th><th>TP3</th>
     <th>EXIT</th><th>PNL</th><th>STATUS</th><th>NOTES</th><th></th>
   </tr></thead><tbody>`;
+
   journal.forEach(e => {
-    const pnl    = calcPnL(e);
-    const pnlStr = pnl!=null?(pnl>=0?'+':'')+'$'+pnl.toFixed(2):'—';
-    const pnlCls = pnl!=null?(pnl>=0?'pos':'neg'):'';
-    const status = e.exit?'CLOSED':'OPEN';
-    const ds     = new Date(e.date).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const { pnl, isLive, markPrice } = calcPnL(e);
+    const pnlStr  = pnl!=null ? (pnl>=0?'+':'')+'$'+pnl.toFixed(2) : '—';
+    const pnlCls  = pnl!=null ? (pnl>=0?'pos':'neg') : '';
+    const status  = e.exit ? 'CLOSED' : 'OPEN';
+    const ds      = new Date(e.date).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+
+    // Mark price cell — shows live 1H close for open trades, exit for closed
+    const markCell = e.exit
+      ? `<td style="color:var(--text3)">—</td>`
+      : markPrice != null
+        ? `<td style="color:var(--accent)">${fmtP(markPrice)} <span style="font-size:7px;color:var(--text3)">1H</span></td>`
+        : `<td style="color:var(--text3)">—</td>`;
+
+    // PnL cell — show LIVE indicator for open trades
+    const pnlCell = isLive && pnl != null
+      ? `<td class="tt-pnl ${pnlCls}">${pnlStr} <span style="font-size:7px;color:var(--text3);font-family:var(--mono)">~</span></td>`
+      : `<td class="tt-pnl ${pnlCls}">${pnlStr}</td>`;
+
     html += `<tr>
       <td>${ds}</td>
       <td style="font-weight:700">${e.token}</td>
       <td><span class="tt-side ${e.side.toLowerCase()}">${e.side==='LONG'?'▲':'▼'} ${e.side}</span></td>
       <td style="color:var(--text3)">${e.mode}</td>
       <td>${e.entry?fmtP(e.entry):'—'}</td>
+      ${markCell}
       <td style="color:var(--bear)">${e.sl?fmtP(e.sl):'—'}</td>
       <td style="color:var(--bull)">${e.tp1?fmtP(e.tp1):'—'}</td>
       <td style="color:var(--bull)">${e.tp2?fmtP(e.tp2):'—'}</td>
       <td style="color:var(--bull)">${e.tp3?fmtP(e.tp3):'—'}</td>
       <td>${e.exit?fmtP(e.exit):'—'}</td>
-      <td class="tt-pnl ${pnlCls}">${pnlStr}</td>
+      ${pnlCell}
       <td><span class="tt-status ${status.toLowerCase()}">${status}</span></td>
       <td style="color:var(--text3);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.notes||'—'}</td>
       <td><button class="tt-del" onclick="deleteTrade(${e.id})">✕</button></td>
