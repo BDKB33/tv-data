@@ -2,10 +2,10 @@
   "symbol": "SOLUSDT",
   "timeframe": "1H",
   "indicator": "precsniper",
-  "close": 85.03,
-  "p0": 85.13806454250698,
-  "p1": 84.8556384390749,
-  "p2": 84.483580182947,
+  "close": 85.2,
+  "p0": 85.15045163400559,
+  "p1": 84.88694403552263,
+  "p2": 84.5091666049846,
   "p3": null,
   "p4": null,
   "p5": null,
@@ -32,6 +32,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-16T09:00:06.240Z",
+  "_received": "2026-04-16T10:00:08.704Z",
   "_sample": false
 }
