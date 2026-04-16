@@ -2,10 +2,10 @@
   "symbol": "ETHUSDT",
   "timeframe": "2H",
   "indicator": "precsniper",
-  "close": 2357.86,
-  "p0": 2351.96280528477,
-  "p1": 2341.019852725525,
-  "p2": 2301.446838048094,
+  "close": 2356.86,
+  "p0": 2353.0510707770436,
+  "p1": 2342.6872366491543,
+  "p2": 2303.6199032226787,
   "p3": null,
   "p4": null,
   "p5": null,
@@ -32,6 +32,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-16T04:00:11.214Z",
+  "_received": "2026-04-16T06:00:13.817Z",
   "_sample": false
 }
