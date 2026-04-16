@@ -2,10 +2,10 @@
   "symbol": "SUIUSDT",
   "timeframe": "1H",
   "indicator": "precsniper",
-  "close": 0.9712,
-  "p0": 0.9727765381967975,
-  "p1": 0.9670748860699574,
-  "p2": 0.9562547596758775,
+  "close": 0.9723,
+  "p0": 0.9726176921311984,
+  "p1": 0.9678213309171063,
+  "p2": 0.9571716305515416,
   "p3": null,
   "p4": null,
   "p5": null,
@@ -32,6 +32,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-16T08:00:12.573Z",
+  "_received": "2026-04-16T09:00:07.961Z",
   "_sample": false
 }
