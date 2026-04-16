@@ -2,10 +2,10 @@
   "symbol": "XRPUSDT",
   "timeframe": "2H",
   "indicator": "precsniper",
-  "close": 1.4128,
-  "p0": 1.4050379326593678,
-  "p1": 1.3920670573322254,
-  "p2": 1.371272659750272,
+  "close": 1.4072,
+  "p0": 1.4037934882149234,
+  "p1": 1.3914775836480149,
+  "p2": 1.371053051907135,
   "p3": null,
   "p4": null,
   "p5": null,
@@ -32,6 +32,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-16T12:47:49.142Z",
+  "_received": "2026-04-16T14:00:27.657Z",
   "_sample": false
 }
