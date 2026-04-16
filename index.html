@@ -38,6 +38,7 @@ main{padding:1.5rem 2rem;max-width:1600px;margin:0 auto;}
 .sec-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%,100%{opacity:0.15}50%{opacity:0.4}}
 
 /* ── VERDICT BADGES ── */
 .v-go{color:var(--bull);background:var(--bull-dim);border:1px solid rgba(0,232,122,0.25);}
@@ -89,7 +90,7 @@ main{padding:1.5rem 2rem;max-width:1600px;margin:0 auto;}
 .state-badge{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:1px;text-transform:uppercase;}
 
 /* ── MAIN GRID ── */
-.main-grid{display:grid;grid-template-columns:1fr 360px;gap:1.5rem;margin-bottom:2rem;}
+.main-grid{display:grid;grid-template-columns:1fr 380px;gap:1.5rem;margin-bottom:2rem;}
 .token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
 .token-card{background:var(--bg2);padding:1.25rem;transition:background 0.15s;animation:fadeIn 0.4s ease;}
 .token-card:hover{background:var(--bg3);}
@@ -115,31 +116,6 @@ main{padding:1.5rem 2rem;max-width:1600px;margin:0 auto;}
 .meter-track{height:3px;background:var(--bg4);position:relative;overflow:visible;}
 .meter-fill{height:100%;transition:width 1s cubic-bezier(0.4,0,0.2,1);}
 .meter-thresh{position:absolute;top:-4px;height:11px;width:1px;background:rgba(255,255,255,0.2);}
-
-/* ── ACTION ITEMS PANEL ── */
-.action-panel{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);}
-.action-header{background:var(--bg3);padding:1rem 1.25rem;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text);text-transform:uppercase;font-family:var(--mono);display:flex;justify-content:space-between;align-items:center;}
-.action-mode-label{font-size:9px;color:var(--text3);font-weight:400;letter-spacing:1px;}
-.action-item{background:var(--bg2);padding:0.9rem 1.25rem;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--border);transition:background 0.15s;border-left:3px solid transparent;}
-.action-item:hover{background:var(--bg3);}
-.action-item.long-item{border-left-color:var(--bull);}
-.action-item.short-item{border-left-color:var(--bear);}
-.action-top{display:flex;justify-content:space-between;align-items:center;}
-.action-sym{font-size:16px;font-weight:800;letter-spacing:1px;color:var(--text);}
-.action-dir{font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 10px;letter-spacing:1px;}
-.action-dir.long{color:var(--bull);background:var(--bull-dim);border:1px solid rgba(0,232,122,0.3);}
-.action-dir.short{color:var(--bear);background:var(--bear-dim);border:1px solid rgba(255,51,85,0.3);}
-.action-scores{display:flex;gap:4px;}
-.action-tf{flex:1;text-align:center;padding:4px 2px;background:var(--bg4);font-family:var(--mono);font-size:10px;}
-.action-tf-name{color:var(--text2);font-size:8px;letter-spacing:1px;display:block;margin-bottom:2px;}
-.action-score-val{font-weight:700;}
-.action-bar-track{height:2px;background:var(--bg4);}
-.action-bar-fill{height:100%;transition:width 0.8s ease;}
-.action-price{font-family:var(--mono);font-size:11px;color:var(--text2);}
-.no-action{background:var(--bg2);padding:2rem 1.25rem;text-align:center;}
-.no-action-icon{font-size:24px;color:var(--text3);margin-bottom:8px;}
-.no-action-title{font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:2px;margin-bottom:4px;}
-.no-action-sub{font-family:var(--mono);font-size:9px;color:var(--text3);}
 
 /* ── MTF TABLE ── */
 .mtf-section{margin-bottom:2rem;}
@@ -284,9 +260,10 @@ footer{text-align:center;padding:1.25rem;font-family:var(--mono);font-size:9px;c
   <div class="sec-label">Open Positions · BloFin</div>
   <div id="positions-panel" style="margin-bottom:2rem;"></div>
 </main>
-<footer>SIGNAL DESK V2 · PRECSNIPER INTELLIGENCE &nbsp;·&nbsp; BDKB33/tv-data &nbsp;·&nbsp; Auto-refresh 5 min &nbsp;·&nbsp; <span id="footer-ts"></span></footer>
+<footer>SIGNAL DESK V2 · AUTO-ANALYSIS · PRECSNIPER INTELLIGENCE &nbsp;·&nbsp; BDKB33/tv-data &nbsp;·&nbsp; Auto-refresh 5 min &nbsp;·&nbsp; <span id="footer-ts"></span></footer>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
 const OWNER='BDKB33',REPO='tv-data',BRANCH='main';
 const SYMBOLS=['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS=['BTC','ETH','SOL','XRP','ADA','SUI'];
@@ -294,6 +271,8 @@ const TIMEFRAMES=['1H','2H','4H','8H','1D','1W'];
 const SNIPER_TFS=['1H','4H','8H','1D','1W'];
 let mkt={},sniper={},activeMode='MOMENTUM';
 
+
+// ── GITHUB FETCH ──────────────────────────────────────────────────────────────
 async function fetchFile(sym,tf){
   try{
     const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);
@@ -310,6 +289,7 @@ async function fetchSniper(sym,tf){
     return(d&&d.indicator==='precsniper')?d:null;
   }catch{return null;}
 }
+
 async function loadAll(){
   document.getElementById('ts').textContent='Refreshing...';
   const fetches=[];
@@ -329,7 +309,7 @@ async function loadAll(){
   document.getElementById('footer-ts').textContent=now.toISOString().substring(0,19)+' UTC';
 }
 
-// ── SCORING FUNCTIONS ──
+// ── SCORING FUNCTIONS ─────────────────────────────────────────────────────────
 function structureScore(d){
   if(!d)return 0;
   const aboveRes=d.fracResActive===0,aboveSup=d.fracSupActive===1;
@@ -373,8 +353,6 @@ function mtfScore(sym){
   if(d1D){t+=score1D(d1D)*0.40;w+=0.40;}
   return Math.round(t/w);
 }
-
-// ── MODE SCORING ──
 const TFW={
   MOMENTUM:{'1H':0.25,'4H':0.35,'1D':0.40},
   SWING:   {'1H':0.40,'4H':0.60,'1D':0.00},
@@ -391,8 +369,6 @@ function modeScore(sym,mode){
   if(w['1D']>0){n+=sD*w['1D'];den+=w['1D'];}
   return den>0?Math.round(n/den):0;
 }
-
-// ── DIRECTION ──
 function getDirection(sym){
   const s1=score1H(mkt[sym]?.['1H']),s4=score4H(mkt[sym]?.['4H']),sD=score1D(mkt[sym]?.['1D']);
   const dir=s=>s>15?'LONG':s<-15?'SHORT':'NEUTRAL';
@@ -404,8 +380,6 @@ function getDirection(sym){
 }
 function dirColor(d){return d==='LONG'?'var(--bull)':d==='SHORT'?'var(--bear)':'var(--text2)';}
 function dirArrow(d){return d==='LONG'?'▲':d==='SHORT'?'▼':'—';}
-
-// ── VERDICTS ──
 function scoreVerdict(s){
   if(s>=15)return{l:'GO',fg:'var(--bull)',bg:'var(--bull-dim)',bc:'rgba(0,232,122,0.25)',cls:'v-go'};
   if(s>=0)return{l:'WATCH',fg:'var(--gold)',bg:'var(--gold-dim)',bc:'rgba(240,180,41,0.25)',cls:'v-watch'};
@@ -413,18 +387,72 @@ function scoreVerdict(s){
 }
 function scoreCol(s){return s>=15?'var(--bull)':s>=0?'var(--gold)':'var(--bear)';}
 function fmt(s){return(s>0?'+':'')+s;}
-
 function barHtml(s){
   const pct=Math.min(Math.abs(s),100)/2;
   const left=s>=0?50:50-pct;
   return`<div class="sc-tft"><div class="sc-tfb" style="width:${pct}%;left:${left}%;background:${scoreCol(s)}"></div></div>`;
 }
 
+// ── AUTO-ANALYSIS FUNCTIONS ───────────────────────────────────────────────────
+
+// ── RENDER FUNCTIONS (unchanged from original) ────────────────────────────────
 function setMode(m){
   activeMode=m;
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.m===m));
   renderScoring();
   renderActionItems();
+}
+
+function render(){renderScoring();renderActionItems();renderSummary();renderTokenGrid();renderMTF();renderSniper();}
+
+function renderActionItems(){
+  const items=[...SYMBOLS].map(sym=>{
+    const s1=score1H(mkt[sym]?.['1H']);
+    const s4=score4H(mkt[sym]?.['4H']);
+    const sD=score1D(mkt[sym]?.['1D']);
+    const active=modeScore(sym,activeMode);
+    const dir=getDirection(sym);
+    return{sym,s1,s4,sD,active,dir,close:mkt[sym]?.['1H']?.close};
+  })
+  .filter(r=>r.active>=15&&(r.dir==='LONG'||r.dir==='SHORT'))
+  .sort((a,b)=>b.active-a.active);
+
+  let html=`<div class="action-header">
+    <span>ACTION ITEMS</span>
+    <span class="action-mode-label">${activeMode} MODE</span>
+  </div>`;
+
+  if(items.length===0){
+    html+=`<div class="no-action">
+      <div class="no-action-icon">-</div>
+      <div class="no-action-title">NO ACTION ITEMS</div>
+      <div class="no-action-sub">Market mixed - No directional GO signals</div>
+    </div>`;
+  } else {
+    items.forEach(r=>{
+      const label=LABELS[SYMBOLS.indexOf(r.sym)];
+      const isLong=r.dir==='LONG';
+      const price=r.close?(r.close>100?'$'+r.close.toFixed(2):'$'+r.close.toFixed(4)):'--';
+      const w=TFW[activeMode];
+      const barColor=r.active>=15?'var(--bull)':r.active>=0?'var(--gold)':'var(--bear)';
+      const barW=Math.min(100,Math.max(0,(r.active+100)/2));
+      html+=`<div class="action-item ${isLong?'long-item':'short-item'}">
+        <div class="action-top">
+          <span class="action-sym">${label}</span>
+          <span class="action-dir ${isLong?'long':'short'}">${dirArrow(r.dir)} GO ${r.dir}</span>
+        </div>
+        <div class="action-scores">
+          ${w['1H']>0?`<div class="action-tf"><span class="action-tf-name">1H ${Math.round(w['1H']*100)}%</span><span class="action-score-val" style="color:${scoreCol(r.s1)}">${fmt(r.s1)}</span></div>`:''}
+          ${w['4H']>0?`<div class="action-tf"><span class="action-tf-name">4H ${Math.round(w['4H']*100)}%</span><span class="action-score-val" style="color:${scoreCol(r.s4)}">${fmt(r.s4)}</span></div>`:''}
+          ${w['1D']>0?`<div class="action-tf"><span class="action-tf-name">1D ${Math.round(w['1D']*100)}%</span><span class="action-score-val" style="color:${scoreCol(r.sD)}">${fmt(r.sD)}</span></div>`:''}
+          <div class="action-tf" style="background:var(--bg3)"><span class="action-tf-name">SCORE</span><span class="action-score-val" style="color:${barColor}">${fmt(r.active)}</span></div>
+        </div>
+        <div class="action-bar-track"><div class="action-bar-fill" style="width:${barW}%;background:${barColor}"></div></div>
+        <div class="action-price">${price}</div>
+      </div>`;
+    });
+  }
+  document.getElementById('action-panel').innerHTML=html;
 }
 
 function renderScoring(){
@@ -448,7 +476,6 @@ function renderScoring(){
     const price=r.close?(r.close>100?'$'+r.close.toFixed(2):'$'+r.close.toFixed(4)):'—';
     const dc=dirColor(r.dir);
     const da=dirArrow(r.dir);
-
     const tfRows=[
       {tf:'1H',s:r.s1,w:w['1H']},
       {tf:'4H',s:r.s4,w:w['4H']},
@@ -460,7 +487,6 @@ function renderScoring(){
         <span class="sc-tfv" style="color:${scoreCol(x.s)}">${fmt(x.s)}</span>
         <span class="sc-tfw">${Math.round(x.w*100)}%</span>
       </div>`).join('');
-
     const chips=[
       {l:'SCALP',s:r.sca,m:'SCALP'},
       {l:'SWING',s:r.swi,m:'SWING'},
@@ -476,7 +502,6 @@ function renderScoring(){
         <span class="sc-chip-v" style="color:${cv.fg}">${cv.l}</span>
       </div>`;
     }).join('');
-
     html+=`<div class="score-card">
       <div class="sc-accent" style="background:${v.fg}"></div>
       <span class="sc-rank">#${i+1}</span>
@@ -494,99 +519,6 @@ function renderScoring(){
   });
   document.getElementById('score-grid').innerHTML=html;
 }
-
-function renderActionItems(){
-  const items=[...SYMBOLS].map(sym=>{
-    const s1=score1H(mkt[sym]?.['1H']);
-    const s4=score4H(mkt[sym]?.['4H']);
-    const sD=score1D(mkt[sym]?.['1D']);
-    const active=modeScore(sym,activeMode);
-    const dir=getDirection(sym);
-    return{sym,s1,s4,sD,active,dir,close:mkt[sym]?.['1H']?.close};
-  })
-  .filter(r=>r.active>=15&&(r.dir==='LONG'||r.dir==='SHORT'))
-  .sort((a,b)=>b.active-a.active);
-
-  let html=`<div class="action-header">
-    <span>ACTION ITEMS</span>
-    <span class="action-mode-label">${activeMode} MODE</span>
-  </div>`;
-
-  if(items.length===0){
-    html+=`<div class="no-action">
-      <div class="no-action-icon">—</div>
-      <div class="no-action-title">NO ACTION ITEMS</div>
-      <div class="no-action-sub">Market mixed · No directional GO signals</div>
-    </div>`;
-  } else {
-    items.forEach(r=>{
-      const label=LABELS[SYMBOLS.indexOf(r.sym)];
-      const isLong=r.dir==='LONG';
-      const dc=dirColor(r.dir);
-      const price=r.close?(r.close>100?'$'+r.close.toFixed(2):'$'+r.close.toFixed(4)):'—';
-      const w=TFW[activeMode];
-      const barColor=r.active>=15?'var(--bull)':r.active>=0?'var(--gold)':'var(--bear)';
-      const barW=Math.min(100,Math.max(0,(r.active+100)/2));
-
-      html+=`<div class="action-item ${isLong?'long-item':'short-item'}">
-        <div class="action-top">
-          <span class="action-sym">${label}</span>
-          <span class="action-dir ${isLong?'long':'short'}">${dirArrow(r.dir)} GO ${r.dir}</span>
-        </div>
-        <div class="action-scores">
-          ${w['1H']>0?`<div class="action-tf"><span class="action-tf-name">1H·${Math.round(w['1H']*100)}%</span><span class="action-score-val" style="color:${scoreCol(r.s1)}">${fmt(r.s1)}</span></div>`:''}
-          ${w['4H']>0?`<div class="action-tf"><span class="action-tf-name">4H·${Math.round(w['4H']*100)}%</span><span class="action-score-val" style="color:${scoreCol(r.s4)}">${fmt(r.s4)}</span></div>`:''}
-          ${w['1D']>0?`<div class="action-tf"><span class="action-tf-name">1D·${Math.round(w['1D']*100)}%</span><span class="action-score-val" style="color:${scoreCol(r.sD)}">${fmt(r.sD)}</span></div>`:''}
-          <div class="action-tf" style="background:var(--bg3)"><span class="action-tf-name">SCORE</span><span class="action-score-val" style="color:${barColor}">${fmt(r.active)}</span></div>
-        </div>
-        <div class="action-bar-track"><div class="action-bar-fill" style="width:${barW}%;background:${barColor}"></div></div>
-        <div class="action-price">${price}</div>
-      </div>`;
-    });
-  }
-  document.getElementById('action-panel').innerHTML=html;
-}
-
-function renderPositions(data){
-  const panel=document.getElementById('positions-panel');
-  if(!data||!data.positions||data.positions.length===0){
-    const updated=data?._updated?timeSince(data._updated):'—';
-    panel.innerHTML=`<div class="no-pos">
-      <div class="no-pos-dash">—</div>
-      <div class="no-pos-title">No Open Positions</div>
-      <div class="no-pos-sub">Last sync: ${updated}${data?._error?' · Pending BloFin API access':''}</div>
-    </div>`;
-    return;
-  }
-  let html='<div class="pos-grid">';
-  for(const p of data.positions){
-    const sym=p.symbol.replace('-USDT','').replace('USDT','');
-    const isLong=p.side==='long';
-    const pnlPos=p.unrealizedPnl>=0;
-    const pnlPct=(p.unrealizedPnlPct*100).toFixed(2);
-    html+=`<div class="pos-card ${isLong?'long-card':'short-card'}">
-      <div class="pos-top">
-        <div class="pos-sym">${sym} / USDT</div>
-        <span class="pos-side ${isLong?'long':'short'}">${isLong?'▲ LONG':'▼ SHORT'} ${p.leverage}x</span>
-      </div>
-      <div style="display:flex;align-items:baseline;gap:4px;">
-        <span class="pos-pnl ${pnlPos?'pos':'neg'}">${pnlPos?'+':''}$${p.unrealizedPnl.toFixed(2)}</span>
-        <span class="pos-pnl-pct" style="color:${pnlPos?'var(--bull)':'var(--bear)'}">${pnlPos?'+':''}${pnlPct}%</span>
-      </div>
-      <div class="pos-row"><span class="pos-lbl">ENTRY</span><span class="pos-val">${fmtP(p.entryPrice)}</span></div>
-      <div class="pos-row"><span class="pos-lbl">MARK</span><span class="pos-val">${fmtP(p.markPrice)}</span></div>
-      <div class="pos-row"><span class="pos-lbl">LIQ PRICE</span><span class="pos-val" style="color:var(--bear)">${fmtP(p.liqPrice)}</span></div>
-      <div class="pos-row"><span class="pos-lbl">SIZE</span><span class="pos-val">${p.size}</span></div>
-      <div class="pos-row"><span class="pos-lbl">MARGIN</span><span class="pos-val">${fmtP(p.margin)}</span></div>
-      <div class="pos-row"><span class="pos-lbl">MODE</span><span class="pos-val">${p.marginMode?.toUpperCase()||'—'}</span></div>
-      <div class="pos-updated">Updated: ${timeSince(p._updated)}</div>
-    </div>`;
-  }
-  html+='</div>';
-  panel.innerHTML=html;
-}
-
-function render(){renderScoring();renderActionItems();renderSummary();renderTokenGrid();renderMTF();renderSniper();}
 
 function renderSummary(){
   let html='';
@@ -667,11 +599,7 @@ function renderTokenGrid(){
 }
 
 function renderMTF(){
-  const rows=[...SYMBOLS].map(sym=>{
-    const mtf=mtfScore(sym);
-    return{sym,mtf};
-  }).sort((a,b)=>b.mtf-a.mtf);
-
+  const rows=[...SYMBOLS].map(sym=>({sym,mtf:mtfScore(sym)})).sort((a,b)=>b.mtf-a.mtf);
   let html='';
   rows.forEach(({sym})=>{
     const i=SYMBOLS.indexOf(sym);
@@ -724,24 +652,21 @@ function renderSniper(){
       <div class="sniper-row"><span class="sniper-lbl">vs EMA SLOW</span><span class="sniper-val" style="color:${a1H.aboveSlow?'var(--bull)':'var(--bear)'}">${a1H.aboveSlow?'ABOVE':'BELOW'} ${fmtP(a1H.emaSlow)}</span></div>
       <div class="sniper-row"><span class="sniper-lbl">vs EMA TREND</span><span class="sniper-val" style="color:${a1H.aboveTrend?'var(--bull)':'var(--bear)'}">${a1H.aboveTrend?'ABOVE':'BELOW'} ${fmtP(a1H.emaTrend)}</span></div>
     `:'<div style="font-family:var(--mono);font-size:9px;color:var(--text2)">No 1H sniper data</div>';
-
-    // Entry/TP/SL from sniper file
     const s1H_sniper=sniper[sym]?.['1H'];
     let signalBox='';
     if(s1H_sniper&&s1H_sniper.p3!=null){
       const entry=s1H_sniper.p3,sl=s1H_sniper.p4,tp1=s1H_sniper.p5,tp2=s1H_sniper.p6,tp3=s1H_sniper.p7;
       signalBox=`<div class="signal-box">
         <div class="signal-box-title">ACTIVE SIGNAL · 1H</div>
-        ${entry!=null?`<div class="signal-row"><span class="signal-lbl">ENTRY</span><span class="signal-val" style="color:var(--text)">${fmtP(entry)}</span></div>`:''}
+        ${entry!=null?`<div class="signal-row"><span class="signal-lbl">ENTRY</span><span class="signal-val">${fmtP(entry)}</span></div>`:''}
         ${sl!=null?`<div class="signal-row"><span class="signal-lbl">STOP LOSS</span><span class="signal-val" style="color:var(--bear)">${fmtP(sl)}</span></div>`:''}
-        ${tp1!=null?`<div class="signal-row"><span class="signal-lbl">TP1 (1R)</span><span class="signal-val" style="color:var(--bull)">${fmtP(tp1)}</span></div>`:''}
-        ${tp2!=null?`<div class="signal-row"><span class="signal-lbl">TP2 (2R)</span><span class="signal-val" style="color:var(--bull)">${fmtP(tp2)}</span></div>`:''}
-        ${tp3!=null?`<div class="signal-row"><span class="signal-lbl">TP3 (3R)</span><span class="signal-val" style="color:var(--bull)">${fmtP(tp3)}</span></div>`:''}
+        ${tp1!=null?`<div class="signal-row"><span class="signal-lbl">TP1</span><span class="signal-val" style="color:var(--bull)">${fmtP(tp1)}</span></div>`:''}
+        ${tp2!=null?`<div class="signal-row"><span class="signal-lbl">TP2</span><span class="signal-val" style="color:var(--bull)">${fmtP(tp2)}</span></div>`:''}
+        ${tp3!=null?`<div class="signal-row"><span class="signal-lbl">TP3</span><span class="signal-val" style="color:var(--bull)">${fmtP(tp3)}</span></div>`:''}
       </div>`;
-    } else {
+    }else{
       signalBox=`<div class="signal-box"><div class="no-signal">NO ACTIVE SIGNAL</div></div>`;
     }
-
     const counterBox=counter?`<div class="counter-alert"><div class="counter-label">⚡ COUNTER-TREND SCALP DETECTED</div><div class="counter-text">1H: ${counter.scalp} vs HTF: ${counter.htfBias} · 1H:${s1H} 4H:${s4H} 1D:${s1D}</div></div>`:'';
     html+=`<div class="sniper-card ${cardClass}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;"><div class="sniper-sym">${LABELS[i]}</div>${sigBadge}</div>
@@ -797,6 +722,45 @@ function isCounterTrend(sym){
   if(d1!==d4&&d4===dD)return{scalp:d1,htfBias:d4};
   return null;
 }
+function renderPositions(data){
+  const panel=document.getElementById('positions-panel');
+  if(!data||!data.positions||data.positions.length===0){
+    const updated=data?._updated?timeSince(data._updated):'—';
+    panel.innerHTML=`<div class="no-pos">
+      <div class="no-pos-dash">—</div>
+      <div class="no-pos-title">No Open Positions</div>
+      <div class="no-pos-sub">Last sync: ${updated}${data?._error?' · Pending BloFin API access':''}</div>
+    </div>`;
+    return;
+  }
+  let html='<div class="pos-grid">';
+  for(const p of data.positions){
+    const sym=p.symbol.replace('-USDT','').replace('USDT','');
+    const isLong=p.side==='long';
+    const pnlPos=p.unrealizedPnl>=0;
+    const pnlPct=(p.unrealizedPnlPct*100).toFixed(2);
+    html+=`<div class="pos-card ${isLong?'long-card':'short-card'}">
+      <div class="pos-top">
+        <div class="pos-sym">${sym} / USDT</div>
+        <span class="pos-side ${isLong?'long':'short'}">${isLong?'▲ LONG':'▼ SHORT'} ${p.leverage}x</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="pos-pnl ${pnlPos?'pos':'neg'}">${pnlPos?'+':''}$${p.unrealizedPnl.toFixed(2)}</span>
+        <span class="pos-pnl-pct" style="color:${pnlPos?'var(--bull)':'var(--bear)'}">${pnlPos?'+':''}${pnlPct}%</span>
+      </div>
+      <div class="pos-row"><span class="pos-lbl">ENTRY</span><span class="pos-val">${fmtP(p.entryPrice)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">MARK</span><span class="pos-val">${fmtP(p.markPrice)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">LIQ PRICE</span><span class="pos-val" style="color:var(--bear)">${fmtP(p.liqPrice)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">SIZE</span><span class="pos-val">${p.size}</span></div>
+      <div class="pos-row"><span class="pos-lbl">MARGIN</span><span class="pos-val">${fmtP(p.margin)}</span></div>
+      <div class="pos-row"><span class="pos-lbl">MODE</span><span class="pos-val">${p.marginMode?.toUpperCase()||'—'}</span></div>
+      <div class="pos-updated">Updated: ${timeSince(p._updated)}</div>
+    </div>`;
+  }
+  html+='</div>';
+  panel.innerHTML=html;
+}
+
 function timeSince(iso){
   if(!iso)return'—';
   const diff=Date.now()-new Date(iso).getTime();
