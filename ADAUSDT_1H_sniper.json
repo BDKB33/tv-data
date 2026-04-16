@@ -2,10 +2,10 @@
   "symbol": "ADAUSDT",
   "timeframe": "1H",
   "indicator": "precsniper",
-  "close": 0.2495,
-  "p0": 0.2487609204564133,
-  "p1": 0.2475121724864076,
-  "p2": 0.2452235213641461,
+  "close": 0.2504,
+  "p0": 0.2489409204564133,
+  "p1": 0.2475939906682258,
+  "p2": 0.245255664221289,
   "p3": null,
   "p4": null,
   "p5": null,
@@ -32,6 +32,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-16T12:42:33.893Z",
+  "_received": "2026-04-16T13:00:09.716Z",
   "_sample": false
 }
