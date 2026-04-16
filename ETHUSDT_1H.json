@@ -1,26 +1,26 @@
 {
   "symbol": "ETHUSDT",
   "timeframe": "1H",
-  "open": 1.4645,
-  "high": 1.4663,
-  "low": 1.444,
-  "close": 1.4524,
-  "volume": 7870466.2,
-  "vwap": 1.4188,
-  "ema20": 1.4199,
-  "ema50": 1.3973,
-  "ema200": 1.3635,
-  "rsi": 68.766,
-  "macdLine": 0.0162,
-  "macdHist": 0.0037,
-  "atr": 0.0164,
-  "bbWidth": 4.9008,
-  "volSMA20": 7173243.02,
+  "open": 1.0033,
+  "high": 1.007,
+  "low": 0.984,
+  "close": 0.9914,
+  "volume": 2655816.1,
+  "vwap": 0.9777,
+  "ema20": 0.9768,
+  "ema50": 0.9628,
+  "ema200": 0.9358,
+  "rsi": 59.8646,
+  "macdLine": 0.0091,
+  "macdHist": 0.0017,
+  "atr": 0.0153,
+  "bbWidth": 4.299,
+  "volSMA20": 2115640.635,
   "trendBias": 0,
   "bdkb": {
     "score": 70,
     "longScore": 70,
-    "shortScore": 15,
+    "shortScore": 25,
     "state": "SETUP",
     "direction": "LONG",
     "components": {
@@ -36,7 +36,7 @@
     "setupReady1H": 0,
     "confirmed1H": 0,
     "ppp": null,
-    "stopLevel": 1.3503,
+    "stopLevel": 0.9261,
     "tradeReady1H": 0,
     "mode": "confirmed"
   },
@@ -44,7 +44,7 @@
   "sma200": null,
   "stochK": null,
   "stochD": null,
-  "_received": "2026-04-16T21:00:04.925Z",
+  "_received": "2026-04-16T21:00:04.923Z",
   "_sample": false,
   "funding": {
     "fundingRate": -0.0000072674027278,
@@ -56,6 +56,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-04-16T21:00:05.077Z"
+    "_fetched": "2026-04-16T21:00:05.073Z"
   }
 }
