@@ -2,10 +2,10 @@
   "symbol": "BTCUSDT",
   "timeframe": "1H",
   "indicator": "precsniper",
-  "close": 74809.99,
-  "p0": 74620.39897271637,
-  "p1": 74412.28418869835,
-  "p2": 73959.71887862946,
+  "close": 74815.1,
+  "p0": 74659.3391781731,
+  "p1": 74448.9038079076,
+  "p2": 73990.26820439269,
   "p3": null,
   "p4": null,
   "p5": null,
@@ -32,6 +32,6 @@
   "stochK": null,
   "stochD": null,
   "trendBias": 0,
-  "_received": "2026-04-16T00:00:09.273Z",
+  "_received": "2026-04-16T01:00:07.300Z",
   "_sample": false
 }
