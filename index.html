@@ -57,15 +57,23 @@ body {
   overflow-x: hidden;
 }
 
+/* ── SCAN LINES ── */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
   pointer-events: none;
   z-index: 9998;
 }
 
+/* ── NOISE OVERLAY ── */
 body::before {
   content: '';
   position: fixed;
@@ -76,6 +84,7 @@ body::before {
   opacity: 0.4;
 }
 
+/* ── HEADER ── */
 header {
   display: flex;
   align-items: center;
@@ -89,64 +98,307 @@ header {
   z-index: 200;
 }
 
-.logo { display: flex; align-items: baseline; gap: 10px; }
-.logo-main { font-family: var(--hero); font-size: 28px; letter-spacing: 4px; color: var(--text); line-height: 1; }
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.logo-main {
+  font-family: var(--hero);
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: var(--text);
+  line-height: 1;
+}
 .logo-main em { color: var(--accent); font-style: normal; }
-.logo-tag { font-family: var(--mono); font-size: 8px; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; padding: 2px 6px; border: 1px solid var(--border2); }
+.logo-tag {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid var(--border2);
+}
 
-.header-center { display: flex; align-items: center; gap: 6px; }
-.mode-pill { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; padding: 4px 12px; border: 1px solid var(--border2); cursor: pointer; transition: all 0.15s; color: var(--text2); background: transparent; text-transform: uppercase; }
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mode-pill {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text2);
+  background: transparent;
+  text-transform: uppercase;
+}
 .mode-pill:hover { background: var(--bg3); color: var(--text); }
 .mode-pill.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-.header-right { display: flex; align-items: center; gap: 1rem; }
-.live-badge { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 9px; color: var(--bull); letter-spacing: 2px; }
-.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bull); box-shadow: 0 0 6px var(--bull-glow); animation: pulse 1.8s ease-in-out infinite; }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--bull);
+  letter-spacing: 2px;
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--bull);
+  box-shadow: 0 0 6px var(--bull-glow);
+  animation: pulse 1.8s ease-in-out infinite;
+}
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
 
-.ts-display { font-family: var(--mono); font-size: 10px; color: var(--text2); }
-.refresh-btn { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(77,156,255,0.2); padding: 5px 14px; cursor: pointer; transition: all 0.15s; text-transform: uppercase; }
+.ts-display {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+}
+.refresh-btn {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(77,156,255,0.2);
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+}
 .refresh-btn:hover { background: rgba(77,156,255,0.2); }
 
-main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
+/* ── LAYOUT ── */
+main {
+  padding: 1.5rem 2rem;
+  max-width: 1800px;
+  margin: 0 auto;
+}
 
-.section-label { font-family: var(--mono); font-size: 8px; letter-spacing: 4px; color: #8892b0; text-transform: uppercase; margin-bottom: 0.75rem; margin-top: 1.75rem; display: flex; align-items: center; gap: 12px; }
-.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.section-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: #8892b0;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  margin-top: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
 .section-label:first-child { margin-top: 0; }
 
-@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-.command-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 1.5rem; animation: fadeUp 0.4s ease; }
-.cs-cell { background: var(--bg2); padding: 0.9rem 1rem; cursor: default; transition: background 0.12s; position: relative; overflow: hidden; }
+/* ── ASSET COMMAND STRIP ── */
+.command-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.4s ease;
+}
+.cs-cell {
+  background: var(--bg2);
+  padding: 0.9rem 1rem;
+  cursor: default;
+  transition: background 0.12s;
+  position: relative;
+  overflow: hidden;
+}
 .cs-cell:hover { background: var(--bg3); }
-.cs-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
-.cs-sym { font-family: var(--hero); font-size: 20px; letter-spacing: 2px; color: var(--text); margin-bottom: 2px; }
-.cs-price { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-.cs-state-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.cs-state { font-family: var(--mono); font-size: 8px; font-weight: 700; letter-spacing: 1px; padding: 2px 6px; border: 1px solid; }
-.cs-dir { font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 1px; }
-.cs-scores { display: flex; gap: 4px; margin-bottom: 6px; }
-.cs-tf-score { flex: 1; text-align: center; padding: 3px 2px; background: var(--bg4); }
-.cs-tf-label { font-family: var(--mono); font-size: 7px; color: var(--text3); letter-spacing: 1px; display: block; }
-.cs-tf-val { font-family: var(--mono); font-size: 10px; font-weight: 700; display: block; }
-.cs-funding { display: flex; align-items: center; justify-content: space-between; }
-.cs-fund-rate { font-family: var(--mono); font-size: 8px; color: var(--text2); }
-.cs-fund-zone { font-family: var(--mono); font-size: 7px; padding: 1px 5px; letter-spacing: 1px; }
-.cs-trade-ready { position: absolute; top: 6px; right: 6px; font-family: var(--mono); font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 5px; color: var(--bg); background: var(--bull); animation: tradePulse 1.5s ease-in-out infinite; }
-@keyframes tradePulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.cs-top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.cs-sym {
+  font-family: var(--hero);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.cs-price {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.cs-state-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.cs-state {
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border: 1px solid;
+}
+.cs-dir {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.cs-scores {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.cs-tf-score {
+  flex: 1;
+  text-align: center;
+  padding: 3px 2px;
+  background: var(--bg4);
+}
+.cs-tf-label {
+  font-family: var(--mono);
+  font-size: 7px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  display: block;
+}
+.cs-tf-val {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  display: block;
+}
+.cs-funding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cs-fund-rate {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text2);
+}
+.cs-fund-zone {
+  font-family: var(--mono);
+  font-size: 7px;
+  padding: 1px 5px;
+  letter-spacing: 1px;
+}
+.cs-trade-ready {
+  position: absolute;
+  top: 6px; right: 6px;
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 5px;
+  color: var(--bg);
+  background: var(--bull);
+  animation: tradePulse 1.5s ease-in-out infinite;
+}
+@keyframes tradePulse {
+  0%,100%{opacity:1} 50%{opacity:0.6}
+}
 
-.bdkb-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); animation: fadeUp 0.4s ease; }
-.bdkb-card { background: var(--bg2); padding: 1rem; transition: background 0.12s; position: relative; }
+/* ── BDKB SCORING GRID ── */
+.bdkb-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
+}
+.bdkb-card {
+  background: var(--bg2);
+  padding: 1rem;
+  transition: background 0.12s;
+  position: relative;
+}
 .bdkb-card:hover { background: var(--bg3); }
-.bdkb-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
-.bdkb-rank { position: absolute; top: 8px; right: 8px; font-family: var(--mono); font-size: 8px; color: #8090b0; }
-.bdkb-sym { font-family: var(--hero); font-size: 18px; letter-spacing: 2px; color: var(--text); margin-bottom: 2px; }
-.bdkb-price { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-bottom: 8px; }
-.bdkb-score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.bdkb-score-num { font-family: var(--mono); font-size: 26px; font-weight: 700; line-height: 1; }
-.bdkb-state-badge { font-family: var(--mono); font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 5px; border: 1px solid; }
-.bdkb-dir { font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+.bdkb-card-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.bdkb-rank {
+  position: absolute;
+  top: 8px; right: 8px;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: #8090b0;
+}
+.bdkb-sym {
+  font-family: var(--hero);
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.bdkb-price {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+.bdkb-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.bdkb-score-num {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+.bdkb-state-badge {
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 5px;
+  border: 1px solid;
+}
+.bdkb-dir {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
 
+/* Component bars */
 .comp-list { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
 .comp-row { display: flex; align-items: center; gap: 5px; }
 .comp-label { font-family: var(--mono); font-size: 7px; color: #8090b0; width: 52px; letter-spacing: 1px; flex-shrink: 0; }
@@ -157,39 +409,101 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 
 .bdkb-divider { height: 1px; background: var(--border); margin: 6px 0; }
 
+/* LongScore vs ShortScore */
 .ls-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
 .ls-label { font-family: var(--mono); font-size: 7px; color: #8090b0; width: 36px; }
 .ls-track { flex: 1; height: 4px; background: var(--bg4); }
 .ls-fill { height: 100%; transition: width 0.8s ease; }
 .ls-num { font-family: var(--mono); font-size: 8px; font-weight: 700; width: 20px; text-align: right; }
 
-.liq-row { display: flex; gap: 3px; margin-top: 6px; }
-.liq-tier { flex: 1; text-align: center; padding: 3px 2px; border: 1px solid var(--border); font-family: var(--mono); font-size: 6px; letter-spacing: 1px; transition: all 0.15s; }
-.liq-tier.active-event   { border-color: var(--text3); color: var(--text2); background: var(--neut-dim); }
-.liq-tier.active-setup   { border-color: rgba(255,184,0,0.4); color: var(--gold); background: var(--gold-dim); }
-.liq-tier.active-confirm { border-color: rgba(0,240,144,0.4); color: var(--bull); background: var(--bull-dim); }
-.liq-tier.inactive       { color: var(--text3); }
+/* Liq staging */
+.liq-row {
+  display: flex;
+  gap: 3px;
+  margin-top: 6px;
+}
+.liq-tier {
+  flex: 1;
+  text-align: center;
+  padding: 3px 2px;
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 6px;
+  letter-spacing: 1px;
+  transition: all 0.15s;
+}
+.liq-tier.active-event  { border-color: var(--text3); color: var(--text2); background: var(--neut-dim); }
+.liq-tier.active-setup  { border-color: rgba(255,184,0,0.4); color: var(--gold); background: var(--gold-dim); }
+.liq-tier.active-confirm{ border-color: rgba(0,240,144,0.4); color: var(--bull); background: var(--bull-dim); }
+.liq-tier.inactive      { color: var(--text3); }
 
-.funding-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); animation: fadeUp 0.4s ease; }
-.fund-cell { background: var(--bg2); padding: 0.85rem 1rem; transition: background 0.12s; }
+/* ── FUNDING PANEL ── */
+.funding-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
+}
+.fund-cell {
+  background: var(--bg2);
+  padding: 0.85rem 1rem;
+  transition: background 0.12s;
+}
 .fund-cell:hover { background: var(--bg3); }
 .fund-sym { font-family: var(--hero); font-size: 16px; letter-spacing: 2px; color: var(--text); margin-bottom: 4px; }
 .fund-rate { font-family: var(--mono); font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.fund-zone-badge { font-family: var(--mono); font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 6px; border: 1px solid; display: inline-block; margin-bottom: 6px; }
+.fund-zone-badge {
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border: 1px solid;
+  display: inline-block;
+  margin-bottom: 6px;
+}
 .fund-flags { display: flex; gap: 4px; flex-wrap: wrap; }
-.fund-flag { font-family: var(--mono); font-size: 7px; padding: 2px 5px; letter-spacing: 1px; }
-.fund-flag.conflict   { color: var(--bear); background: var(--bear-dim); border: 1px solid rgba(255,45,85,0.3); }
-.fund-flag.confluence { color: var(--bull); background: var(--bull-dim); border: 1px solid rgba(0,240,144,0.3); }
-.fund-flag.neutral    { color: var(--text3); background: var(--bg4); border: 1px solid var(--border); }
-.fund-next   { font-family: var(--mono); font-size: 8px; color: var(--text3); margin-top: 5px; }
+.fund-flag {
+  font-family: var(--mono);
+  font-size: 7px;
+  padding: 2px 5px;
+  letter-spacing: 1px;
+}
+.fund-flag.conflict  { color: var(--bear); background: var(--bear-dim); border: 1px solid rgba(255,45,85,0.3); }
+.fund-flag.confluence{ color: var(--bull); background: var(--bull-dim); border: 1px solid rgba(0,240,144,0.3); }
+.fund-flag.neutral   { color: var(--text3); background: var(--bg4); border: 1px solid var(--border); }
+.fund-next { font-family: var(--mono); font-size: 8px; color: var(--text3); margin-top: 5px; }
 .fund-source { font-family: var(--mono); font-size: 7px; color: var(--text3); margin-top: 2px; }
 
-.mtf-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); animation: fadeUp 0.4s ease; }
-.mtf-card { background: var(--bg2); padding: 0.9rem 1rem; transition: background 0.12s; }
+/* ── MTF ALIGNMENT ── */
+.mtf-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
+}
+.mtf-card {
+  background: var(--bg2);
+  padding: 0.9rem 1rem;
+  transition: background 0.12s;
+}
 .mtf-card:hover { background: var(--bg3); }
 .mtf-sym { font-family: var(--hero); font-size: 16px; letter-spacing: 2px; color: var(--text); margin-bottom: 6px; }
 .mtf-score-big { font-family: var(--mono); font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-.mtf-quality { font-family: var(--mono); font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 5px; border: 1px solid; display: inline-block; margin-bottom: 8px; }
+.mtf-quality {
+  font-family: var(--mono);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 5px;
+  border: 1px solid;
+  display: inline-block;
+  margin-bottom: 8px;
+}
 .mtf-tf-rows { display: flex; flex-direction: column; gap: 4px; }
 .mtf-tf-row { display: flex; align-items: center; gap: 5px; }
 .mtf-tf-label { font-family: var(--mono); font-size: 7px; color: var(--text2); width: 20px; }
@@ -197,13 +511,37 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 .mtf-tf-bar-fill { height: 100%; position: absolute; top: 0; transition: width 0.8s ease; }
 .mtf-tf-score { font-family: var(--mono); font-size: 7px; font-weight: 700; width: 28px; text-align: right; }
 .mtf-tf-dir { font-family: var(--mono); font-size: 7px; width: 36px; }
-.mtf-trend-bias { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.mtf-trend-bias {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .mtf-bias-label { font-family: var(--mono); font-size: 7px; color: var(--text3); letter-spacing: 1px; }
 .mtf-bias-val { font-family: var(--mono); font-size: 8px; font-weight: 700; }
 
-.action-layout { display: grid; grid-template-columns: 1fr 340px; gap: 1px; background: var(--border); border: 1px solid var(--border); animation: fadeUp 0.4s ease; }
-.signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
-.signal-card { background: var(--bg2); padding: 1.1rem; transition: background 0.12s; }
+/* ── ACTION PANEL ── */
+.action-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
+}
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.signal-card {
+  background: var(--bg2);
+  padding: 1.1rem;
+  transition: background 0.12s;
+}
 .signal-card:hover { background: var(--bg3); }
 .sig-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
 .sig-sym { font-family: var(--hero); font-size: 18px; letter-spacing: 2px; color: var(--text); }
@@ -222,16 +560,49 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 .sig-meter-fill { height: 100%; transition: width 1s cubic-bezier(0.4,0,0.2,1); }
 .sig-meter-thresh { position: absolute; top: -3px; height: 9px; width: 1px; background: rgba(255,255,255,0.15); }
 
-.action-sidebar { background: var(--bg2); display: flex; flex-direction: column; }
-.action-sidebar-header { background: var(--bg3); padding: 0.8rem 1rem; font-family: var(--mono); font-size: 8px; letter-spacing: 3px; color: var(--text2); text-transform: uppercase; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.action-sidebar-mode { font-size: 7px; color: var(--text3); font-weight: 400; }
-.action-item { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border); border-left: 2px solid transparent; transition: background 0.12s; cursor: default; }
+/* Action sidebar */
+.action-sidebar {
+  background: var(--bg2);
+  display: flex;
+  flex-direction: column;
+}
+.action-sidebar-header {
+  background: var(--bg3);
+  padding: 0.8rem 1rem;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.action-sidebar-mode {
+  font-size: 7px;
+  color: var(--text3);
+  font-weight: 400;
+}
+.action-item {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  border-left: 2px solid transparent;
+  transition: background 0.12s;
+  cursor: default;
+}
 .action-item:hover { background: var(--bg3); }
 .action-item.long  { border-left-color: var(--bull); }
 .action-item.short { border-left-color: var(--bear); }
 .ai-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .ai-sym { font-family: var(--hero); font-size: 16px; letter-spacing: 2px; color: var(--text); }
-.ai-dir { font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; }
+.ai-dir {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+}
 .ai-dir.long  { color: var(--bull); background: var(--bull-dim); border: 1px solid rgba(0,240,144,0.25); }
 .ai-dir.short { color: var(--bear); background: var(--bear-dim); border: 1px solid rgba(255,45,85,0.25); }
 .ai-scores { display: flex; gap: 3px; margin-bottom: 5px; }
@@ -248,10 +619,37 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 .no-action-title { font-family: var(--mono); font-size: 9px; color: var(--text2); letter-spacing: 2px; margin-bottom: 3px; }
 .no-action-sub { font-family: var(--mono); font-size: 8px; color: var(--text3); }
 
-.trade-table-wrap { border: 1px solid var(--border); animation: fadeUp 0.4s ease; overflow-x: auto; }
-.trade-table { width: 100%; border-collapse: collapse; min-width: 900px; }
-.trade-table th { background: var(--bg3); font-family: var(--mono); font-size: 8px; letter-spacing: 2px; color: var(--text2); padding: 8px 10px; text-align: left; border: 1px solid var(--border); white-space: nowrap; }
-.trade-table td { background: var(--bg2); font-family: var(--mono); font-size: 9px; padding: 7px 10px; border: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+/* ── TRADE TABLE ── */
+.trade-table-wrap {
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
+  overflow-x: auto;
+}
+.trade-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+.trade-table th {
+  background: var(--bg3);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--text2);
+  padding: 8px 10px;
+  text-align: left;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.trade-table td {
+  background: var(--bg2);
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
 .trade-table tr:hover td { background: var(--bg3); }
 .tt-side { font-size: 8px; font-weight: 700; padding: 2px 5px; letter-spacing: 1px; }
 .tt-side.long  { color: var(--bull); background: var(--bull-dim); border: 1px solid rgba(0,240,144,0.2); }
@@ -264,20 +662,63 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 .tt-del { font-family: var(--mono); font-size: 9px; color: var(--text3); background: transparent; border: none; cursor: pointer; padding: 2px 5px; }
 .tt-del:hover { color: var(--bear); }
 
-.journal-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
-.journal-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); flex: 1; }
+/* Journal header */
+.journal-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.journal-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  flex: 1;
+}
 .js-cell { background: var(--bg2); padding: 0.6rem 0.8rem; }
 .js-label { font-family: var(--mono); font-size: 7px; color: var(--text3); letter-spacing: 2px; margin-bottom: 3px; }
 .js-val { font-family: var(--mono); font-size: 16px; font-weight: 700; }
-.log-btn { font-family: var(--mono); font-size: 8px; letter-spacing: 2px; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(77,156,255,0.25); padding: 6px 14px; cursor: pointer; transition: all 0.15s; white-space: nowrap; text-transform: uppercase; }
+.log-btn {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(77,156,255,0.25);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
 .log-btn:hover { background: rgba(77,156,255,0.18); }
 
-.journal-form { background: var(--bg2); border: 1px solid var(--border2); padding: 1.1rem; margin-bottom: 0.75rem; display: none; animation: fadeUp 0.2s ease; }
+/* Journal form */
+.journal-form {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  padding: 1.1rem;
+  margin-bottom: 0.75rem;
+  display: none;
+  animation: fadeUp 0.2s ease;
+}
 .journal-form.open { display: block; }
 .jf-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 10px; }
 .jf-col { display: flex; flex-direction: column; gap: 3px; }
 .jf-label { font-family: var(--mono); font-size: 7px; color: var(--text2); letter-spacing: 1px; }
-.jf-input, .jf-select { background: var(--bg4); border: 1px solid var(--border2); color: var(--text); font-family: var(--mono); font-size: 9px; padding: 5px 7px; width: 100%; outline: none; transition: border-color 0.15s; }
+.jf-input, .jf-select {
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 5px 7px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+}
 .jf-input:focus, .jf-select:focus { border-color: var(--accent); }
 .jf-actions { display: flex; gap: 6px; justify-content: flex-end; }
 .jf-save { font-family: var(--mono); font-size: 8px; letter-spacing: 1px; color: var(--bg); background: var(--bull); border: none; padding: 6px 16px; cursor: pointer; }
@@ -286,6 +727,7 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 .journal-empty-title { font-family: var(--mono); font-size: 9px; color: var(--text2); letter-spacing: 3px; margin-bottom: 4px; }
 .journal-empty-sub { font-family: var(--mono); font-size: 8px; color: var(--text3); }
 
+/* ── POSITIONS ── */
 .pos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
 .pos-card { background: var(--bg2); padding: 1.1rem; border-top: 2px solid transparent; transition: background 0.12s; }
 .pos-card:hover { background: var(--bg3); }
@@ -303,21 +745,40 @@ main { padding: 1.5rem 2rem; max-width: 1800px; margin: 0 auto; }
 .pos-lbl { font-family: var(--mono); font-size: 8px; color: var(--text2); letter-spacing: 1px; }
 .pos-val { font-family: var(--mono); font-size: 9px; font-weight: 700; }
 .pos-updated { font-family: var(--mono); font-size: 7px; color: var(--text3); margin-top: 6px; }
+
 .no-pos { background: var(--bg2); border: 1px solid var(--border); padding: 2.5rem; text-align: center; }
 .no-pos-title { font-family: var(--hero); font-size: 18px; letter-spacing: 3px; color: var(--text3); margin-bottom: 4px; }
 .no-pos-sub { font-family: var(--mono); font-size: 9px; color: var(--text3); }
 
-.bull   { color: var(--bull)  !important; }
-.bear   { color: var(--bear)  !important; }
-.gold   { color: var(--gold)  !important; }
-.neut   { color: var(--text2) !important; }
-.dim    { color: var(--text3) !important; }
-.accent { color: var(--accent)!important; }
+/* ── UTILITY ── */
+.bull  { color: var(--bull)  !important; }
+.bear  { color: var(--bear)  !important; }
+.gold  { color: var(--gold)  !important; }
+.neut  { color: var(--text2) !important; }
+.dim   { color: var(--text3) !important; }
+.accent{ color: var(--accent)!important; }
 
-.loading { text-align: center; padding: 2rem; font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 3px; }
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 3px;
+}
 
-footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size: 8px; color: var(--text3); border-top: 1px solid var(--border); letter-spacing: 2px; margin-top: 2rem; }
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text3);
+  border-top: 1px solid var(--border);
+  letter-spacing: 2px;
+  margin-top: 2rem;
+}
 
+/* State colors */
 .state-CONFIRMED  { color: var(--confirmed-color); }
 .state-SETUP      { color: var(--setup-color); }
 .state-WATCHLIST  { color: var(--watchlist-color); }
@@ -330,60 +791,121 @@ footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size:
 .badge-NO_TRADE    { color: var(--notrade-color);   background: rgba(74,82,112,0.15);   border-color: rgba(74,82,112,0.3); }
 .badge-INVALIDATED { color: var(--invalid-color);   background: rgba(255,45,85,0.08);   border-color: rgba(255,45,85,0.3); }
 
-.zone-LONG_SQUEEZE   { color: var(--bear);   background: var(--bear-dim);   border-color: rgba(255,45,85,0.3); }
-.zone-DANGER_LONGS   { color: var(--gold);   background: var(--gold-dim);   border-color: rgba(255,184,0,0.3); }
-.zone-ELEVATED       { color: var(--gold);   background: var(--gold-dim);   border-color: rgba(255,184,0,0.2); }
-.zone-NEUTRAL        { color: var(--text3);  background: var(--neut-dim);   border-color: var(--border); }
-.zone-NEUTRAL_NEG    { color: var(--text2);  background: var(--neut-dim);   border-color: var(--border); }
-.zone-SHORTS_CROWDED { color: var(--accent); background: var(--accent-dim); border-color: rgba(77,156,255,0.3); }
-.zone-FETCH_ERROR    { color: var(--text3);  background: var(--bg4);        border-color: var(--border); }
-.zone-UNKNOWN        { color: var(--text3);  background: var(--bg4);        border-color: var(--border); }
+/* Funding zone colors */
+.zone-LONG_SQUEEZE  { color: var(--bear);   background: var(--bear-dim);   border-color: rgba(255,45,85,0.3); }
+.zone-DANGER_LONGS  { color: var(--gold);   background: var(--gold-dim);   border-color: rgba(255,184,0,0.3); }
+.zone-ELEVATED      { color: var(--gold);   background: var(--gold-dim);   border-color: rgba(255,184,0,0.2); }
+.zone-NEUTRAL       { color: var(--text3);  background: var(--neut-dim);   border-color: var(--border); }
+.zone-NEUTRAL_NEG   { color: var(--text2);  background: var(--neut-dim);   border-color: var(--border); }
+.zone-SHORTS_CROWDED{ color: var(--accent); background: var(--accent-dim); border-color: rgba(77,156,255,0.3); }
+.zone-FETCH_ERROR   { color: var(--text3);  background: var(--bg4);        border-color: var(--border); }
+.zone-UNKNOWN       { color: var(--text3);  background: var(--bg4);        border-color: var(--border); }
 
-/* ── COPY TO CLAUDE BUTTON ── */
-#ctc-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9990;
+/* ── OTE ZONE BADGE (on BDKB cards) ── */
+.ote-badge {
   font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 2px;
+  font-size: 7px;
   font-weight: 700;
-  color: var(--bg);
-  background: var(--accent);
-  border: none;
-  padding: 10px 18px;
-  cursor: pointer;
-  text-transform: uppercase;
-  box-shadow: 0 0 20px rgba(77,156,255,0.4);
-  transition: all 0.15s;
+  letter-spacing: 1px;
+  padding: 2px 5px;
+  border: 1px solid;
+  display: inline-block;
+  margin-top: 4px;
 }
-#ctc-btn:hover {
-  background: #6ab0ff;
-  box-shadow: 0 0 30px rgba(77,156,255,0.6);
-  transform: translateY(-1px);
+.ote-in    { color: var(--gold);  background: var(--gold-dim);  border-color: rgba(255,184,0,0.4); }
+.ote-above { color: var(--bull);  background: var(--bull-dim);  border-color: rgba(0,240,144,0.3); }
+.ote-below { color: var(--bear);  background: var(--bear-dim);  border-color: rgba(255,45,85,0.3); }
+.ote-na    { color: var(--text3); background: var(--bg4);       border-color: var(--border); }
+
+/* ── EXECUTION MODEL PANEL ── */
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  animation: fadeUp 0.4s ease;
 }
-#ctc-btn.copied {
-  background: var(--bull);
-  box-shadow: 0 0 20px rgba(0,240,144,0.5);
+.exec-card {
+  background: var(--bg2);
+  padding: 0.9rem 1rem;
+  transition: background 0.12s;
+  position: relative;
 }
-#ctc-toast {
-  position: fixed;
-  bottom: 70px;
-  right: 24px;
-  z-index: 9990;
+.exec-card:hover { background: var(--bg3); }
+.exec-card-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.exec-sym { font-family: var(--hero); font-size: 16px; letter-spacing: 2px; color: var(--text); margin-bottom: 6px; }
+.exec-model-badge {
   font-family: var(--mono);
   font-size: 8px;
-  letter-spacing: 2px;
-  color: var(--bull);
-  background: var(--bg3);
-  border: 1px solid rgba(0,240,144,0.3);
-  padding: 6px 12px;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border: 1px solid;
+  display: inline-block;
+  margin-bottom: 6px;
 }
-#ctc-toast.show { opacity: 1; }
+.model-1 { color: var(--bull);   background: rgba(0,240,144,0.08);  border-color: rgba(0,240,144,0.35); }
+.model-2 { color: var(--bear);   background: rgba(255,45,85,0.08);   border-color: rgba(255,45,85,0.35); }
+.model-3 { color: var(--gold);   background: rgba(255,184,0,0.08);   border-color: rgba(255,184,0,0.35); }
+.model-4 { color: var(--accent); background: rgba(77,156,255,0.08);  border-color: rgba(77,156,255,0.35); }
+.model-none { color: var(--text3); background: var(--bg4); border-color: var(--border); }
+
+.exec-ote-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.exec-ote-label { font-family: var(--mono); font-size: 7px; color: var(--text3); letter-spacing: 1px; }
+.exec-ote-val { font-family: var(--mono); font-size: 8px; font-weight: 700; }
+
+.exec-fib-rows { display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px; }
+.exec-fib-row { display: flex; justify-content: space-between; align-items: center; }
+.exec-fib-label { font-family: var(--mono); font-size: 7px; color: var(--text3); letter-spacing: 1px; }
+.exec-fib-val { font-family: var(--mono); font-size: 8px; font-weight: 700; }
+
+.exec-size-badge {
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border: 1px solid;
+  display: block;
+  text-align: center;
+  margin-top: 6px;
+}
+.size-full    { color: var(--bull);   background: rgba(0,240,144,0.08);  border-color: rgba(0,240,144,0.3); }
+.size-reduced { color: var(--gold);   background: rgba(255,184,0,0.08);  border-color: rgba(255,184,0,0.3); }
+.size-wait    { color: var(--bear);   background: rgba(255,45,85,0.08);  border-color: rgba(255,45,85,0.3); }
+.size-standby { color: var(--text3);  background: var(--bg4);            border-color: var(--border); }
+
+.exec-divider { height: 1px; background: var(--border); margin: 5px 0; }
+
+.exec-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+.exec-detail-label { font-family: var(--mono); font-size: 7px; color: var(--text3); letter-spacing: 1px; }
+.exec-detail-val   { font-family: var(--mono); font-size: 8px; font-weight: 700; }
+
+.exec-model-desc {
+  font-family: var(--mono);
+  font-size: 7px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+
 </style>
 </head>
 <body>
@@ -394,8 +916,8 @@ footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size:
     <span class="logo-tag">V2 · BDKB</span>
   </div>
   <div class="header-center">
-    <button class="mode-pill" data-m="SCALP"     onclick="setMode('SCALP')">SCALP</button>
-    <button class="mode-pill" data-m="SWING"     onclick="setMode('SWING')">SWING</button>
+    <button class="mode-pill" data-m="SCALP"    onclick="setMode('SCALP')">SCALP</button>
+    <button class="mode-pill" data-m="SWING"    onclick="setMode('SWING')">SWING</button>
     <button class="mode-pill active" data-m="MOMENTUM" onclick="setMode('MOMENTUM')">MOMENTUM</button>
   </div>
   <div class="header-right">
@@ -406,11 +928,14 @@ footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size:
 </header>
 
 <main>
+
+  <!-- COMMAND STRIP -->
   <div class="section-label">Asset Command Strip</div>
   <div class="command-strip" id="command-strip">
     <div class="loading" style="grid-column:1/-1">LOADING...</div>
   </div>
 
+  <!-- BDKB SCORING ENGINE -->
   <div class="section-label">BDKB Scoring Engine · V2</div>
   <div class="bdkb-grid" id="bdkb-grid">
     <div class="loading" style="grid-column:1/-1">LOADING...</div>
@@ -424,6 +949,7 @@ footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size:
     <span style="margin-left:auto;">Binary component inputs · Candle-close only · Direction: score dominance + 10pt band</span>
   </div>
 
+  <!-- FUNDING RATE -->
   <div class="section-label">Funding Rate · OKX / Binance Reference</div>
   <div class="funding-grid" id="funding-grid">
     <div class="loading" style="grid-column:1/-1">LOADING...</div>
@@ -436,16 +962,32 @@ footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size:
     <span style="margin-left:auto;">Fetched server-side · Updated on 1H candle close</span>
   </div>
 
+  <!-- MTF ALIGNMENT -->
   <div class="section-label">Multi-Timeframe Alignment · 1D×40% · 4H×35% · 1H×25%</div>
   <div class="mtf-grid" id="mtf-grid">
     <div class="loading" style="grid-column:1/-1">LOADING...</div>
   </div>
 
+  <!-- EXECUTION MODEL PANEL -->
+  <div class="section-label">Execution Model · OTE Zone · Position Sizing</div>
+  <div class="exec-grid" id="exec-grid">
+    <div class="loading" style="grid-column:1/-1">LOADING...</div>
+  </div>
+  <div style="display:flex;gap:20px;padding:6px 0;font-family:var(--mono);font-size:8px;color:var(--text2);">
+    <span style="color:var(--bull)">● MODEL 1 — Stop Hunt · sweep confirmed</span>
+    <span style="color:var(--bear)">● MODEL 2 — Trap Risk · recent invalidation</span>
+    <span style="color:var(--gold)">● MODEL 3 — OTE Algorithmic · 0.618–0.786 zone</span>
+    <span style="color:var(--accent)">● MODEL 4 — Range Trap · equal HL reclaim</span>
+    <span style="margin-left:auto;">OTE derived from fractal S/R · Size recommendation per BDKB rules</span>
+  </div>
+
+  <!-- 1H SIGNAL + ACTION ITEMS -->
   <div class="section-label">1H Signal State · Action Items</div>
   <div class="action-layout" id="action-layout">
     <div class="loading" style="grid-column:1/-1">LOADING...</div>
   </div>
 
+  <!-- TRADE JOURNAL -->
   <div class="section-label">Trade Journal</div>
   <div class="journal-top">
     <div class="journal-stats" id="journal-stats">
@@ -483,23 +1025,21 @@ footer { text-align: center; padding: 1rem; font-family: var(--mono); font-size:
 
   <div id="journal-table-wrap"></div>
 
+  <!-- POSITIONS -->
   <div class="section-label">Open Positions · BloFin</div>
   <div id="positions-panel" style="margin-bottom:1rem;"></div>
+
 </main>
 
 <footer>SIGNAL DESK V2 · BDKB TRADING SYSTEM · BDKB33/tv-data · Auto-refresh 5min · <span id="footer-ts"></span></footer>
 
-<!-- COPY TO CLAUDE BUTTON -->
-<button id="ctc-btn" onclick="copyToClaude()">⬆ COPY TO CLAUDE</button>
-<div id="ctc-toast">COPIED · PASTE INTO CLAUDE</div>
-
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const OWNER    = 'BDKB33';
-const REPO     = 'tv-data';
-const BRANCH   = 'main';
-const SYMBOLS  = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
-const LABELS   = ['BTC','ETH','SOL','XRP','ADA','SUI'];
+const OWNER  = 'BDKB33';
+const REPO   = 'tv-data';
+const BRANCH = 'main';
+const SYMBOLS = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
+const LABELS  = ['BTC','ETH','SOL','XRP','ADA','SUI'];
 const TIMEFRAMES = ['1H','4H','1D'];
 
 let mkt = {};
@@ -544,10 +1084,15 @@ async function loadAll() {
 }
 
 // ── BDKB SCORING ENGINE ───────────────────────────────────────────────────────
+// Reads bdkb{} block from payload if present (Pine Script V2 output)
+// Falls back to legacy computed scores if bdkb block not yet populated
+
 function getBDKB(sym, tf) {
   const d = mkt[sym]?.[tf];
   if (!d) return null;
+  // If Pine V2 bdkb block is present, use it directly
   if (d.bdkb && typeof d.bdkb.score === 'number') return d.bdkb;
+  // Legacy fallback: compute from raw indicators
   return computeLegacyBDKB(d, tf);
 }
 
@@ -616,9 +1161,9 @@ function legacyStructure(d) {
 }
 function legacyEMA(d, tf) {
   if (!d || !d.close) return 0;
-  const s = (d.sma50  ? (d.close > d.sma50  ? 1 : -1) : 0) +
+  const s = (d.sma50 ? (d.close > d.sma50 ? 1 : -1) : 0) +
             (d.sma200 ? (d.close > d.sma200 ? 1 : -1) : 0) +
-            (d.vwap   ? (d.close > d.vwap   ? 1 : -1) : 0);
+            (d.vwap ? (d.close > d.vwap ? 1 : -1) : 0);
   const t = (d.sma50?1:0)+(d.sma200?1:0)+(d.vwap?1:0);
   return t ? s / t : 0;
 }
@@ -634,9 +1179,10 @@ function legacyMACD(d) {
   return ((d.macdLine > 0 ? 1 : -1) + (d.macdHist > 0 ? 1 : -1)) / 2;
 }
 
+// MTF score computation
 function getMTFScore(sym) {
-  const b1 = getBDKB(sym,'1H'), b4 = getBDKB(sym,'4H'), bD = getBDKB(sym,'1D');
-  if (!b1 && !b4 && !bD) return { score:0, quality:'NO_DATA', direction:'NEUTRAL', trendBias:0 };
+  const b1 = getBDKB(sym, '1H'), b4 = getBDKB(sym, '4H'), bD = getBDKB(sym, '1D');
+  if (!b1 && !b4 && !bD) return { score: 0, quality: 'NO_DATA', direction: 'NEUTRAL', trendBias: 0 };
   const w = TFW[activeMode];
   let n = 0, d = 0;
   if (b1 && w['1H'] > 0) { n += b1.score * w['1H']; d += w['1H']; }
@@ -644,21 +1190,24 @@ function getMTFScore(sym) {
   if (bD && w['1D'] > 0) { n += bD.score * w['1D']; d += w['1D']; }
   const score = d > 0 ? Math.round(n / d) : 0;
 
+  // Direction alignment
   const dir1 = b1?.direction || 'NEUTRAL';
   const dir4 = b4?.direction || 'NEUTRAL';
   const dirD = bD?.direction || 'NEUTRAL';
-  const fullAlign = dir1 === dir4 && dir4 === dirD && dir1 !== 'NEUTRAL';
-  const partAlign = dir4 === dirD && dir4 !== 'NEUTRAL' && (dir1 === 'NEUTRAL' || dir1 === dir4);
-  const mismatch  = dir1 !== 'NEUTRAL' && dir4 !== 'NEUTRAL' && dir1 !== dir4;
-  const quality   = fullAlign ? 'FULL' : partAlign ? 'PARTIAL' : mismatch ? 'MISMATCH' : 'WEAK';
+  const fullAlign  = dir1 === dir4 && dir4 === dirD && dir1 !== 'NEUTRAL';
+  const partAlign  = dir4 === dirD && dir4 !== 'NEUTRAL' && (dir1 === 'NEUTRAL' || dir1 === dir4);
+  const mismatch   = dir1 !== 'NEUTRAL' && dir4 !== 'NEUTRAL' && dir1 !== dir4;
+  const quality = fullAlign ? 'FULL' : partAlign ? 'PARTIAL' : mismatch ? 'MISMATCH' : 'WEAK';
   const direction = dirD !== 'NEUTRAL' ? dirD : dir4 !== 'NEUTRAL' ? dir4 : dir1;
 
+  // trendBias blended
   const tb1 = mkt[sym]?.['1H']?.trendBias || 0;
   const tb4 = mkt[sym]?.['4H']?.trendBias || 0;
   const tbD = mkt[sym]?.['1D']?.trendBias || 0;
   const trendBias = (tb1 * 0.25) + (tb4 * 0.35) + (tbD * 0.40);
 
-  const b1bdkb = getBDKB(sym,'1H');
+  // Trade ready (1H gate + MTF gate)
+  const b1bdkb = getBDKB(sym, '1H');
   const tradeReady = score >= 75 &&
     (quality === 'FULL' || quality === 'PARTIAL') &&
     b1bdkb?.state === 'CONFIRMED' &&
@@ -666,7 +1215,7 @@ function getMTFScore(sym) {
     !mismatch;
 
   return { score, quality, direction, trendBias, tradeReady,
-           scores:     { '1H': b1?.score||0, '4H': b4?.score||0, '1D': bD?.score||0 },
+           scores: { '1H': b1?.score||0, '4H': b4?.score||0, '1D': bD?.score||0 },
            directions: { '1H': dir1, '4H': dir4, '1D': dirD } };
 }
 
@@ -707,12 +1256,199 @@ function fmtP(n) {
 function fmt(s) { return (s>0?'+':'')+s; }
 function pctFmt(r) { return r!=null ? (r*100).toFixed(4)+'%' : '—'; }
 
+
+// ── EXECUTION MODEL ENGINE ────────────────────────────────────────────────────
+// Classifies each asset into one of 4 ICT/SMC execution models
+// using existing payload fields — no new data sources required
+
+function getOTEZone(sym) {
+  const d = mkt[sym]?.['1H'];
+  if (!d || !d.fracResistance || !d.fracSupport || !d.close) return { zone: 'NA', inZone: false, hi: null, lo: null, pctFrom: null };
+  const range  = d.fracResistance - d.fracSupport;
+  const oteHi  = d.fracResistance - range * 0.618;
+  const oteLo  = d.fracResistance - range * 0.786;
+  const inZone = d.close >= oteLo && d.close <= oteHi;
+  const above  = d.close > oteHi;
+  const below  = d.close < oteLo;
+  // Distance from nearest OTE boundary as %
+  const nearest = inZone ? 0 : above ? ((d.close - oteHi) / d.close * 100) : ((oteLo - d.close) / d.close * 100);
+  return {
+    zone:    inZone ? 'IN_ZONE' : above ? 'ABOVE' : 'BELOW',
+    inZone,
+    hi:      oteHi,
+    lo:      oteLo,
+    pctFrom: nearest.toFixed(2),
+    fib618:  oteHi,
+    fib786:  oteLo,
+    fib500:  d.fracResistance - range * 0.500,
+    fib382:  d.fracResistance - range * 0.382,
+    swingHi: d.fracResistance,
+    swingLo: d.fracSupport,
+    price:   d.close
+  };
+}
+
+function classifyExecutionModel(sym) {
+  const b1   = getBDKB(sym, '1H');
+  const d1   = mkt[sym]?.['1H'];
+  const ote  = getOTEZone(sym);
+  const mtf  = getMTFScore(sym);
+
+  if (!b1 || !d1) return { model: 0, label: 'NO DATA', desc: 'Awaiting data', sizeRec: 'STANDBY', color: 'var(--text3)' };
+
+  const liqEvent    = b1.liquidityEvent === 1;
+  const liqType     = b1.liquidityType || 'none';
+  const state       = b1.state;
+  const confirmed   = state === 'CONFIRMED';
+  const setup       = state === 'SETUP';
+  const invalidated = state === 'INVALIDATED';
+  const isLong      = b1.direction === 'LONG';
+  const isShort     = b1.direction === 'SHORT';
+
+  // MODEL 2 — TRAP: recent invalidation detected
+  // Highest priority check — protects from re-entering a trap
+  if (invalidated) {
+    return {
+      model: 2,
+      label: 'MODEL 2 · TRAP',
+      desc:  'Recent INVALIDATED — do not re-enter. Wait for fresh sweep.',
+      sizeRec: 'WAIT',
+      color: 'var(--bear)',
+      ote
+    };
+  }
+
+  // MODEL 3 — ALGORITHMIC: OTE zone + liquidity confirmed + MTF strong
+  // Highest quality setup when all align
+  if (ote.inZone && liqEvent && (confirmed || setup) && mtf.score >= 65) {
+    return {
+      model: 3,
+      label: 'MODEL 3 · OTE',
+      desc:  'Price in 0.618–0.786 OTE zone with liquidity sweep confirmed. Highest probability entry.',
+      sizeRec: 'FULL SIZE',
+      color: 'var(--gold)',
+      ote
+    };
+  }
+
+  // MODEL 4 — RANGE TRAP: equal highs/lows sweep + reclaim
+  if (liqType === 'equal_hl_sweep' && liqEvent && (confirmed || setup)) {
+    return {
+      model: 4,
+      label: 'MODEL 4 · RANGE TRAP',
+      desc:  'Equal H/L swept and reclaimed. Accumulation complete — watch for continuation.',
+      sizeRec: 'REDUCED',
+      color: 'var(--accent)',
+      ote
+    };
+  }
+
+  // MODEL 1 — STOP HUNT: liquidity sweep confirmed, structure shifted
+  if (liqEvent && (confirmed || setup)) {
+    return {
+      model: 1,
+      label: 'MODEL 1 · STOP HUNT',
+      desc:  'Liquidity sweep confirmed. Structure shifted. Standard entry conditions met.',
+      sizeRec: confirmed ? 'FULL SIZE' : 'REDUCED',
+      color: 'var(--bull)',
+      ote
+    };
+  }
+
+  // No model active
+  return {
+    model: 0,
+    label: 'NO MODEL ACTIVE',
+    desc:  state === 'WATCHLIST' ? 'Watchlist — waiting for liquidity event.' :
+           state === 'NO_TRADE'  ? 'No trade — score below threshold.' :
+           'Monitoring — conditions not met.',
+    sizeRec: 'STANDBY',
+    color: 'var(--text3)',
+    ote
+  };
+}
+
+function renderExecutionPanel() {
+  const sorted = [...SYMBOLS].map(sym => {
+    const exec = classifyExecutionModel(sym);
+    const mtf  = getMTFScore(sym);
+    return { sym, exec, mtf };
+  }).sort((a, b) => {
+    // Sort: active models first, then by MTF score
+    if (b.exec.model > 0 && a.exec.model === 0) return 1;
+    if (a.exec.model > 0 && b.exec.model === 0) return -1;
+    if (b.exec.model === 2 && a.exec.model !== 2) return 1; // Trap warning first
+    return b.mtf.score - a.mtf.score;
+  });
+
+  let html = '';
+  sorted.forEach(({ sym, exec, mtf }) => {
+    const label = LABELS[SYMBOLS.indexOf(sym)];
+    const ote   = exec.ote || getOTEZone(sym);
+    const d1    = mkt[sym]?.['1H'];
+    const b1    = getBDKB(sym, '1H');
+    const fund  = d1?.funding;
+
+    // OTE zone display
+    const zoneLabel = ote.zone === 'IN_ZONE' ? '● IN OTE ZONE' : ote.zone === 'ABOVE' ? 'ABOVE OTE' : ote.zone === 'BELOW' ? 'BELOW OTE' : '—';
+    const zoneColor = ote.zone === 'IN_ZONE' ? 'var(--gold)' : ote.zone === 'ABOVE' ? 'var(--bull)' : 'var(--bear)';
+    const zoneCls   = ote.zone === 'IN_ZONE' ? 'ote-in' : ote.zone === 'ABOVE' ? 'ote-above' : 'ote-below';
+
+    // Model badge class
+    const modelCls = exec.model === 1 ? 'model-1' : exec.model === 2 ? 'model-2' :
+                     exec.model === 3 ? 'model-3' : exec.model === 4 ? 'model-4' : 'model-none';
+
+    // Size badge class
+    const sizeCls = exec.sizeRec === 'FULL SIZE' ? 'size-full' : exec.sizeRec === 'REDUCED' ? 'size-reduced' :
+                    exec.sizeRec === 'WAIT' ? 'size-wait' : 'size-standby';
+
+    // Fib levels
+    const fibRows = ote.fib618 ? `
+      <div class="exec-fib-row"><span class="exec-fib-label">FIB 0.618</span><span class="exec-fib-val" style="color:var(--gold)">${fmtP(ote.fib618)}</span></div>
+      <div class="exec-fib-row"><span class="exec-fib-label">FIB 0.500</span><span class="exec-fib-val" style="color:var(--accent)">${fmtP(ote.fib500)}</span></div>
+      <div class="exec-fib-row"><span class="exec-fib-label">FIB 0.786</span><span class="exec-fib-val" style="color:var(--gold)">${fmtP(ote.fib786)}</span></div>
+    ` : '<div style="font-family:var(--mono);font-size:8px;color:var(--text3)">No fractal data</div>';
+
+    // Funding conflict warning
+    const fundWarn = fund && ((b1?.direction === 'LONG' && fund.conflictLong) || (b1?.direction === 'SHORT' && fund.conflictShort))
+      ? '<div style="font-family:var(--mono);font-size:7px;color:var(--bear);margin-top:4px;letter-spacing:1px;">⚠ FUNDING CONFLICT</div>' : '';
+
+    html += `<div class="exec-card">
+      <div class="exec-card-accent" style="background:${exec.color}"></div>
+      <div class="exec-sym">${label}</div>
+      <span class="exec-model-badge ${modelCls}">${exec.label}</span>
+      <div class="exec-ote-row">
+        <span class="exec-ote-label">OTE ZONE</span>
+        <span class="exec-ote-val ${ote.zone !== 'NA' ? zoneCls : ''}" style="color:${zoneColor}">${zoneLabel}</span>
+      </div>
+      ${ote.pctFrom !== null && ote.zone !== 'IN_ZONE' ? `<div class="exec-ote-row"><span class="exec-ote-label">DISTANCE</span><span class="exec-ote-val" style="color:var(--text2)">${ote.pctFrom}% from zone</span></div>` : ''}
+      <div class="exec-divider"></div>
+      <div class="exec-fib-rows">${fibRows}</div>
+      <div class="exec-divider"></div>
+      <div class="exec-detail-row">
+        <span class="exec-detail-label">SWING HI</span>
+        <span class="exec-detail-val" style="color:var(--bear)">${fmtP(ote.swingHi)}</span>
+      </div>
+      <div class="exec-detail-row">
+        <span class="exec-detail-label">SWING LO</span>
+        <span class="exec-detail-val" style="color:var(--bull)">${fmtP(ote.swingLo)}</span>
+      </div>
+      <span class="exec-size-badge ${sizeCls}">${exec.sizeRec}</span>
+      ${fundWarn}
+      <div class="exec-model-desc">${exec.desc}</div>
+    </div>`;
+  });
+
+  document.getElementById('exec-grid').innerHTML = html;
+}
+
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function render() {
   renderCommandStrip();
   renderBDKBGrid();
   renderFunding();
   renderMTFAlignment();
+  renderExecutionPanel();
   renderActionLayout();
   renderJournal();
 }
@@ -723,6 +1459,7 @@ function setMode(m) {
   renderCommandStrip();
   renderBDKBGrid();
   renderMTFAlignment();
+  renderExecutionPanel();
   renderActionLayout();
 }
 
@@ -740,14 +1477,14 @@ function renderCommandStrip() {
 
   let html = '';
   sorted.forEach(({ sym, mtf, b1, d1 }) => {
-    const label    = LABELS[SYMBOLS.indexOf(sym)];
-    const price    = d1 ? fmtP(d1.close) : '—';
+    const label = LABELS[SYMBOLS.indexOf(sym)];
+    const price = d1 ? fmtP(d1.close) : '—';
     const stateStr = b1?.state || 'NO_TRADE';
-    const sc       = stateColor(stateStr);
-    const fund     = d1?.funding;
+    const sc = stateColor(stateStr);
+    const fund = d1?.funding;
     const fundRate = fund?.fundingRate != null ? pctFmt(fund.fundingRate) : '—';
     const fundZone = fund?.fundingZone || 'UNKNOWN';
-    const fzc      = fundZoneColor(fundZone);
+    const fzc = fundZoneColor(fundZone);
     const b4 = getBDKB(sym,'4H'), bD = getBDKB(sym,'1D');
 
     html += `<div class="cs-cell">
@@ -812,21 +1549,21 @@ function renderBDKBGrid() {
 
   sorted.forEach(({ sym, b1, b4, bD, ms }, rank) => {
     const label = LABELS[SYMBOLS.indexOf(sym)];
-    const d1    = mkt[sym]?.['1H'];
+    const d1 = mkt[sym]?.['1H'];
     const price = d1 ? fmtP(d1.close) : '—';
 
+    // Primary display TF based on mode
     const primaryBDKB = w['1H'] >= w['4H'] && w['1H'] >= (w['1D']||0) ? b1 :
                         w['4H'] >= (w['1D']||0) ? b4 : bD;
     const primaryTF   = w['1H'] >= w['4H'] && w['1H'] >= (w['1D']||0) ? '1H' :
                         w['4H'] >= (w['1D']||0) ? '4H' : '1D';
     const primaryComp = primaryTF==='1H' ? compDefs1H : primaryTF==='4H' ? compDefs4H : compDefs1D;
     const bdkb = primaryBDKB;
-
     if (!bdkb) {
       html += `<div class="bdkb-card"><span class="bdkb-rank">#${rank+1}</span><div class="bdkb-sym">${label}</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:12px;">Awaiting data...</div></div>`;
       return;
     }
-    const sc   = stateColor(bdkb.state);
+    const sc = stateColor(bdkb.state);
     const comps = bdkb.components || {};
 
     const compRows = primaryComp.map(c => {
@@ -841,18 +1578,37 @@ function renderBDKBGrid() {
       </div>`;
     }).join('');
 
+    // Long vs short bars
     const lsPct = Math.min(100, bdkb.longScore  || 0);
     const ssPct = Math.min(100, bdkb.shortScore || 0);
 
+    // Liq staging (1H only)
     const liq = b1 || bdkb;
-    const liqEvent   = liq.liquidityEvent || 0;
-    const liqSetup   = liq.setupReady1H   || 0;
-    const liqConfirm = liq.confirmed1H    || 0;
+    const liqEvent   = liq.liquidityEvent   || 0;
+    const liqSetup   = liq.setupReady1H     || 0;
+    const liqConfirm = liq.confirmed1H      || 0;
     const liqTiers = `<div class="liq-row">
       <div class="liq-tier ${liqEvent?'active-event':'inactive'}">EVENT</div>
       <div class="liq-tier ${liqSetup?'active-setup':'inactive'}">SETUP</div>
       <div class="liq-tier ${liqConfirm?'active-confirm':'inactive'}">CONF</div>
     </div>`;
+
+    // OTE Zone calculation for BDKB card badge
+    const d1_ote = mkt[sym]?.['1H'];
+    const ote_fRes = d1_ote?.fracResistance, ote_fSup = d1_ote?.fracSupport, ote_close = d1_ote?.close;
+    let oteBadge = '<span class="ote-badge ote-na">OTE —</span>';
+    if (ote_fRes && ote_fSup && ote_close) {
+      const ote_range = ote_fRes - ote_fSup;
+      const ote_hi = ote_fRes - ote_range * 0.618;
+      const ote_lo = ote_fRes - ote_range * 0.786;
+      if (ote_close >= ote_lo && ote_close <= ote_hi) {
+        oteBadge = '<span class="ote-badge ote-in">● IN OTE ZONE</span>';
+      } else if (ote_close > ote_hi) {
+        oteBadge = '<span class="ote-badge ote-above">ABOVE OTE</span>';
+      } else {
+        oteBadge = '<span class="ote-badge ote-below">BELOW OTE</span>';
+      }
+    }
 
     html += `<div class="bdkb-card">
       <div class="bdkb-card-accent" style="background:${sc}"></div>
@@ -869,6 +1625,7 @@ function renderBDKBGrid() {
       <div class="ls-row"><span class="ls-label">LONG</span><div class="ls-track"><div class="ls-fill" style="width:${lsPct}%;background:var(--bull)"></div></div><span class="ls-num" style="color:var(--bull)">${bdkb.longScore||0}</span></div>
       <div class="ls-row"><span class="ls-label">SHORT</span><div class="ls-track"><div class="ls-fill" style="width:${ssPct}%;background:var(--bear)"></div></div><span class="ls-num" style="color:var(--bear)">${bdkb.shortScore||0}</span></div>
       ${liqTiers}
+      ${oteBadge}
     </div>`;
   });
 
@@ -879,7 +1636,7 @@ function renderBDKBGrid() {
 function renderFunding() {
   let html = '';
   SYMBOLS.forEach((sym, i) => {
-    const d1   = mkt[sym]?.['1H'];
+    const d1 = mkt[sym]?.['1H'];
     const fund = d1?.funding;
     if (!fund || fund.fundingRate === null) {
       html += `<div class="fund-cell">
@@ -889,10 +1646,11 @@ function renderFunding() {
       </div>`;
       return;
     }
-    const zone    = fund.fundingZone || 'UNKNOWN';
-    const fzc     = fundZoneColor(zone);
+    const zone = fund.fundingZone || 'UNKNOWN';
+    const fzc  = fundZoneColor(zone);
     const ratePct = (fund.fundingRate * 100).toFixed(4) + '%';
 
+    // Conflict/confluence flags
     const flags = [];
     if (fund.conflictLong)    flags.push('<span class="fund-flag conflict">⚠ CONFLICTS LONG</span>');
     if (fund.conflictShort)   flags.push('<span class="fund-flag conflict">⚠ CONFLICTS SHORT</span>');
@@ -900,6 +1658,7 @@ function renderFunding() {
     if (fund.confluenceShort) flags.push('<span class="fund-flag confluence">✓ CONFLUENCE SHORT</span>');
     if (!flags.length)        flags.push('<span class="fund-flag neutral">NEUTRAL</span>');
 
+    // Next funding countdown
     let nextStr = '';
     if (fund.nextFundingTime) {
       const diff = parseInt(fund.nextFundingTime) - Date.now();
@@ -923,11 +1682,12 @@ function renderFunding() {
 
 // ── MTF ALIGNMENT ─────────────────────────────────────────────────────────────
 function renderMTFAlignment() {
-  const sorted = [...SYMBOLS].map(sym => ({ sym, mtf: getMTFScore(sym) }))
-    .sort((a,b) => {
-      if (b.mtf.tradeReady !== a.mtf.tradeReady) return b.mtf.tradeReady-a.mtf.tradeReady;
-      return b.mtf.score - a.mtf.score;
-    });
+  const sorted = [...SYMBOLS].map(sym => {
+    return { sym, mtf: getMTFScore(sym) };
+  }).sort((a,b) => {
+    if (b.mtf.tradeReady !== a.mtf.tradeReady) return b.mtf.tradeReady-a.mtf.tradeReady;
+    return b.mtf.score - a.mtf.score;
+  });
 
   let html = '';
   sorted.forEach(({ sym, mtf }) => {
@@ -937,8 +1697,8 @@ function renderMTFAlignment() {
     const tfRows = ['1H','4H','1D'].map(tf => {
       const w = TFW[activeMode][tf] || 0;
       if (w === 0) return '';
-      const s   = mtf.scores[tf] || 0;
-      const d   = mtf.directions[tf] || 'NEUTRAL';
+      const s = mtf.scores[tf] || 0;
+      const d = mtf.directions[tf] || 'NEUTRAL';
       const pct = Math.min(100, s);
       return `<div class="mtf-tf-row">
         <span class="mtf-tf-label">${tf}</span>
@@ -970,10 +1730,11 @@ function renderMTFAlignment() {
 function renderActionLayout() {
   const w = TFW[activeMode];
 
+  // Build 1H signal cards
   let sigHtml = '';
   SYMBOLS.forEach((sym, i) => {
-    const d    = mkt[sym]?.['1H'];
-    const bdkb = getBDKB(sym,'1H');
+    const d = mkt[sym]?.['1H'];
+    const bdkb = getBDKB(sym, '1H');
     if (!d) {
       sigHtml += `<div class="signal-card"><div class="sig-top"><div><div style="font-family:var(--hero);font-size:18px;letter-spacing:2px;">${LABELS[i]}</div></div></div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:8px;">Awaiting data</div></div>`;
       return;
@@ -986,7 +1747,7 @@ function renderActionLayout() {
     const rsiC  = d.rsi>70?'bear':d.rsi<30?'bull':'neut';
     const stochC= d.stochK>80?'bear':d.stochK<20?'bull':'neut';
     const macdC = d.macdHist>0?'bull':'bear';
-    const vwapC = d.vwap&&d.close?(d.close>d.vwap?'bull':'bear'):'neut';
+    const vwapC = d.vwap&&d.close ? (d.close>d.vwap?'bull':'bear') : 'neut';
     const barW  = Math.min(100, score);
 
     sigHtml += `<div class="signal-card">
@@ -1028,12 +1789,15 @@ function renderActionLayout() {
     </div>`;
   });
 
+  // Build action sidebar
   const actionItems = [...SYMBOLS].map(sym => {
-    const mtf  = getMTFScore(sym);
-    const b1   = getBDKB(sym,'1H'), b4 = getBDKB(sym,'4H'), bD = getBDKB(sym,'1D');
-    const ms   = getModeScore(sym);
-    const d1   = mkt[sym]?.['1H'];
-    const fund = d1?.funding;
+    const mtf   = getMTFScore(sym);
+    const b1    = getBDKB(sym,'1H');
+    const b4    = getBDKB(sym,'4H');
+    const bD    = getBDKB(sym,'1D');
+    const ms    = getModeScore(sym);
+    const d1    = mkt[sym]?.['1H'];
+    const fund  = d1?.funding;
     return { sym, mtf, b1, b4, bD, ms, d1, fund };
   }).filter(r => r.ms >= 65 && (r.mtf.direction === 'LONG' || r.mtf.direction === 'SHORT'))
     .sort((a,b) => {
@@ -1046,13 +1810,13 @@ function renderActionLayout() {
     sideHtml += `<div class="no-action"><div class="no-action-icon">—</div><div class="no-action-title">NO ACTION ITEMS</div><div class="no-action-sub">Score ≥65 + direction required</div></div>`;
   } else {
     actionItems.forEach(r => {
-      const label  = LABELS[SYMBOLS.indexOf(r.sym)];
+      const label = LABELS[SYMBOLS.indexOf(r.sym)];
       const isLong = r.mtf.direction === 'LONG';
-      const wt     = TFW[activeMode];
-      const barW   = Math.min(100, r.ms);
-      const bc     = scoreColor(r.ms);
-      const fund   = r.fund;
-      const fundConflict   = fund && ((isLong && fund.conflictLong)   || (!isLong && fund.conflictShort));
+      const wt = TFW[activeMode];
+      const barW = Math.min(100, r.ms);
+      const bc = scoreColor(r.ms);
+      const fund = r.fund;
+      const fundConflict = fund && ((isLong && fund.conflictLong) || (!isLong && fund.conflictShort));
       const fundConfluence = fund && ((isLong && fund.confluenceLong) || (!isLong && fund.confluenceShort));
 
       sideHtml += `<div class="action-item ${isLong?'long':'short'}">
@@ -1090,8 +1854,8 @@ function toggleJournalForm() {
 
 function saveTradeEntry() {
   const entry = {
-    id:       Date.now(),
-    date:     new Date().toISOString(),
+    id: Date.now(),
+    date: new Date().toISOString(),
     token:    document.getElementById('jf-token').value,
     side:     document.getElementById('jf-side').value,
     mode:     document.getElementById('jf-mode').value,
@@ -1120,6 +1884,11 @@ function deleteTrade(id) {
   renderJournal();
 }
 
+// ── PNL CALCULATION ──────────────────────────────────────────────────────────
+// Closed trades: use exit price
+// Open trades:   use latest 1H candle close from mkt data (updates on refresh)
+// Token field stores short label (BTC, ETH, etc) — map back to symbol key
+
 const TOKEN_TO_SYMBOL = {
   'BTC':'BTCUSDT','ETH':'ETHUSDT','SOL':'SOLUSDT',
   'XRP':'XRPUSDT','ADA':'ADAUSDT','SUI':'SUIUSDT'
@@ -1132,10 +1901,12 @@ function getLivePrice(token) {
 }
 
 function calcPnL(e) {
+  // Closed trade — use exit price
   if (e.exit && e.entry && e.size) {
     const pct = (e.side==='LONG' ? (e.exit-e.entry)/e.entry : (e.entry-e.exit)/e.entry) * e.leverage;
     return { pnl: e.size * pct, isLive: false, markPrice: null };
   }
+  // Open trade — use latest 1H close as mark price
   if (!e.exit && e.entry && e.size) {
     const mark = getLivePrice(e.token);
     if (mark == null) return { pnl: null, isLive: true, markPrice: null };
@@ -1149,14 +1920,16 @@ function renderJournal() {
   const journal = loadJournal();
   const closed  = journal.filter(e=>e.exit);
 
+  // Realized PnL = closed trades only
   const realizedPnls = closed.map(e => calcPnL(e).pnl).filter(p=>p!=null);
   const totalPnl     = realizedPnls.reduce((a,b)=>a+b,0);
   const wins         = realizedPnls.filter(p=>p>0).length;
   const wr           = realizedPnls.length>0 ? Math.round(wins/realizedPnls.length*100)+'%' : '—';
 
-  const openTrades  = journal.filter(e=>!e.exit);
-  const unrealPnls  = openTrades.map(e => calcPnL(e).pnl).filter(p=>p!=null);
-  const totalUnreal = unrealPnls.reduce((a,b)=>a+b,0);
+  // Unrealized PnL = open trades using live 1H close
+  const openTrades   = journal.filter(e=>!e.exit);
+  const unrealPnls   = openTrades.map(e => calcPnL(e).pnl).filter(p=>p!=null);
+  const totalUnreal  = unrealPnls.reduce((a,b)=>a+b,0);
 
   document.getElementById('jstat-total').textContent = journal.length;
   document.getElementById('jstat-open').textContent  = openTrades.length;
@@ -1164,6 +1937,7 @@ function renderJournal() {
   document.getElementById('jstat-pnl').style.color   = totalPnl>=0?'var(--bull)':'var(--bear)';
   document.getElementById('jstat-wr').textContent    = wr;
 
+  // Show unrealized PnL in open cell if any open trades have live prices
   const openCell = document.getElementById('jstat-open');
   if (unrealPnls.length > 0) {
     openCell.innerHTML = `${openTrades.length}<span style="display:block;font-size:10px;font-family:var(--mono);color:${totalUnreal>=0?'var(--bull)':'var(--bear)'};font-weight:400">${totalUnreal>=0?'+':''}$${totalUnreal.toFixed(2)}</span>`;
@@ -1190,12 +1964,14 @@ function renderJournal() {
     const status  = e.exit ? 'CLOSED' : 'OPEN';
     const ds      = new Date(e.date).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
 
+    // Mark price cell — shows live 1H close for open trades, exit for closed
     const markCell = e.exit
       ? `<td style="color:var(--text3)">—</td>`
       : markPrice != null
         ? `<td style="color:var(--accent)">${fmtP(markPrice)} <span style="font-size:7px;color:var(--text3)">1H</span></td>`
         : `<td style="color:var(--text3)">—</td>`;
 
+    // PnL cell — show LIVE indicator for open trades
     const pnlCell = isLive && pnl != null
       ? `<td class="tt-pnl ${pnlCls}">${pnlStr} <span style="font-size:7px;color:var(--text3);font-family:var(--mono)">~</span></td>`
       : `<td class="tt-pnl ${pnlCls}">${pnlStr}</td>`;
@@ -1233,10 +2009,10 @@ function renderPositions(data) {
   }
   let html = '<div class="pos-grid">';
   for (const p of data.positions) {
-    const sym    = p.symbol.replace('-USDT','').replace('USDT','');
-    const isLong = p.side==='long';
-    const pnlPos = p.unrealizedPnl>=0;
-    const pnlPct = (p.unrealizedPnlPct*100).toFixed(2);
+    const sym   = p.symbol.replace('-USDT','').replace('USDT','');
+    const isLong= p.side==='long';
+    const pnlPos= p.unrealizedPnl>=0;
+    const pnlPct= (p.unrealizedPnlPct*100).toFixed(2);
     html += `<div class="pos-card ${isLong?'long':'short'}">
       <div class="pos-top">
         <div class="pos-sym">${sym} / USDT</div>
@@ -1262,104 +2038,9 @@ function timeSince(iso) {
   return h>0 ? h+'h '+m+'m ago' : m+'m ago';
 }
 
-// ── COPY TO CLAUDE ────────────────────────────────────────────────────────────
-function copyToClaude() {
-  const SYMS = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
-  const TFS  = ['1H','4H','1D'];
-  const now  = new Date().toISOString();
-
-  const payload = { _generated: now, _mode: activeMode, symbols: {} };
-
-  SYMS.forEach(function(sym) {
-    payload.symbols[sym] = {};
-    TFS.forEach(function(tf) {
-      var d = mkt[sym] && mkt[sym][tf];
-      if (d && Object.keys(d).length >= 3) {
-        payload.symbols[sym][tf] = d;
-      }
-    });
-    var b1  = getBDKB(sym,'1H');
-    var b4  = getBDKB(sym,'4H');
-    var bD  = getBDKB(sym,'1D');
-    var mtf = getMTFScore(sym);
-    payload.symbols[sym]._scores = {
-      '1H': b1 ? { score: b1.score, state: b1.state, direction: b1.direction, longScore: b1.longScore, shortScore: b1.shortScore } : null,
-      '4H': b4 ? { score: b4.score, state: b4.state, direction: b4.direction, longScore: b4.longScore, shortScore: b4.shortScore } : null,
-      '1D': bD ? { score: bD.score, state: bD.state, direction: bD.direction, longScore: bD.longScore, shortScore: bD.shortScore } : null,
-      mtf:  { score: mtf.score, quality: mtf.quality, direction: mtf.direction, trendBias: mtf.trendBias, tradeReady: mtf.tradeReady }
-    };
-  });
-
-  var lines = [
-    '=== SIGNAL DESK · LIVE DATA DUMP ===',
-    'Timestamp: ' + now,
-    'Mode: ' + activeMode,
-    '',
-    '--- SCORE SUMMARY ---'
-  ];
-
-  SYMS.forEach(function(sym) {
-    var sc    = payload.symbols[sym]._scores;
-    if (!sc) return;
-    var label = sym.replace('USDT','');
-    var d1    = mkt[sym] && mkt[sym]['1H'];
-    var price = d1 && d1.close != null ? d1.close : '—';
-    lines.push(
-      label + ' $' + price + ' | ' +
-      '1H: ' + (sc['1H'] ? sc['1H'].score : '—') + ' ' + (sc['1H'] ? sc['1H'].state : '') + ' ' + (sc['1H'] ? sc['1H'].direction : '') + ' | ' +
-      '4H: ' + (sc['4H'] ? sc['4H'].score : '—') + ' ' + (sc['4H'] ? sc['4H'].state : '') + ' ' + (sc['4H'] ? sc['4H'].direction : '') + ' | ' +
-      '1D: ' + (sc['1D'] ? sc['1D'].score : '—') + ' ' + (sc['1D'] ? sc['1D'].state : '') + ' ' + (sc['1D'] ? sc['1D'].direction : '') + ' | ' +
-      'MTF: ' + sc.mtf.score + ' ' + sc.mtf.quality + ' ' + sc.mtf.direction + (sc.mtf.tradeReady ? ' TRADE READY' : '')
-    );
-  });
-
-  lines.push('');
-  lines.push('--- FULL JSON PAYLOAD ---');
-  lines.push(JSON.stringify(payload, null, 2));
-
-  var text = lines.join('\n');
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(function() {
-      flashCopied();
-    }).catch(function() {
-      fallbackCopy(text);
-    });
-  } else {
-    fallbackCopy(text);
-  }
-}
-
-function fallbackCopy(text) {
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.left = '-9999px';
-  ta.style.top  = '-9999px';
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  try { document.execCommand('copy'); } catch(e) {}
-  document.body.removeChild(ta);
-  flashCopied();
-}
-
-function flashCopied() {
-  var btn   = document.getElementById('ctc-btn');
-  var toast = document.getElementById('ctc-toast');
-  btn.textContent = '✓ COPIED';
-  btn.classList.add('copied');
-  toast.classList.add('show');
-  setTimeout(function() {
-    btn.textContent = '⬆ COPY TO CLAUDE';
-    btn.classList.remove('copied');
-    toast.classList.remove('show');
-  }, 2500);
-}
-
 // ── BOOT ──────────────────────────────────────────────────────────────────────
 loadAll();
-setInterval(loadAll, 5 * 60 * 1000);
+setInterval(loadAll, 5*60*1000);
 </script>
 </body>
 </html>
