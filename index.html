@@ -49,7 +49,7 @@ main{padding:1.5rem 2rem;max-width:1800px;margin:0 auto;}
 .loading{text-align:center;padding:2rem;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:3px;}
 footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;color:var(--text3);border-top:1px solid var(--border);letter-spacing:2px;margin-top:2rem;}
 .state-CONFIRMED{color:var(--confirmed-color);}.state-SETUP{color:var(--setup-color);}.state-WATCHLIST{color:var(--watchlist-color);}.state-NO_TRADE{color:var(--notrade-color);}.state-INVALIDATED{color:var(--invalid-color);}
-.badge-CONFIRMED{color:var(--confirmed-color);background:rgba(0,240,144,0.08);border-color:rgba(0,240,144,0.3);}.badge-SETUP{color:var(--setup-color);background:rgba(255,184,0,0.08);border-color:rgba(255,184,0,0.3);}.badge-WATCHLIST{color:var(--watchlist-color);background:rgba(77,156,255,0.08);border-color:rgba(77,156,255,0.3);}.badge-NO_TRADE{color:var(--notrade-color);background:rgba(74,82,112,0.15);border-color:rgba(74,82,112,0.3);}.badge-INVALIDATED{color:var(--invalid-color);background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.3);}
+.badge-CONFIRMED,.badge-STRONG_LONG{color:var(--confirmed-color);background:rgba(0,240,144,0.08);border-color:rgba(0,240,144,0.3);}.badge-SETUP,.badge-LONG_BIAS{color:var(--setup-color);background:rgba(255,184,0,0.08);border-color:rgba(255,184,0,0.3);}.badge-WATCHLIST,.badge-NEUTRAL{color:var(--watchlist-color);background:rgba(77,156,255,0.08);border-color:rgba(77,156,255,0.3);}.badge-NO_TRADE{color:var(--notrade-color);background:rgba(74,82,112,0.15);border-color:rgba(74,82,112,0.3);}.badge-INVALIDATED{color:var(--invalid-color);background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.3);}.badge-STRONG_SHORT{color:var(--invalid-color);background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.3);}.badge-SHORT_BIAS{color:var(--bear);background:rgba(255,45,85,0.06);border-color:rgba(255,45,85,0.25);}
 .zone-LONG_SQUEEZE{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.3);}.zone-DANGER_LONGS,.zone-ELEVATED{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}.zone-NEUTRAL,.zone-NEUTRAL_NEG{color:var(--text3);background:var(--neut-dim);border-color:var(--border);}.zone-SHORTS_CROWDED{color:var(--accent);background:var(--accent-dim);border-color:rgba(77,156,255,0.3);}.zone-FETCH_ERROR,.zone-UNKNOWN{color:var(--text3);background:var(--bg4);border-color:var(--border);}
 </style>
 </head>
@@ -65,6 +65,7 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
     <div class="live-badge"><div class="live-dot"></div>LIVE</div>
     <div class="ts-display" id="ts">—</div>
     <button class="refresh-btn" onclick="loadAll()">↺ REFRESH</button>
+    <a href="macro.html" class="refresh-btn" style="color:var(--macro,#00d4ff);background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.2);text-decoration:none;">→ MACRO VIEW</a>
     <button class="refresh-btn" id="copy-claude-btn" onclick="copyToClaudeGlobal()" style="color:var(--purple);background:var(--purple-dim);border-color:rgba(157,122,255,0.25);">⎋ COPY TO CLAUDE</button>
   </div>
 </header>
@@ -74,12 +75,12 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
   <div class="section-label">BDKB Scoring Engine · V2</div>
   <div class="bdkb-grid" id="bdkb-grid"><div class="loading" style="grid-column:1/-1">LOADING...</div></div>
   <div style="display:flex;gap:20px;padding:6px 0;font-family:var(--mono);font-size:8px;color:var(--text2);">
-    <span style="color:var(--confirmed-color)">● CONFIRMED ≥80</span>
-    <span style="color:var(--setup-color)">● SETUP 65–79</span>
-    <span style="color:var(--watchlist-color)">● WATCHLIST 50–64</span>
-    <span style="color:var(--notrade-color)">● NO TRADE &lt;50</span>
-    <span style="color:var(--invalid-color)">● INVALIDATED</span>
-    <span style="margin-left:auto;">Binary component inputs · Candle-close only · Direction: score dominance + 10pt band</span>
+    <span style="color:var(--confirmed-color)">● STRONG LONG ≥+70</span>
+    <span style="color:var(--setup-color)">● LONG BIAS +40–69</span>
+    <span style="color:var(--notrade-color)">● NEUTRAL -39/+39</span>
+    <span style="color:var(--bear)">● SHORT BIAS -40–69</span>
+    <span style="color:var(--invalid-color)">● STRONG SHORT ≤-70</span>
+    <span style="margin-left:auto;">Graduated -100/+100 · OBV CVD proxy · Candle-close only</span>
   </div>
   <div class="section-label">Funding Rate · OKX / Binance Reference</div>
   <div class="funding-grid" id="funding-grid"><div class="loading" style="grid-column:1/-1">LOADING...</div></div>
@@ -90,7 +91,7 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
     <span style="color:var(--accent)">● SHORTS CROWDED &lt;-0.01%</span>
     <span style="margin-left:auto;">Fetched server-side · Updated on 1H candle close</span>
   </div>
-  <div class="section-label">Multi-Timeframe Alignment · 1D×40% · 4H×35% · 1H×25%</div>
+  <div class="section-label">Multi-Timeframe Alignment · 4H×45% · 1H×40% · 30M×10% · 15M×5%  [MOMENTUM]</div>
   <div class="mtf-grid" id="mtf-grid"><div class="loading" style="grid-column:1/-1">LOADING...</div></div>
   <div class="section-label">Execution Model · OTE Zone · Position Sizing</div>
   <div class="exec-grid" id="exec-grid"><div class="loading" style="grid-column:1/-1">LOADING...</div></div>
@@ -139,10 +140,10 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
 const OWNER='BDKB33',REPO='tv-data',BRANCH='main';
 const SYMBOLS=['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS=['BTC','ETH','SOL','XRP','ADA','SUI'];
-const TIMEFRAMES=['1H','2H','4H','8H','1D'];
+const TIMEFRAMES=['15M','30M','1H','4H'];
 let mkt={},activeMode='MOMENTUM';
 let taToken='ETH',taDir='AUTO',taResult=null,taEditId=null;
-const TFW={MOMENTUM:{'1H':0.25,'4H':0.35,'1D':0.40},SWING:{'1H':0.40,'4H':0.60,'1D':0.00},SCALP:{'1H':0.80,'4H':0.20,'1D':0.00}};
+const TFW={MOMENTUM:{'15M':0.05,'30M':0.10,'1H':0.40,'4H':0.45},SWING:{'15M':0.00,'30M':0.10,'1H':0.40,'4H':0.50},SCALP:{'15M':0.35,'30M':0.30,'1H':0.25,'4H':0.10}};
 
 async function fetchFile(sym,tf){try{const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);if(!r.ok)return null;const d=await r.json();return(d&&Object.keys(d).length>2)?d:null;}catch{return null;}}
 
@@ -179,26 +180,30 @@ function legacyRSI(d){if(!d||d.rsi==null)return 0;if(d.rsi>70)return -0.5;if(d.r
 function legacyMACD(d){if(!d||d.macdLine==null||d.macdHist==null)return 0;return((d.macdLine>0?1:-1)+(d.macdHist>0?1:-1))/2;}
 
 function getMTFScore(sym){
-  const b1=getBDKB(sym,'1H'),b4=getBDKB(sym,'4H'),bD=getBDKB(sym,'1D');
-  if(!b1&&!b4&&!bD)return{score:0,quality:'NO_DATA',direction:'NEUTRAL',trendBias:0,scores:{'1H':0,'4H':0,'1D':0},directions:{'1H':'NEUTRAL','4H':'NEUTRAL','1D':'NEUTRAL'},tradeReady:false};
+  const b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M'),b1=getBDKB(sym,'1H'),b4=getBDKB(sym,'4H');
+  if(!b15&&!b30&&!b1&&!b4)return{score:0,quality:'NO_DATA',direction:'NEUTRAL',trendBias:0,scores:{'15M':0,'30M':0,'1H':0,'4H':0},directions:{'15M':'NEUTRAL','30M':'NEUTRAL','1H':'NEUTRAL','4H':'NEUTRAL'},tradeReady:false};
   const w=TFW[activeMode];let n=0,d=0;
+  if(b15&&w['15M']>0){n+=b15.score*w['15M'];d+=w['15M'];}
+  if(b30&&w['30M']>0){n+=b30.score*w['30M'];d+=w['30M'];}
   if(b1&&w['1H']>0){n+=b1.score*w['1H'];d+=w['1H'];}
   if(b4&&w['4H']>0){n+=b4.score*w['4H'];d+=w['4H'];}
-  if(bD&&w['1D']>0){n+=bD.score*w['1D'];d+=w['1D'];}
   const score=d>0?Math.round(n/d):0;
-  const d1=b1?.direction||'NEUTRAL',d4=b4?.direction||'NEUTRAL',dD=bD?.direction||'NEUTRAL';
-  const full=d1===d4&&d4===dD&&d1!=='NEUTRAL',part=d4===dD&&d4!=='NEUTRAL'&&(d1==='NEUTRAL'||d1===d4),mis=d1!=='NEUTRAL'&&d4!=='NEUTRAL'&&d1!==d4;
+  const d15=b15?.direction||'NEUTRAL',d30=b30?.direction||'NEUTRAL',d1=b1?.direction||'NEUTRAL',d4=b4?.direction||'NEUTRAL';
+  const full=d1===d4&&d1!=='NEUTRAL'&&(d15===d1||d15==='NEUTRAL')&&(d30===d1||d30==='NEUTRAL');
+  const part=d1===d4&&d1!=='NEUTRAL';
+  const mis=d1!=='NEUTRAL'&&d4!=='NEUTRAL'&&d1!==d4;
   const quality=full?'FULL':part?'PARTIAL':mis?'MISMATCH':'WEAK';
-  const direction=dD!=='NEUTRAL'?dD:d4!=='NEUTRAL'?d4:d1;
-  const tb1=mkt[sym]?.['1H']?.trendBias||0,tb4=mkt[sym]?.['4H']?.trendBias||0,tbD=mkt[sym]?.['1D']?.trendBias||0;
-  const trendBias=(tb1*0.25)+(tb4*0.35)+(tbD*0.40);
-  const tr=score>=75&&(quality==='FULL'||quality==='PARTIAL')&&getBDKB(sym,'1H')?.state==='CONFIRMED'&&getBDKB(sym,'1H')?.liquidityEvent===1&&!mis;
-  return{score,quality,direction,trendBias,tradeReady:tr,scores:{'1H':b1?.score||0,'4H':b4?.score||0,'1D':bD?.score||0},directions:{'1H':d1,'4H':d4,'1D':dD}};
+  const direction=d4!=='NEUTRAL'?d4:d1!=='NEUTRAL'?d1:d30!=='NEUTRAL'?d30:d15;
+  const tb15=mkt[sym]?.['15M']?.trendBias||0,tb30=mkt[sym]?.['30M']?.trendBias||0,tb1=mkt[sym]?.['1H']?.trendBias||0,tb4=mkt[sym]?.['4H']?.trendBias||0;
+  const trendBias=(tb15*0.05)+(tb30*0.10)+(tb1*0.40)+(tb4*0.45);
+  const b1bdkb=getBDKB(sym,'1H'),b30bdkb=getBDKB(sym,'30M');
+  const tr=score>=70&&(quality==='FULL'||quality==='PARTIAL')&&(b1bdkb?.state==='STRONG_LONG'||b1bdkb?.state==='STRONG_SHORT')&&(b30bdkb?.tradeReady30M===1)&&!mis;
+  return{score,quality,direction,trendBias,tradeReady:tr,scores:{'15M':b15?.score||0,'30M':b30?.score||0,'1H':b1?.score||0,'4H':b4?.score||0},directions:{'15M':d15,'30M':d30,'1H':d1,'4H':d4}};
 }
-function getModeScore(sym){const w=TFW[activeMode],b1=getBDKB(sym,'1H'),b4=getBDKB(sym,'4H'),bD=getBDKB(sym,'1D');let n=0,d=0;if(b1&&w['1H']>0){n+=b1.score*w['1H'];d+=w['1H'];}if(b4&&w['4H']>0){n+=b4.score*w['4H'];d+=w['4H'];}if(bD&&w['1D']>0){n+=bD.score*w['1D'];d+=w['1D'];}return d>0?Math.round(n/d):0;}
+function getModeScore(sym){const w=TFW[activeMode],b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M'),b1=getBDKB(sym,'1H'),b4=getBDKB(sym,'4H');let n=0,d=0;if(b15&&w['15M']>0){n+=b15.score*w['15M'];d+=w['15M'];}if(b30&&w['30M']>0){n+=b30.score*w['30M'];d+=w['30M'];}if(b1&&w['1H']>0){n+=b1.score*w['1H'];d+=w['1H'];}if(b4&&w['4H']>0){n+=b4.score*w['4H'];d+=w['4H'];}return d>0?Math.round(n/d):0;}
 
-function stateColor(s){return s==='CONFIRMED'?'var(--confirmed-color)':s==='SETUP'?'var(--setup-color)':s==='WATCHLIST'?'var(--watchlist-color)':s==='INVALIDATED'?'var(--invalid-color)':'var(--notrade-color)';}
-function scoreColor(s){return s>=80?'var(--confirmed-color)':s>=65?'var(--setup-color)':s>=50?'var(--watchlist-color)':'var(--notrade-color)';}
+function stateColor(s){return s==='STRONG_LONG'?'var(--confirmed-color)':s==='LONG_BIAS'?'var(--setup-color)':s==='STRONG_SHORT'?'var(--invalid-color)':s==='SHORT_BIAS'?'var(--bear)':s==='INVALIDATED'?'var(--invalid-color)':s==='CONFIRMED'?'var(--confirmed-color)':s==='SETUP'?'var(--setup-color)':s==='WATCHLIST'?'var(--watchlist-color)':'var(--notrade-color)';}
+function scoreColor(s){return s>=70?'var(--confirmed-color)':s>=40?'var(--setup-color)':s<=-70?'var(--invalid-color)':s<=-40?'var(--bear)':'var(--notrade-color)';}
 function dirColor(d){return d==='LONG'?'var(--bull)':d==='SHORT'?'var(--bear)':'var(--text3)';}
 function dirArrow(d){return d==='LONG'?'▲':d==='SHORT'?'▼':'—';}
 function qualityColor(q){return q==='FULL'?'var(--bull)':q==='PARTIAL'?'var(--gold)':q==='MISMATCH'?'var(--bear)':'var(--text3)';}
@@ -251,7 +256,7 @@ function setTADir(dir){taDir=dir;document.querySelectorAll('.ta-dir-btn').forEac
 function buildAnalysisPrompt(token,direction){
   const sm={BTC:'BTCUSDT',ETH:'ETHUSDT',SOL:'SOLUSDT',XRP:'XRPUSDT',ADA:'ADAUSDT',SUI:'SUIUSDT'};
   const sym=sm[token],mtf=getMTFScore(sym),ote=getOTEZone(sym),d1=mkt[sym]?.['1H'],fund=d1?.funding;
-  const tfs=['1H','2H','4H','8H','1D'];
+  const tfs=['15M','30M','1H','4H'];
   const blocks=tfs.map(tf=>{
     const d=mkt[sym]?.[tf];if(!d)return`[${tf}]: No data`;
     const b=getBDKB(sym,tf);
@@ -375,22 +380,27 @@ function renderCommandStrip(){
   sorted.forEach(({sym,mtf,b1,d1})=>{
     const label=LABELS[SYMBOLS.indexOf(sym)],price=d1?fmtP(d1.close):'—',st=b1?.state||'NO_TRADE',sc=stateColor(st),fund=d1?.funding;
     const fr=fund?.fundingRate!=null?pctFmt(fund.fundingRate):'—',fz=fund?.fundingZone||'UNKNOWN',fzc=fundZoneColor(fz);
-    const b4=getBDKB(sym,'4H'),bD=getBDKB(sym,'1D');
-    html+=`<div class="cs-cell"><div class="cs-top-bar" style="background:${sc}"></div>${mtf.tradeReady?'<div class="cs-trade-ready">TRADE READY</div>':''}<div class="cs-sym">${label}</div><div class="cs-price">${price}</div><div class="cs-state-row"><span class="cs-state badge-${st}" style="color:${sc};border-color:${sc}40">${st.replace('_',' ')}</span><span class="cs-dir" style="color:${dirColor(mtf.direction)}">${dirArrow(mtf.direction)} ${mtf.direction}</span></div><div class="cs-scores"><div class="cs-tf-score"><span class="cs-tf-label">1H</span><span class="cs-tf-val" style="color:${scoreColor(b1?.score||0)}">${fmt(b1?.score||0)}</span></div><div class="cs-tf-score"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div><div class="cs-tf-score"><span class="cs-tf-label">1D</span><span class="cs-tf-val" style="color:${scoreColor(bD?.score||0)}">${fmt(bD?.score||0)}</span></div><div class="cs-tf-score" style="background:var(--bg3)"><span class="cs-tf-label">MTF</span><span class="cs-tf-val" style="color:${scoreColor(mtf.score)}">${fmt(mtf.score)}</span></div></div><div class="cs-funding"><span class="cs-fund-rate">${fr}</span><span class="cs-fund-zone zone-${fz}" style="color:${fzc};border-color:${fzc}40">${fz.replace('_',' ')}</span></div></div>`;
+    const b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M'),b4=getBDKB(sym,'4H');
+    html+=`<div class="cs-cell"><div class="cs-top-bar" style="background:${sc}"></div>${mtf.tradeReady?'<div class="cs-trade-ready">TRADE READY</div>':''}<div class="cs-sym">${label}</div><div class="cs-price">${price}</div><div class="cs-state-row"><span class="cs-state badge-${st}" style="color:${sc};border-color:${sc}40">${st.replace(/_/g,' ')}</span><span class="cs-dir" style="color:${dirColor(mtf.direction)}">${dirArrow(mtf.direction)} ${mtf.direction}</span></div><div class="cs-scores"><div class="cs-tf-score"><span class="cs-tf-label">15M</span><span class="cs-tf-val" style="color:${scoreColor(b15?.score||0)}">${fmt(b15?.score||0)}</span></div><div class="cs-tf-score"><span class="cs-tf-label">30M</span><span class="cs-tf-val" style="color:${scoreColor(b30?.score||0)}">${fmt(b30?.score||0)}</span></div><div class="cs-tf-score"><span class="cs-tf-label">1H</span><span class="cs-tf-val" style="color:${scoreColor(b1?.score||0)}">${fmt(b1?.score||0)}</span></div><div class="cs-tf-score"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div><div class="cs-tf-score" style="background:var(--bg3)"><span class="cs-tf-label">MTF</span><span class="cs-tf-val" style="color:${scoreColor(mtf.score)}">${fmt(mtf.score)}</span></div></div><div class="cs-funding"><span class="cs-fund-rate">${fr}</span><span class="cs-fund-zone zone-${fz}" style="color:${fzc};border-color:${fzc}40">${fz.replace('_',' ')}</span></div></div>`;
   });
   document.getElementById('command-strip').innerHTML=html;
 }
 
 function renderBDKBGrid(){
-  const sorted=[...SYMBOLS].map(sym=>({sym,b1:getBDKB(sym,'1H'),b4:getBDKB(sym,'4H'),bD:getBDKB(sym,'1D'),ms:getModeScore(sym)})).sort((a,b)=>b.ms-a.ms);
-  const c1H=[{key:'structure',label:'STRUCT',wt:'25%'},{key:'ema',label:'EMA',wt:'20%'},{key:'vwap',label:'VWAP',wt:'15%'},{key:'volume',label:'VOL',wt:'15%'},{key:'rsi',label:'RSI',wt:'10%'},{key:'liquidity',label:'LIQ',wt:'15%'}];
-  const c4H=[{key:'structure',label:'STRUCT',wt:'25%'},{key:'ema',label:'EMA',wt:'25%'},{key:'volume',label:'VOL',wt:'15%'},{key:'ppp',label:'PPP',wt:'15%'},{key:'rsi',label:'RSI',wt:'10%'},{key:'macd',label:'MACD',wt:'10%'}];
-  const c1D=[{key:'structure',label:'STRUCT',wt:'30%'},{key:'ema',label:'EMA',wt:'25%'},{key:'volume',label:'VOL',wt:'15%'},{key:'ppp',label:'PPP',wt:'10%'},{key:'rsi',label:'RSI',wt:'10%'},{key:'macd',label:'MACD',wt:'10%'}];
+  const sorted=[...SYMBOLS].map(sym=>({sym,b1:getBDKB(sym,'1H'),b4:getBDKB(sym,'4H'),ms:getModeScore(sym)})).sort((a,b)=>b.ms-a.ms);
+  const c15M=[{key:'structure',label:'STRUCT',wt:'20%'},{key:'ema',label:'EMA',wt:'15%'},{key:'cvd',label:'CVD',wt:'30%'},{key:'funding',label:'FUND',wt:'5%'},{key:'oi',label:'OI',wt:'15%'},{key:'delta',label:'DELTA',wt:'15%'}];
+  const c30M=[{key:'structure',label:'STRUCT',wt:'25%'},{key:'ema',label:'EMA',wt:'15%'},{key:'cvd',label:'CVD',wt:'30%'},{key:'funding',label:'FUND',wt:'5%'},{key:'oi',label:'OI',wt:'15%'},{key:'delta',label:'DELTA',wt:'10%'}];
+  const c1H=[{key:'structure',label:'STRUCT',wt:'30%'},{key:'ema',label:'EMA',wt:'20%'},{key:'cvd',label:'CVD',wt:'25%'},{key:'funding',label:'FUND',wt:'10%'},{key:'oi',label:'OI',wt:'10%'},{key:'delta',label:'DELTA',wt:'5%'}];
+  const c4H=[{key:'structure',label:'STRUCT',wt:'40%'},{key:'ema',label:'EMA',wt:'25%'},{key:'cvd',label:'CVD',wt:'20%'},{key:'funding',label:'FUND',wt:'5%'},{key:'oi',label:'OI',wt:'10%'}];
+  const c1D=c4H;
   const w=TFW[activeMode];let html='';
   sorted.forEach(({sym,b1,b4,bD,ms},rank)=>{
     const label=LABELS[SYMBOLS.indexOf(sym)],d1=mkt[sym]?.['1H'],price=d1?fmtP(d1.close):'—';
-    const pt=w['1H']>=w['4H']&&w['1H']>=(w['1D']||0)?'1H':w['4H']>=(w['1D']||0)?'4H':'1D';
-    const bdkb=pt==='1H'?b1:pt==='4H'?b4:bD,pc=pt==='1H'?c1H:pt==='4H'?c4H:c1D;
+    const b15x=getBDKB(sym,'15M'),b30x=getBDKB(sym,'30M');
+    const wts=[['15M',w['15M']||0],['30M',w['30M']||0],['1H',w['1H']||0],['4H',w['4H']||0]];
+    const pt=wts.reduce((a,b)=>b[1]>a[1]?b:a,['1H',0])[0];
+    const bdkb=pt==='15M'?b15x:pt==='30M'?b30x:pt==='1H'?b1:b4;
+    const pc=pt==='15M'?c15M:pt==='30M'?c30M:pt==='1H'?c1H:c4H;
     if(!bdkb){html+=`<div class="bdkb-card"><span class="bdkb-rank">#${rank+1}</span><div class="bdkb-sym">${label}</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:12px;">Awaiting data...</div></div>`;return;}
     const sc=stateColor(bdkb.state),comps=bdkb.components||{};
     const rows=pc.map(c=>{const v=comps[c.key]||0,a=v>0,col=a?'var(--bull)':'var(--text3)';return`<div class="comp-row"><span class="comp-label">${c.label}</span><div class="comp-bar-track"><div class="comp-bar-fill" style="width:${a?100:0}%;background:${col}"></div></div><span class="comp-val" style="color:${col}">${a?'1':'0'}</span><span class="comp-wt">${c.wt}</span></div>`;}).join('');
@@ -421,7 +431,7 @@ function renderMTFAlignment(){
   let html='';
   sorted.forEach(({sym,mtf})=>{
     const label=LABELS[SYMBOLS.indexOf(sym)],sc=scoreColor(mtf.score),qc=qualityColor(mtf.quality);
-    const tfRows=['1H','4H','1D'].map(tf=>{
+    const tfRows=['15M','30M','1H','4H'].map(tf=>{
       const s=mtf.scores[tf]||0,d=mtf.directions[tf]||'NEUTRAL',w=TFW[activeMode][tf]||0,pct=Math.min(100,s);
       const wl=w>0?` ·${Math.round(w*100)}%`:'';
       return`<div class="mtf-tf-row"><span class="mtf-tf-label">${tf}</span><div class="mtf-tf-bar-track"><div class="mtf-tf-bar-fill" style="width:${pct}%;background:${scoreColor(s)}"></div></div><span class="mtf-tf-score" style="color:${scoreColor(s)}">${fmt(s)}</span><span class="mtf-tf-dir" style="color:${dirColor(d)}">${dirArrow(d)} ${d.substring(0,3)}${wl}</span></div>`;
@@ -453,8 +463,8 @@ function renderActionLayout(){
     if(!d){sigHtml+=`<div class="signal-card"><div class="sig-top"><div><div style="font-family:var(--hero);font-size:18px;letter-spacing:2px;">${LABELS[i]}</div></div></div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:8px;">Awaiting data</div></div>`;return;}
     const state=bdkb?.state||'NO_TRADE',dir=bdkb?.direction||'NEUTRAL',score=bdkb?.score||0,sc=stateColor(state);
     const ts=d._received?d._received.substring(11,16)+' UTC':'—';
-    const rsiC=d.rsi>70?'bear':d.rsi<30?'bull':'neut',stC=d.stochK>80?'bear':d.stochK<20?'bull':'neut',maC=d.macdHist>0?'bull':'bear',vwC=d.vwap&&d.close?(d.close>d.vwap?'bull':'bear'):'neut',bW=Math.min(100,score);
-    sigHtml+=`<div class="signal-card"><div class="sig-top"><div><div class="sig-sym">${LABELS[i]}</div><div class="sig-tf">${ts}</div></div><div style="text-align:right"><span class="bdkb-state-badge badge-${state}" style="display:block;margin-bottom:4px;">${state.replace('_',' ')}</span><span style="font-family:var(--mono);font-size:9px;font-weight:700;color:${dirColor(dir)}">${dirArrow(dir)} ${dir}</span></div></div><div class="sig-price">${fmtP(d.close)}</div><div class="sig-divider"></div><div class="sig-ind-label">TIER 1 · CORE</div><div class="sig-ind-grid"><div class="sig-ind-row"><span class="sig-ind-lbl">STRUCTURE</span><span class="sig-ind-val ${(bdkb?.components?.structure||0)?'bull':'bear'}">${(bdkb?.components?.structure||0)?'BULL':'BEAR'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">EMA ALIGN</span><span class="sig-ind-val ${(bdkb?.components?.ema||0)?'bull':'bear'}">${(bdkb?.components?.ema||0)?'ABOVE':'BELOW'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">VWAP</span><span class="sig-ind-val ${vwC}">${d.vwap?d.close>d.vwap?'ABOVE':'BELOW':'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">VOLUME</span><span class="sig-ind-val ${(bdkb?.components?.volume||0)?'bull':'bear'}">${(bdkb?.components?.volume||0)?'CONFIRM':'WEAK'}</span></div></div><div class="sig-ind-label" style="margin-top:5px;">TIER 2 · MOMENTUM</div><div class="sig-ind-grid"><div class="sig-ind-row"><span class="sig-ind-lbl">RSI</span><span class="sig-ind-val ${rsiC}">${d.rsi!=null?d.rsi.toFixed(1):'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">STOCH K</span><span class="sig-ind-val ${stC}">${d.stochK!=null?d.stochK.toFixed(1):'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">MACD HIST</span><span class="sig-ind-val ${maC}">${d.macdHist!=null?d.macdHist.toFixed(5):'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">ATR</span><span class="sig-ind-val neut">${fmtP(d.atr)}</span></div></div><div class="sig-score-row"><span class="sig-score-lbl">1H SCORE</span><span class="sig-score-num" style="color:${sc}">${fmt(score)}</span></div><div class="sig-meter"><div class="sig-meter-fill" style="width:${bW}%;background:${sc}"></div><div class="sig-meter-thresh" style="left:65%"></div><div class="sig-meter-thresh" style="left:80%"></div></div></div>`;
+    const rsiC=d.rsi>70?'bear':d.rsi<30?'bull':'neut',stC=d.stochK>80?'bear':d.stochK<20?'bull':'neut',maC=d.macdHist>0?'bull':'bear',vwC=d.vwap&&d.close?(d.close>d.vwap?'bull':'bear'):'neut',bW=Math.min(100,Math.abs(score)),scorePos=score>=0;
+    sigHtml+=`<div class="signal-card"><div class="sig-top"><div><div class="sig-sym">${LABELS[i]}</div><div class="sig-tf">${ts}</div></div><div style="text-align:right"><span class="bdkb-state-badge badge-${state}" style="display:block;margin-bottom:4px;">${state.replace('_',' ')}</span><span style="font-family:var(--mono);font-size:9px;font-weight:700;color:${dirColor(dir)}">${dirArrow(dir)} ${dir}</span></div></div><div class="sig-price">${fmtP(d.close)}</div><div class="sig-divider"></div><div class="sig-ind-label">TIER 1 · CORE</div><div class="sig-ind-grid"><div class="sig-ind-row"><span class="sig-ind-lbl">STRUCTURE</span><span class="sig-ind-val ${(bdkb?.components?.structure||0)?'bull':'bear'}">${(bdkb?.components?.structure||0)?'BULL':'BEAR'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">EMA ALIGN</span><span class="sig-ind-val ${(bdkb?.components?.ema||0)?'bull':'bear'}">${(bdkb?.components?.ema||0)?'ABOVE':'BELOW'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">VWAP</span><span class="sig-ind-val ${vwC}">${d.vwap?d.close>d.vwap?'ABOVE':'BELOW':'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">VOLUME</span><span class="sig-ind-val ${(bdkb?.components?.volume||0)?'bull':'bear'}">${(bdkb?.components?.volume||0)?'CONFIRM':'WEAK'}</span></div></div><div class="sig-ind-label" style="margin-top:5px;">TIER 2 · MOMENTUM</div><div class="sig-ind-grid"><div class="sig-ind-row"><span class="sig-ind-lbl">RSI</span><span class="sig-ind-val ${rsiC}">${d.rsi!=null?d.rsi.toFixed(1):'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">STOCH K</span><span class="sig-ind-val ${stC}">${d.stochK!=null?d.stochK.toFixed(1):'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">MACD HIST</span><span class="sig-ind-val ${maC}">${d.macdHist!=null?d.macdHist.toFixed(5):'—'}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">ATR</span><span class="sig-ind-val neut">${fmtP(d.atr)}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">HIGH</span><span class="sig-ind-val bull">${fmtP(d.high)}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">LOW</span><span class="sig-ind-val bear">${fmtP(d.low)}</span></div><div class="sig-ind-row"><span class="sig-ind-lbl">RANGE</span><span class="sig-ind-val neut">${d.wickRange!=null?fmtP(d.wickRange):(d.high&&d.low?fmtP(d.high-d.low):"—")}</span></div></div><div class="sig-score-row"><span class="sig-score-lbl">1H SCORE</span><span class="sig-score-num" style="color:${sc}">${score>=0?'+':''}${score}</span></div><div class="sig-meter" style="position:relative"><div class="sig-meter-fill" style="width:${bW}%;background:${sc};${scorePos?'margin-left:50%':'margin-left:'+(50-bW/2)+'%'}"></div><div class="sig-meter-thresh" style="left:50%"></div></div></div>`;
   });
   document.getElementById('action-layout').innerHTML=`<div class="signal-grid">${sigHtml}</div><div class="ta-panel" id="ta-panel">${buildTAPanelHTML()}</div>`;
 }
