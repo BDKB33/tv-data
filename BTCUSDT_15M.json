@@ -1,1 +1,1 @@
-liqType = liqA_Long or liqA_Short ? "equal_hl_sweep" : liqB_Long or liqB_Short ? "swing_break_reclaim" : liqC_Long or liqC_Short ? "wick_reclaim" : "none"
+{"symbol":"PLACEHOLDER","timeframe":"15M","_sample":true}
