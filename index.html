@@ -403,6 +403,14 @@ function renderCommandStrip(){
       return`<div class="cs-comp-row"><span class="cs-comp-lbl">${c.label}</span><div class="cs-comp-track"><div class="cs-comp-fill" style="width:${active?100:15}%;background:${col}"></div></div><span class="cs-comp-wt">${c.wt}</span><span class="cs-comp-sig" style="color:${col}">${active?'1':'○'}</span></div>`;
     }).join('');
 
+    // 1H x3 weighted swing score (20% prev2, 30% prev1, 50% current)
+    const s1hCurr = b1?.score||0;
+    const s1hPrev1 = d1?.bdkb?.bdkbScore1HPrev1??null;
+    const s1hPrev2 = d1?.bdkb?.bdkbScore1HPrev2??null;
+    const swing1Hx3 = (s1hPrev1!==null&&s1hPrev2!==null) ? Math.round((s1hPrev2*0.20)+(s1hPrev1*0.30)+(s1hCurr*0.50)) : null;
+    const swing1Hx3Str = swing1Hx3!==null ? fmt(swing1Hx3) : '—';
+    const swing1Hx3Color = swing1Hx3!==null ? scoreColor(swing1Hx3) : 'var(--text3)';
+
     // market data
     const vwapPos=d1?.vwap?d1.close>d1.vwap?'ABOVE':'BELOW':'—';
     const vwapC=d1?.vwap?(d1.close>d1.vwap?'var(--bull)':'var(--bear)'):'var(--text3)';
@@ -457,7 +465,7 @@ function renderCommandStrip(){
           </div>
           <div class="cs-tf-mode">SWING · 1H×3 / 4H</div>
           <div class="cs-tf-row">
-            <div class="cs-tf-cell wide"><span class="cs-tf-label">1H ×3</span><span class="cs-tf-val" style="color:var(--text3)">—</span></div>
+            <div class="cs-tf-cell wide"><span class="cs-tf-label">1H ×3</span><span class="cs-tf-val" style="color:${swing1Hx3Color}">${swing1Hx3Str}</span></div>
             <div class="cs-tf-cell"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div>
           </div>
           <div style="margin-top:5px;">
