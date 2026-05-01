@@ -357,7 +357,11 @@ function renderCommandStrip(){
     const scls=exec.sizeRec==='FULL SIZE'?'size-full':exec.sizeRec==='REDUCED'?'size-reduced':exec.sizeRec==='WAIT'?'size-wait':'size-standby';
     const compRows=compDefs.map(c=>{const v=comps[c.key]||0,active=v>0,col=active?'var(--bull)':'var(--text3)';return`<div class="cs-comp-row"><span class="cs-comp-lbl">${c.label}</span><div class="cs-comp-track"><div class="cs-comp-fill" style="width:${active?100:15}%;background:${col}"></div></div><span class="cs-comp-wt">${c.wt}</span><span class="cs-comp-sig" style="color:${col}">${active?'1':'o'}</span></div>`;}).join('');
     const s1hCurr=b1?.score||0;
-    const swing1Hx3Color=scoreColor(s1hCurr);
+    const s1hPrev1=b1?.bdkbScore1HPrev1??null;
+    const s1hPrev2=b1?.bdkbScore1HPrev2??null;
+    const swing1Hx3=s1hPrev1!==null&&s1hPrev2!==null?Math.round((s1hPrev2*0.20)+(s1hPrev1*0.30)+(s1hCurr*0.50)):null;
+    const swing1Hx3Str=swing1Hx3!==null?(swing1Hx3>0?'+':'')+swing1Hx3:'-';
+    const swing1Hx3Color=swing1Hx3!==null?scoreColor(swing1Hx3):'var(--text3)';
     const vwapPos=d1?.vwap?d1.close>d1.vwap?'ABOVE':'BELOW':'-';
     const vwapC=d1?.vwap?(d1.close>d1.vwap?'var(--bull)':'var(--bear)'):'var(--text3)';
     const volC=(comps.volume||0)?'var(--bull)':'var(--text2)';
@@ -378,8 +382,8 @@ function renderCommandStrip(){
         <div class="cs-col">
           <div class="cs-tf-mode">SCALP . 15M / 30M / 1H</div>
           <div class="cs-tf-row"><div class="cs-tf-cell"><span class="cs-tf-label">15M</span><span class="cs-tf-val" style="color:${scoreColor(b15?.score||0)}">${fmt(b15?.score||0)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">30M</span><span class="cs-tf-val" style="color:${scoreColor(b30?.score||0)}">${fmt(b30?.score||0)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">1H</span><span class="cs-tf-val" style="color:${scoreColor(b1?.score||0)}">${fmt(b1?.score||0)}</span></div></div>
-          <div class="cs-tf-mode">SWING . 1H / 4H</div>
-          <div class="cs-tf-row"><div class="cs-tf-cell wide"><span class="cs-tf-label">1H</span><span class="cs-tf-val" style="color:${swing1Hx3Color}">${fmt(s1hCurr)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div></div>
+          <div class="cs-tf-mode">SWING . 1Hx3 / 4H</div>
+          <div class="cs-tf-row"><div class="cs-tf-cell wide"><span class="cs-tf-label">1H x3</span><span class="cs-tf-val" style="color:${swing1Hx3Color}">${swing1Hx3Str}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div></div>
           <div style="margin-top:5px;"><div class="cs-row"><span class="cs-lbl">VWAP</span><span class="cs-val" style="color:${vwapC}">${vwapPos}</span></div><div class="cs-row"><span class="cs-lbl">VOLUME</span><span class="cs-val" style="color:${volC}">${(comps.volume||0)?'CONFIRM':'WEAK'}</span></div><div class="cs-row"><span class="cs-lbl">HIGH</span><span class="cs-val" style="color:var(--bull)">${fmtP(d1?.high)}</span></div><div class="cs-row"><span class="cs-lbl">LOW</span><span class="cs-val" style="color:var(--bear)">${fmtP(d1?.low)}</span></div><div class="cs-row"><span class="cs-lbl">RANGE</span><span class="cs-val">${d1?.high&&d1?.low?fmtP(d1.high-d1.low):'-'}</span></div></div></div></div>
       <div class="cs-exec">
         <div class="cs-exec-block"><div class="cs-exec-lbl">OTE ZONE</div>${oteBadge}${ote.pctFrom!==null&&ote.zone!=='IN_ZONE'?`<div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:2px;">${ote.pctFrom}% from zone</div>`:''}</div>
