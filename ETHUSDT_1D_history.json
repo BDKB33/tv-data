@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-05-03T00:00:05.790Z",
+    "symbol": "ETHUSDT",
+    "timeframe": "1D",
+    "open": 2295.63,
+    "high": 2343.6,
+    "low": 2292.91,
+    "close": 2316.97,
+    "volume": 85652.6066,
+    "vwap": 2317.8267,
+    "ema50": 2248.7918,
+    "ema100": 2345.3969,
+    "ema200": 2608.5833,
+    "rsi": 53.9902,
+    "macdLine": 23.8522,
+    "macdHist": -12.3259,
+    "atr": 86.8206,
+    "trendBias": 0,
+    "ewCount": -2,
+    "ewDirection": -1,
+    "bdkb": {
+      "score": 8,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 8,
+      "shortScore": 0,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  }
+]
