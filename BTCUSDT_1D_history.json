@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-05-03T00:00:06.948Z",
+    "symbol": "BTCUSDT",
+    "timeframe": "1D",
+    "open": 78231.13,
+    "high": 79199.48,
+    "low": 78040,
+    "close": 78686.85,
+    "volume": 6151.1388,
+    "vwap": 78642.11,
+    "ema50": 74037.6606,
+    "ema100": 75758.3526,
+    "ema200": 82174.9462,
+    "rsi": 62.2506,
+    "macdLine": 1593.1463,
+    "macdHist": -96.5484,
+    "atr": 2209.0571,
+    "trendBias": 0,
+    "ewCount": -1,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": 30,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 30,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 1,
+        "funding": -0.5,
+        "oi": 0
+      }
+    }
+  }
+]
