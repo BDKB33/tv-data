@@ -52,7 +52,7 @@
     "bdkbScore1HPrev2": 35,
     "mode": "confirmed"
   },
-  "_received": "2026-05-03T20:00:04.243Z",
+  "_received": "2026-05-03T20:00:04.362Z",
   "_sample": false,
   "funding": {
     "fundingRate": -0.0000036518079941,
@@ -64,6 +64,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-03T20:00:04.404Z"
+    "_fetched": "2026-05-03T20:00:04.535Z"
   }
 }
