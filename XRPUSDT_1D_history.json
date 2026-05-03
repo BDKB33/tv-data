@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-05-03T00:00:11.245Z",
+    "symbol": "XRPUSDT",
+    "timeframe": "1D",
+    "open": 1.3858,
+    "high": 1.4003,
+    "low": 1.3812,
+    "close": 1.3937,
+    "volume": 33060245.7,
+    "vwap": 1.3917,
+    "ema50": 1.4086,
+    "ema100": 1.5128,
+    "ema200": 1.7463,
+    "rsi": 49.6121,
+    "macdLine": 0.0008,
+    "macdHist": -0.0054,
+    "atr": 0.0433,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": -30,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 0,
+      "shortScore": 30,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": -1,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  }
+]
