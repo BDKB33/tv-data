@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-05-03T00:00:11.666Z",
+    "symbol": "SUIUSDT",
+    "timeframe": "1D",
+    "open": 0.919,
+    "high": 0.934,
+    "low": 0.9143,
+    "close": 0.9276,
+    "volume": 12604852.7,
+    "vwap": 0.9253,
+    "ema50": 0.9506,
+    "ema100": 1.0822,
+    "ema200": 1.4629,
+    "rsi": 48.7617,
+    "macdLine": -0.0034,
+    "macdHist": -0.0036,
+    "atr": 0.0391,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": -30,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 0,
+      "shortScore": 30,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": -1,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  }
+]
