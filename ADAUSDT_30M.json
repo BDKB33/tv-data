@@ -1,29 +1,29 @@
 {
   "symbol": "ADAUSDT",
   "timeframe": "30M",
-  "open": 0.2479,
-  "high": 0.2481,
-  "low": 0.2475,
-  "close": 0.2478,
-  "volume": 841501,
-  "wickRange": 0.0006,
+  "open": 0.2478,
+  "high": 0.2483,
+  "low": 0.2478,
+  "close": 0.2481,
+  "volume": 1338324.2,
+  "wickRange": 0.0005,
   "vwap": 0.2487,
-  "ema20": 0.2494,
-  "ema50": 0.2493,
+  "ema20": 0.2492,
+  "ema50": 0.2492,
   "ema200": 0.2484,
-  "rsi": 34.7468,
-  "stochK": 6.4158,
-  "stochD": 3.2079,
+  "rsi": 38.213,
+  "stochK": 12.9761,
+  "stochD": 7.5333,
   "macdLine": -0.0004,
   "macdHist": -0.0004,
-  "atr": 0.0009,
-  "bbWidth": 1.9461,
-  "volSMA20": 1296338.47,
+  "atr": 0.0008,
+  "bbWidth": 2.0532,
+  "volSMA20": 1326544.145,
   "trendBias": 0,
   "bdkb": {
-    "score": -8,
+    "score": -3,
     "longScore": 0,
-    "shortScore": 8,
+    "shortScore": 3,
     "state": "NEUTRAL",
     "direction": "NEUTRAL",
     "components": {
@@ -32,7 +32,7 @@
       "cvd": 0,
       "funding": 0.5,
       "oi": 0,
-      "delta": 0
+      "delta": 0.5
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -45,7 +45,7 @@
   },
   "sma50": null,
   "sma200": null,
-  "_received": "2026-05-03T03:30:20.330Z",
+  "_received": "2026-05-03T04:00:04.040Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -57,6 +57,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-03T03:30:20.485Z"
+    "_fetched": "2026-05-03T04:00:04.203Z"
   }
 }
