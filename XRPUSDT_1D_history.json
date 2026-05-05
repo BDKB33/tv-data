@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-05-05T00:00:15.830Z",
+    "symbol": "XRPUSDT",
+    "timeframe": "1D",
+    "open": 1.3879,
+    "high": 1.4209,
+    "low": 1.3829,
+    "close": 1.3918,
+    "volume": 83775139.2,
+    "vwap": 1.3985,
+    "ema50": 1.4072,
+    "ema100": 1.508,
+    "ema200": 1.7392,
+    "rsi": 49.2969,
+    "macdLine": -0.0002,
+    "macdHist": -0.0042,
+    "atr": 0.0416,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": -30,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 0,
+      "shortScore": 30,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": -1,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-04T00:00:08.476Z",
     "symbol": "XRPUSDT",
     "timeframe": "1D",
