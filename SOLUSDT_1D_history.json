@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-05-06T00:00:12.592Z",
+    "symbol": "SOLUSDT",
+    "timeframe": "1D",
+    "open": 84.11,
+    "high": 86.98,
+    "low": 84.04,
+    "close": 86.29,
+    "volume": 2483951.764,
+    "vwap": 85.77,
+    "ema50": 86.1587,
+    "ema100": 94.0993,
+    "ema200": 112.7878,
+    "rsi": 54.2874,
+    "macdLine": -0.1702,
+    "macdHist": -0.005,
+    "atr": 2.9711,
+    "trendBias": 0,
+    "ewCount": 2,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": 18,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 18,
+      "shortScore": 0,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 1,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-05T00:00:08.802Z",
     "symbol": "SOLUSDT",
     "timeframe": "1D",
