@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-05-06T00:00:19.806Z",
+    "symbol": "ADAUSDT",
+    "timeframe": "1D",
+    "open": 0.25,
+    "high": 0.2657,
+    "low": 0.2497,
+    "close": 0.262,
+    "volume": 156166824.6,
+    "vwap": 0.2591,
+    "ema50": 0.2558,
+    "ema100": 0.2859,
+    "ema200": 0.3699,
+    "rsi": 60.5727,
+    "macdLine": 0.0003,
+    "macdHist": 0.0013,
+    "atr": 0.0098,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": 15,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 15,
+      "shortScore": 0,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 1,
+        "funding": -0.5,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-05T00:00:20.612Z",
     "symbol": "ADAUSDT",
     "timeframe": "1D",
