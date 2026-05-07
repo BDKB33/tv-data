@@ -45,11 +45,11 @@
   },
   "sma50": null,
   "sma200": null,
-  "_received": "2026-05-07T02:30:06.361Z",
+  "_received": "2026-05-07T02:30:07.068Z",
   "_sample": false,
   "funding": {
-    "fundingRate": 0.0000357986037634,
-    "fundingRatePct": "0.0036%",
+    "fundingRate": 0.0000369831617185,
+    "fundingRatePct": "0.0037%",
     "fundingZone": "ELEVATED",
     "fundingSource": "OKX",
     "nextFundingTime": "1778169600000",
@@ -57,6 +57,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-07T02:30:06.542Z"
+    "_fetched": "2026-05-07T02:30:07.219Z"
   }
 }
