@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-05-08T00:00:10.480Z",
+    "symbol": "BTCUSDT",
+    "timeframe": "1D",
+    "open": 81447.01,
+    "high": 81708.32,
+    "low": 79500,
+    "close": 80006,
+    "volume": 16154.823,
+    "vwap": 80404.7733,
+    "ema50": 75153.4473,
+    "ema100": 76178.6868,
+    "ema200": 82076.9916,
+    "rsi": 62.0299,
+    "macdLine": 1915.8888,
+    "macdHist": 128.8517,
+    "atr": 2165.0783,
+    "trendBias": 0,
+    "ewCount": -1,
+    "ewDirection": 1,
+    "bdkb": {
+      "score": 30,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 30,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 0,
+        "funding": -0.5,
+        "oi": 1
+      }
+    }
+  },
+  {
     "date": "2026-05-07T00:00:10.399Z",
     "symbol": "BTCUSDT",
     "timeframe": "1D",
@@ -174,42 +210,6 @@
         "ew": 0,
         "ema": 0.25,
         "cvd": 0,
-        "funding": -0.5,
-        "oi": 0
-      }
-    }
-  },
-  {
-    "date": "2026-05-03T00:00:06.948Z",
-    "symbol": "BTCUSDT",
-    "timeframe": "1D",
-    "open": 78231.13,
-    "high": 79199.48,
-    "low": 78040,
-    "close": 78686.85,
-    "volume": 6151.1388,
-    "vwap": 78642.11,
-    "ema50": 74037.6606,
-    "ema100": 75758.3526,
-    "ema200": 82174.9462,
-    "rsi": 62.2506,
-    "macdLine": 1593.1463,
-    "macdHist": -96.5484,
-    "atr": 2209.0571,
-    "trendBias": 0,
-    "ewCount": -1,
-    "ewDirection": 1,
-    "bdkb": {
-      "score": 30,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 30,
-      "shortScore": 0,
-      "components": {
-        "structure": 0.5,
-        "ew": 0,
-        "ema": 0.25,
-        "cvd": 1,
         "funding": -0.5,
         "oi": 0
       }
