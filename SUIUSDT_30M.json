@@ -45,7 +45,7 @@
   },
   "sma50": null,
   "sma200": null,
-  "_received": "2026-05-08T09:00:11.887Z",
+  "_received": "2026-05-08T09:00:11.405Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0000343184803845,
@@ -57,6 +57,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-08T09:00:12.043Z"
+    "_fetched": "2026-05-08T09:00:11.560Z"
   }
 }
