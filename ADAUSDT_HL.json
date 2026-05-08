@@ -1,8 +1,8 @@
 {
   "symbol": "ADAUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 0.2676,
-  "highHour": 10,
+  "dailyHigh": 0.2698,
+  "highHour": 12,
   "highMinute": null,
   "highSession": "NYSE",
   "dailyLow": 0.2601,
@@ -10,9 +10,9 @@
   "lowMinute": null,
   "lowSession": "ASIA",
   "highBeforeLow": true,
-  "highToLowBars": 11,
-  "dailyRange": 0.0075,
-  "currentPos": 96,
-  "close": 0.2673,
-  "_received": "2026-05-08T15:00:18.961Z"
+  "highToLowBars": 13,
+  "dailyRange": 0.0097,
+  "currentPos": 92.78,
+  "close": 0.2691,
+  "_received": "2026-05-08T17:00:08.730Z"
 }
