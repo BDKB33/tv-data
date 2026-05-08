@@ -1,8 +1,8 @@
 {
   "symbol": "XRPUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 1.3925,
-  "highHour": 7,
+  "dailyHigh": 1.394,
+  "highHour": 8,
   "highMinute": null,
   "highSession": "LONDON",
   "dailyLow": 1.3778,
@@ -10,9 +10,9 @@
   "lowMinute": null,
   "lowSession": "LONDON_PRE",
   "highBeforeLow": true,
-  "highToLowBars": 5,
-  "dailyRange": 0.0147,
-  "currentPos": 91.84,
-  "close": 1.3913,
-  "_received": "2026-05-08T12:00:16.313Z"
+  "highToLowBars": 6,
+  "dailyRange": 0.0162,
+  "currentPos": 61.73,
+  "close": 1.3878,
+  "_received": "2026-05-08T13:00:14.535Z"
 }
