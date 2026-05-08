@@ -1,1 +1,18 @@
-{}
+{
+  "symbol": "SUIUSDT",
+  "type": "daily_hl_timing",
+  "dailyHigh": 0.9708,
+  "highHour": 20,
+  "highMinute": null,
+  "highSession": "ASIA",
+  "dailyLow": 0.9587,
+  "lowHour": 21,
+  "lowMinute": null,
+  "lowSession": "ASIA",
+  "highBeforeLow": false,
+  "highToLowBars": 1,
+  "dailyRange": 0.0121,
+  "currentPos": 34.71,
+  "close": 0.9629,
+  "_received": "2026-05-08T02:00:09.474Z"
+}
