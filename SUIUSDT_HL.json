@@ -3,16 +3,16 @@
   "type": "daily_hl_timing",
   "dailyHigh": 1.106,
   "highHour": 22,
-  "highMinute": null,
+  "highMinute": 0,
   "highSession": "ASIA",
   "dailyLow": 1.019,
   "lowHour": 20,
-  "lowMinute": null,
+  "lowMinute": 0,
   "lowSession": "ASIA",
   "highBeforeLow": true,
   "highToLowBars": 2,
   "dailyRange": 0.087,
-  "currentPos": 57.47,
-  "close": 1.069,
-  "_received": "2026-05-09T21:00:04.173Z"
+  "currentPos": 62.07,
+  "close": 1.073,
+  "_received": "2026-05-09T22:00:02.901Z"
 }
