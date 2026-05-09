@@ -1,5 +1,48 @@
 [
   {
+    "date": "2026-05-09T00:00:05.001Z",
+    "symbol": "XRPUSDT",
+    "timeframe": "1D",
+    "open": 1.3869,
+    "high": 1.427,
+    "low": 1.3778,
+    "close": 1.4182,
+    "volume": 66521203.4,
+    "vwap": 1.4077,
+    "ema50": 1.4077,
+    "ema100": 1.5005,
+    "ema200": 1.7264,
+    "rsi": 53.997,
+    "macdLine": 0.0033,
+    "macdHist": 0.0001,
+    "atr": 0.0423,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "bdkb": {
+      "score": 18,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 18,
+      "shortScore": 0,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 1,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-08T00:00:10.176Z",
     "symbol": "XRPUSDT",
     "timeframe": "1D",
@@ -174,42 +217,6 @@
         "ew": 0,
         "ema": -1,
         "cvd": -0.5,
-        "funding": 0,
-        "oi": 0
-      }
-    }
-  },
-  {
-    "date": "2026-05-03T00:00:11.245Z",
-    "symbol": "XRPUSDT",
-    "timeframe": "1D",
-    "open": 1.3858,
-    "high": 1.4003,
-    "low": 1.3812,
-    "close": 1.3937,
-    "volume": 33060245.7,
-    "vwap": 1.3917,
-    "ema50": 1.4086,
-    "ema100": 1.5128,
-    "ema200": 1.7463,
-    "rsi": 49.6121,
-    "macdLine": 0.0008,
-    "macdHist": -0.0054,
-    "atr": 0.0433,
-    "trendBias": 0,
-    "ewCount": 0,
-    "ewDirection": 1,
-    "bdkb": {
-      "score": -30,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 0,
-      "shortScore": 30,
-      "components": {
-        "structure": 0,
-        "ew": 0,
-        "ema": -1,
-        "cvd": 0,
         "funding": 0,
         "oi": 0
       }
