@@ -3,16 +3,16 @@
   "type": "daily_hl_timing",
   "dailyHigh": 2338.37,
   "highHour": 14,
-  "highMinute": null,
+  "highMinute": 0,
   "highSession": "NYSE",
   "dailyLow": 2300,
   "lowHour": 11,
-  "lowMinute": null,
+  "lowMinute": 0,
   "lowSession": "NYSE",
   "highBeforeLow": true,
   "highToLowBars": 3,
   "dailyRange": 38.37,
-  "currentPos": 76.05,
-  "close": 2329.18,
-  "_received": "2026-05-09T21:00:03.196Z"
+  "currentPos": 80.32,
+  "close": 2330.82,
+  "_received": "2026-05-09T22:00:02.450Z"
 }
