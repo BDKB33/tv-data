@@ -291,7 +291,7 @@ const TIMEFRAMES=['15M','30M','1H','4H'];
 let mkt={},activeMode='SCALP';
 let taToken='ETH',taDir='AUTO',taResult=null,taEditId=null;
 const TFW={
-  SCALP:{'15M':0.35,'30M':0.30,'1H':0.25,'4H':0.10},
+  SCALP:{'15M':0.20,'30M':0.20,'1H':0.40,'4H':0.20},
   SWING:{'15M':0.00,'30M':0.10,'1H':0.40,'4H':0.50}
 };
 function stateTier(s){if(s==='CONFIRMED'||s==='STRONG_LONG'||s==='STRONG_SHORT')return 0;if(s==='SETUP'||s==='LONG_BIAS'||s==='SHORT_BIAS')return 1;if(s==='WATCHLIST'||s==='NEUTRAL')return 2;return 3;}
