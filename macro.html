@@ -9,14 +9,15 @@
 <style>
 :root{
   --bg:#060810;--bg2:#0a0d16;--bg3:#0f1320;--bg4:#161c2e;--bg5:#1c2338;
-  --border:rgba(255,255,255,0.05);--border2:rgba(255,255,255,0.10);
+  --border:rgba(255,255,255,0.05);--border2:rgba(255,255,255,0.10);--border3:rgba(255,255,255,0.18);
   --text:#e8ecf8;--text2:#a0aac0;--text3:#6b7494;
-  --bull:#00f090;--bull-dim:rgba(0,240,144,0.08);--bull-glow:rgba(0,240,144,0.25);
-  --bear:#ff2d55;--bear-dim:rgba(255,45,85,0.08);--bear-glow:rgba(255,45,85,0.25);
+  --bull:#00f090;--bull2:#00c070;--bull-dim:rgba(0,240,144,0.08);--bull-glow:rgba(0,240,144,0.25);
+  --bear:#ff2d55;--bear2:#cc2244;--bear-dim:rgba(255,45,85,0.08);--bear-glow:rgba(255,45,85,0.25);
   --neut:#6b7494;--neut-dim:rgba(74,82,112,0.15);
-  --accent:#4d9cff;--accent-dim:rgba(77,156,255,0.10);
-  --gold:#ffb800;--gold-dim:rgba(255,184,0,0.10);
+  --accent:#4d9cff;--accent2:#2d7ce0;--accent-dim:rgba(77,156,255,0.10);
+  --gold:#ffb800;--gold-dim:rgba(255,184,0,0.10);--gold-glow:rgba(255,184,0,0.25);
   --purple:#9d7aff;--purple-dim:rgba(157,122,255,0.10);
+  --cyan:#00d4ff;--cyan-dim:rgba(0,212,255,0.10);
   --mono:'IBM Plex Mono',monospace;
   --display:'Barlow Condensed',sans-serif;
   --hero:'Bebas Neue',sans-serif;
@@ -30,480 +31,610 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 header{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 2rem;border-bottom:1px solid var(--border2);background:rgba(6,8,16,0.97);backdrop-filter:blur(20px);position:sticky;top:0;z-index:200;}
 .logo{display:flex;align-items:baseline;gap:10px;}
 .logo-main{font-family:var(--hero);font-size:28px;letter-spacing:4px;color:var(--text);line-height:1;}
-.logo-main em{color:var(--gold);font-style:normal;}
+.logo-main em{color:var(--cyan);font-style:normal;}
 .logo-tag{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:3px;padding:2px 6px;border:1px solid var(--border2);}
-.header-right{display:flex;align-items:center;gap:0.75rem;}
-.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:2px;}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold-dim);animation:pulse 2.5s ease-in-out infinite;}
+.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--bull);letter-spacing:2px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--bull);box-shadow:0 0 6px var(--bull-glow);animation:pulse 1.8s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+.header-right{display:flex;align-items:center;gap:0.75rem;}
+.nav-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:5px 14px;cursor:pointer;transition:all 0.15s;text-transform:uppercase;text-decoration:none;display:inline-block;}
+.nav-btn-signal{color:var(--accent);background:var(--accent-dim);border:1px solid rgba(77,156,255,0.2);}
+.nav-btn-signal:hover{background:rgba(77,156,255,0.2);}
+.nav-btn-refresh{color:var(--bull);background:var(--bull-dim);border:1px solid rgba(0,240,144,0.2);}
+.nav-btn-refresh:hover{background:rgba(0,240,144,0.18);}
 .ts-display{font-family:var(--mono);font-size:10px;color:var(--text2);}
-.nav-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:5px 14px;cursor:pointer;transition:all 0.15s;text-transform:uppercase;text-decoration:none;border:1px solid;}
-.nav-btn-refresh{color:var(--accent);background:var(--accent-dim);border-color:rgba(77,156,255,0.2);}
-.nav-btn-refresh:hover{background:rgba(77,156,255,0.2);}
-.nav-btn-home{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.2);}
-.nav-btn-home:hover{background:rgba(0,240,144,0.15);}
 
+/* LAYOUT */
 main{padding:1.5rem 2rem;max-width:1800px;margin:0 auto;}
 .section-label{font-family:var(--mono);font-size:8px;letter-spacing:4px;color:#8892b0;text-transform:uppercase;margin-bottom:0.75rem;margin-top:1.75rem;display:flex;align-items:center;gap:12px;}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 .section-label:first-child{margin-top:0;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ASSET GRID — 6 columns */
+.macro-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);animation:fadeUp 0.4s ease;margin-bottom:1px;}
+
+/* MACRO ASSET CARD */
+.mac-card{background:var(--bg2);position:relative;overflow:hidden;transition:background 0.12s;}
+.mac-card:hover{background:var(--bg3);}
+.mac-top-bar{position:absolute;top:0;left:0;right:0;height:2px;}
+.mac-header{padding:0.6rem 0.8rem 0.4rem;border-bottom:1px solid var(--border);}
+.mac-sym{font-family:var(--hero);font-size:20px;letter-spacing:2px;color:var(--text);line-height:1;}
+.mac-price{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text2);margin-top:2px;}
+
+/* WEEKLY REGIME BANNER */
+.mac-regime{padding:3px 8px;font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1.5px;text-align:center;border-bottom:1px solid var(--border);}
+.regime-long{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.2);}
+.regime-short{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.2);}
+.regime-both{color:var(--text3);background:var(--bg4);}
+
+/* SCORE ROWS */
+.mac-score-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);}
+.mac-score-cell{padding:0.5rem 0.8rem;text-align:center;}
+.mac-score-cell:first-child{border-right:1px solid var(--border);}
+.mac-tf-label{font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:1px;margin-bottom:2px;}
+.mac-score-num{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1;}
+.mac-state-badge{font-family:var(--mono);font-size:6px;font-weight:700;letter-spacing:0.5px;padding:1px 4px;border:1px solid;display:inline-block;margin-top:2px;}
+
+/* WEEKLY x4 ROW */
+.mac-w4-row{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:0;border-bottom:1px solid var(--border);}
+.mac-w4-cell{padding:3px 4px;text-align:center;border-right:1px solid var(--border);}
+.mac-w4-cell:last-child{border-right:none;}
+.mac-w4-label{font-family:var(--mono);font-size:5px;color:var(--text3);letter-spacing:0.5px;}
+.mac-w4-val{font-family:var(--mono);font-size:9px;font-weight:700;}
+.mac-w4-weighted{padding:3px 6px;text-align:center;background:var(--bg4);}
+.mac-w4-wtlabel{font-family:var(--mono);font-size:5px;color:var(--text3);letter-spacing:0.5px;}
+.mac-w4-wtval{font-family:var(--mono);font-size:10px;font-weight:700;}
+
+/* EWT PANEL */
+.mac-ewt{padding:0.5rem 0.8rem;border-bottom:1px solid var(--border);}
+.mac-ewt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
+.mac-ewt-row:last-child{margin-bottom:0;}
+.mac-ewt-lbl{font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:0.5px;}
+.mac-ewt-val{font-family:var(--mono);font-size:7px;font-weight:700;}
+.mac-ewt-warn{font-family:var(--mono);font-size:6px;font-weight:700;letter-spacing:1px;padding:1px 4px;border:1px solid;}
+.ewt-b-wave{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.4);animation:warnPulse 1.2s ease-in-out infinite;}
+.ewt-diverge{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.4);}
+.ewt-invalid{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.4);}
+@keyframes warnPulse{0%,100%{opacity:1}50%{opacity:0.5}}
+
+/* FIB TARGETS */
+.mac-fib{padding:0.5rem 0.8rem;border-bottom:1px solid var(--border);}
+.mac-fib-row{display:flex;justify-content:space-between;margin-bottom:2px;}
+.mac-fib-row:last-child{margin-bottom:0;}
+.mac-fib-lbl{font-family:var(--mono);font-size:6px;color:var(--text3);}
+.mac-fib-val{font-family:var(--mono);font-size:7px;font-weight:700;}
+
+/* STRUCTURE (HH/HL) */
+.mac-struct{padding:0.5rem 0.8rem;border-bottom:1px solid var(--border);}
+.mac-struct-badges{display:flex;gap:2px;flex-wrap:wrap;margin-top:3px;}
+.struct-badge{font-family:var(--mono);font-size:6px;font-weight:700;padding:1px 4px;border:1px solid;}
+.hh{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.3);}
+.hl{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.3);}
+.lh{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.3);}
+.ll{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.3);}
+.ch{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
+.mac-struct-verdict{font-family:var(--mono);font-size:7px;font-weight:700;margin-top:3px;}
+
+/* EMA REGIME */
+.mac-ema{padding:0.4rem 0.8rem;border-bottom:1px solid var(--border);}
+.mac-ema-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1px;}
+.mac-ema-lbl{font-family:var(--mono);font-size:6px;color:var(--text3);}
+.mac-ema-val{font-family:var(--mono);font-size:6px;font-weight:700;}
+
+/* DAILY H/L SESSION */
+.mac-hl{padding:0.4rem 0.8rem;border-bottom:1px solid var(--border);}
+.mac-hl-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1px;}
+.mac-hl-lbl{font-family:var(--mono);font-size:6px;color:var(--text3);}
+.mac-hl-val{font-family:var(--mono);font-size:6px;font-weight:700;}
+.session-badge{font-family:var(--mono);font-size:5px;font-weight:700;padding:1px 3px;border:1px solid;}
+.session-NYSE{color:var(--accent);background:var(--accent-dim);border-color:rgba(77,156,255,0.3);}
+.session-LONDON{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
+.session-ASIA{color:var(--purple);background:var(--purple-dim);border-color:rgba(157,122,255,0.3);}
+.session-NYSE_AFTER{color:var(--text3);background:var(--bg4);border-color:var(--border);}
+.session-LONDON_PRE{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.2);}
+.session-OFF_HOURS{color:var(--text3);background:var(--bg4);border-color:var(--border);}
+
+/* CYCLE BIAS */
+.mac-cycle{padding:0.4rem 0.8rem;}
+.mac-cycle-val{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;}
+
+/* WEEKLY SUMMARY ROW */
+.weekly-summary{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1px;}
+.ws-cell{background:var(--bg3);padding:0.5rem 0.8rem;}
+.ws-sym{font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text2);letter-spacing:1px;margin-bottom:4px;}
+.ws-row{display:flex;justify-content:space-between;margin-bottom:2px;}
+.ws-lbl{font-family:var(--mono);font-size:6px;color:var(--text3);}
+.ws-val{font-family:var(--mono);font-size:7px;font-weight:700;}
+
+/* MI PANEL REUSE */
+.mi-panel{animation:fadeUp 0.4s ease;}
+.mi-grid-top{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1px;}
+.mi-cell{background:var(--bg2);padding:0.75rem 1rem;transition:background 0.12s;position:relative;}
+.mi-cell:hover{background:var(--bg3);}
+.mi-label{font-family:var(--mono);font-size:7px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.mi-val{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1;margin-bottom:3px;}
+.mi-sub{font-family:var(--mono);font-size:8px;color:var(--text2);letter-spacing:1px;}
+.mi-signal{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 6px;border:1px solid;display:inline-block;margin-top:3px;}
+.mi-signal.bull{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.3);}
+.mi-signal.bear{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.3);}
+.mi-signal.neut{color:var(--text3);background:var(--bg4);border-color:var(--border);}
+.mi-signal.gold{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
+.mi-ts{font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:4px;}
+
+/* LOADING */
 .loading{text-align:center;padding:2rem;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:3px;}
-
-/* ── WEEKLY REGIME STRIP ── */
-.regime-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:0.5rem;animation:fadeUp 0.3s ease;}
-.regime-cell{background:var(--bg2);padding:0.6rem 1rem;display:flex;flex-direction:column;gap:4px;border-top:3px solid transparent;transition:background 0.12s;}
-.regime-cell:hover{background:var(--bg3);}
-.regime-sym{font-family:var(--hero);font-size:20px;letter-spacing:2px;color:var(--text);}
-.regime-score{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1;}
-.regime-state{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border:1px solid;display:inline-block;margin-top:2px;}
-.regime-label{font-family:var(--mono);font-size:7px;color:var(--text3);letter-spacing:2px;margin-bottom:2px;}
-.regime-gate{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:1px;padding:3px 8px;border:1px solid;display:inline-block;margin-top:4px;}
-.gate-long{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.3);}
-.gate-short{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.3);}
-.gate-both{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
-.gate-none{color:var(--text3);background:var(--bg4);border-color:var(--border);}
-
-/* ── MACRO SCORE GRID ── */
-.macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);animation:fadeUp 0.4s ease;}
-.mc-cell{background:var(--bg2);position:relative;overflow:hidden;transition:background 0.12s;}
-.mc-cell:hover{background:var(--bg3);}
-.mc-top-bar{position:absolute;top:0;left:0;right:0;height:3px;}
-
-.mc-header{padding:0.7rem 1rem 0.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;}
-.mc-sym{font-family:var(--hero);font-size:26px;letter-spacing:2px;color:var(--text);line-height:1;}
-.mc-price{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text2);margin-top:2px;}
-
-/* VERDICT BADGE */
-.mc-verdict{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border:1px solid;}
-.verdict-go-long{color:var(--bull);background:var(--bull-dim);border-color:rgba(0,240,144,0.4);}
-.verdict-go-short{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.4);}
-.verdict-watch{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
-.verdict-conflict{color:var(--purple);background:var(--purple-dim);border-color:rgba(157,122,255,0.3);}
-.verdict-notrade{color:var(--text3);background:var(--bg4);border-color:var(--border);}
-
-/* SCORE SECTION */
-.mc-scores{padding:0.6rem 1rem 0.5rem;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.mc-tf-label{font-family:var(--mono);font-size:7px;color:var(--text3);letter-spacing:2px;margin-bottom:4px;text-transform:uppercase;}
-.mc-score-num{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1;}
-.mc-state-badge{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border:1px solid;display:inline-block;margin-top:3px;}
-.mc-dir{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;margin-top:2px;}
-
-/* DAILY PROGRESSION */
-.mc-daily{padding:0.6rem 1rem;border-bottom:1px solid var(--border);}
-.mc-daily-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.mc-daily-title{font-family:var(--mono);font-size:7px;color:var(--text3);letter-spacing:2px;}
-.mc-daily-score{font-family:var(--mono);font-size:13px;font-weight:700;}
-.daily-bars{display:flex;flex-direction:column;gap:3px;}
-.daily-bar-row{display:flex;align-items:center;gap:5px;}
-.daily-bar-label{font-family:var(--mono);font-size:7px;color:var(--text3);width:18px;flex-shrink:0;}
-.daily-bar-weight{font-family:var(--mono);font-size:6px;color:var(--text3);width:28px;flex-shrink:0;}
-.daily-bar-track{flex:1;height:4px;background:var(--bg4);position:relative;}
-.daily-bar-fill{height:100%;transition:width 0.6s ease;}
-.daily-bar-val{font-family:var(--mono);font-size:7px;font-weight:700;width:24px;text-align:right;flex-shrink:0;}
-.daily-bar-state{font-family:var(--mono);font-size:6px;color:var(--text3);width:36px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-
-/* EW SECTION */
-.mc-ew{padding:0.5rem 1rem;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.mc-ew-lbl{font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:1px;margin-bottom:3px;text-transform:uppercase;}
-.mc-ew-val{font-family:var(--mono);font-size:11px;font-weight:700;}
-.mc-ew-sub{font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:1px;}
-
-/* FOOT */
-.mc-foot{padding:0.5rem 1rem 0.7rem;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.mc-fund{font-family:var(--mono);font-size:8px;color:var(--text2);}
-.mc-fund-zone{font-family:var(--mono);font-size:7px;padding:1px 4px;letter-spacing:1px;}
-
-/* STATE / ZONE COLORS */
-.badge-STRONG_LONG{color:#00f090;background:rgba(0,240,144,0.08);border-color:rgba(0,240,144,0.3);}
-.badge-LONG_BIAS{color:#ffb800;background:rgba(255,184,0,0.08);border-color:rgba(255,184,0,0.3);}
-.badge-NEUTRAL{color:#4d9cff;background:rgba(77,156,255,0.08);border-color:rgba(77,156,255,0.3);}
-.badge-STRONG_SHORT,.badge-INVALIDATED{color:#ff2d55;background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.3);}
-.badge-SHORT_BIAS{color:#ff2d55;background:rgba(255,45,85,0.06);border-color:rgba(255,45,85,0.25);}
-.badge-NO_TRADE{color:#4a5270;background:rgba(74,82,112,0.15);border-color:rgba(74,82,112,0.3);}
-.zone-LONG_SQUEEZE{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.3);}
-.zone-DANGER_LONGS,.zone-ELEVATED{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
-.zone-NEUTRAL,.zone-NEUTRAL_NEG{color:var(--text3);background:var(--neut-dim);border-color:var(--border);}
-.zone-SHORTS_CROWDED{color:var(--accent);background:var(--accent-dim);border-color:rgba(77,156,255,0.3);}
-.zone-FETCH_ERROR,.zone-UNKNOWN{color:var(--text3);background:var(--bg4);border-color:var(--border);}
-
-/* LEGEND */
-.legend-row{display:flex;gap:20px;padding:6px 0;font-family:var(--mono);font-size:8px;color:var(--text2);flex-wrap:wrap;}
-
 footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;color:var(--text3);border-top:1px solid var(--border);letter-spacing:2px;margin-top:2rem;}
+
+/* COLOR UTILS */
+.bull{color:var(--bull)!important;}
+.bear{color:var(--bear)!important;}
+.gold{color:var(--gold)!important;}
+.neut{color:var(--text2)!important;}
+.dim{color:var(--text3)!important;}
+.accent{color:var(--accent)!important;}
+.cyan{color:var(--cyan)!important;}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">
-    <span class="logo-main">MACRO<em>VIEW</em></span>
-    <span class="logo-tag">1W REGIME · 6D PROGRESSION · BDKB</span>
+    <span class="logo-main">MACRO<em>DESK</em></span>
+    <span class="logo-tag">1D · 1W · EWT · BDKB</span>
   </div>
   <div class="header-right">
-    <div class="live-badge"><div class="live-dot"></div>DAILY · 8PM ET</div>
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
     <div class="ts-display" id="ts">—</div>
+    <a href="index.html" class="nav-btn nav-btn-signal">← SIGNAL DESK</a>
     <button class="nav-btn nav-btn-refresh" onclick="loadAll()">↺ REFRESH</button>
-    <a href="index.html" class="nav-btn nav-btn-home">← SIGNAL DESK</a>
   </div>
 </header>
-
 <main>
-  <!-- WEEKLY REGIME -->
-  <div class="section-label">Weekly Regime Gate · 1W BDKB Score · 100% Anchor · Closes Sunday 8PM ET</div>
-  <div class="regime-strip" id="regime-strip">
-    <div class="loading" style="grid-column:1/-1">LOADING WEEKLY REGIME...</div>
-  </div>
 
-  <!-- MACRO SCORE CARDS -->
-  <div class="section-label">Macro Score · Weekly Regime + 6-Day Exponential Progression · GO / WATCH / NO-GO</div>
+  <!-- ASSET MACRO GRID -->
+  <div class="section-label">Macro Asset Grid · 1D + 1W · Elliott Wave · Structure · Session</div>
   <div class="macro-grid" id="macro-grid">
     <div class="loading" style="grid-column:1/-1">LOADING MACRO DATA...</div>
   </div>
 
-  <div class="legend-row">
-    <span style="color:var(--bull)">▲ GO LONG — Weekly bullish + Daily progression positive</span>
-    <span style="color:var(--bear)">▼ GO SHORT — Weekly bearish + Daily progression negative</span>
-    <span style="color:var(--gold)">● WATCH — Regime set, daily not confirmed</span>
-    <span style="color:var(--purple)">⚡ CONFLICT — Weekly and daily opposing</span>
-    <span style="color:var(--text3)">— NO TRADE — Regime neutral</span>
-    <span style="margin-left:auto;color:var(--text3)">D1=45.7% · D2=22.9% · D3=11.4% · D4=5.7% · D5=2.9% · D6=1.4%</span>
+  <!-- WEEKLY x4 WEIGHTED SUMMARY -->
+  <div class="section-label">Weekly x4 Weighted Score · 4-Week Momentum · W1×40% W2×30% W3×20% W4×10%</div>
+  <div class="weekly-summary" id="weekly-summary">
+    <div class="loading" style="grid-column:1/-1">LOADING WEEKLY HISTORY...</div>
   </div>
-</main>
 
-<footer>MACRO VIEW · BDKB TRADING SYSTEM · BDKB33/tv-data · 1W REGIME + 6D PROGRESSION · <span id="footer-ts"></span></footer>
+  <!-- MARKET INTELLIGENCE -->
+  <div class="section-label">Market Intelligence · Live L1 Data · Polls Every 60s</div>
+  <div class="mi-panel" id="mi-panel">
+    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:2px;text-align:center;padding:1.5rem;animation:pulse 1.5s infinite;">FETCHING LIVE DATA...</div>
+  </div>
+
+</main>
+<footer>MACRO DESK · BDKB TRADING SYSTEM · 1D/1W EWT SCORING · <span id="footer-ts"></span></footer>
 
 <script>
-const OWNER='BDKB33', REPO='tv-data', BRANCH='main';
+const OWNER='BDKB33',REPO='tv-data',BRANCH='main';
 const SYMBOLS=['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS=['BTC','ETH','SOL','XRP','ADA','SUI'];
 
-// Exponential decay weights — D1 most recent = highest weight
-// Based on powers of 2: 64,32,16,8,4,2 normalized to 100%
-const DAILY_WEIGHTS=[0.457,0.229,0.114,0.057,0.029,0.014];
+let macro1D={}, macro1W={}, macroHL={}, macro1DHistory={}, macro1WHistory={};
+let whaleData=null, whaleInterval=null;
 
-let weeklyData={};   // 1W files
-let historyData={};  // 1D_history files (arrays of up to 6 entries)
-let dailyData={};    // 1D files (current/latest)
-
-async function fetchFile(sym, tf) {
-  try {
-    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);
-    if (!r.ok) return null;
-    const d = await r.json();
-    return (d && Object.keys(d).length > 2) ? d : null;
-  } catch { return null; }
+// ── FETCH HELPERS ─────────────────────────────────────────────────────────────
+async function fetchJSON(filename){
+  try{
+    const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${filename}?t=${Date.now()}`);
+    if(!r.ok)return null;
+    const d=await r.json();
+    return d;
+  }catch{return null;}
 }
 
-async function fetchHistory(sym) {
-  try {
-    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_1D_history.json?t=${Date.now()}`);
-    if (!r.ok) return null;
-    const d = await r.json();
-    return Array.isArray(d) ? d : null;
-  } catch { return null; }
-}
-
-async function loadAll() {
-  document.getElementById('ts').textContent = 'Refreshing...';
-  const fetches = [];
-  for (const sym of SYMBOLS) {
-    weeklyData[sym] = null;
-    historyData[sym] = null;
-    dailyData[sym] = null;
-    fetches.push(fetchFile(sym, '1W').then(d => { weeklyData[sym] = d; }));
-    fetches.push(fetchFile(sym, '1D').then(d => { dailyData[sym] = d; }));
-    fetches.push(fetchHistory(sym).then(d => { historyData[sym] = d; }));
+async function loadAll(){
+  document.getElementById('ts').textContent='Refreshing...';
+  const fetches=[];
+  for(const sym of SYMBOLS){
+    fetches.push(fetchJSON(`${sym}_1D.json`).then(d=>{if(d)macro1D[sym]=d;}));
+    fetches.push(fetchJSON(`${sym}_1W.json`).then(d=>{if(d)macro1W[sym]=d;}));
+    fetches.push(fetchJSON(`${sym}_HL.json`).then(d=>{if(d)macroHL[sym]=d;}));
+    fetches.push(fetchJSON(`${sym}_1D_history.json`).then(d=>{if(d&&Array.isArray(d))macro1DHistory[sym]=d;}));
+    fetches.push(fetchJSON(`${sym}_1W_history.json`).then(d=>{if(d&&Array.isArray(d))macro1WHistory[sym]=d;}));
   }
   await Promise.all(fetches);
   render();
-  const now = new Date();
-  document.getElementById('ts').textContent = now.toLocaleDateString('en-US', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) + ' ET';
-  document.getElementById('footer-ts').textContent = now.toISOString().substring(0,19) + ' UTC';
+  const now=new Date();
+  document.getElementById('ts').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' ET';
+  document.getElementById('footer-ts').textContent=now.toISOString().substring(0,19)+' UTC';
 }
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
-function getBDKB(data) {
-  if (!data) return null;
-  if (data.bdkb && typeof data.bdkb.score === 'number') return data.bdkb;
-  return null;
-}
+// ── FORMATTING HELPERS ────────────────────────────────────────────────────────
+function fmtP(n){if(n==null||isNaN(n))return'-';if(n>=10000)return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return'$'+n.toFixed(2);if(n>=1)return'$'+n.toFixed(4);return'$'+n.toFixed(5);}
+function fmt(s){if(s==null)return'-';return(s>0?'+':'')+s;}
+function scoreColor(s){if(s==null)return'var(--text3)';return s>=70?'var(--bull)':s>=40?'var(--gold)':s<=-70?'var(--bear)':s<=-40?'var(--bear2)':'var(--text3)';}
+function stateColor(s){return s==='STRONG_LONG'?'var(--bull)':s==='LONG_BIAS'?'var(--gold)':s==='STRONG_SHORT'?'var(--bear)':s==='SHORT_BIAS'?'var(--bear)':s==='INVALIDATED'?'var(--bear)':'var(--text3)';}
+function fmtPct(n){if(n==null)return'-';return(n>=0?'+':'')+n.toFixed(2)+'%';}
 
-function scoreColor(s) {
-  if (s == null) return 'var(--text3)';
-  return s >= 70 ? 'var(--bull)' : s >= 40 ? 'var(--gold)' :
-         s <= -70 ? 'var(--bear)' : s <= -40 ? 'var(--bear)' : 'var(--text3)';
-}
-
-function stateColor(s) {
-  return s === 'STRONG_LONG' ? 'var(--bull)' :
-         s === 'LONG_BIAS' ? 'var(--gold)' :
-         s === 'STRONG_SHORT' || s === 'INVALIDATED' ? 'var(--bear)' :
-         s === 'SHORT_BIAS' ? 'var(--bear)' : 'var(--text3)';
-}
-
-function dirColor(d) { return d === 'LONG' ? 'var(--bull)' : d === 'SHORT' ? 'var(--bear)' : 'var(--text3)'; }
-function dirArrow(d) { return d === 'LONG' ? '▲' : d === 'SHORT' ? '▼' : '—'; }
-
-function fmtP(n) {
-  if (n == null || isNaN(n)) return '—';
-  if (n >= 10000) return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-  if (n >= 100) return '$' + n.toFixed(2);
-  if (n >= 1) return '$' + n.toFixed(4);
-  return '$' + n.toFixed(5);
-}
-
-function pctFmt(r) { return r != null ? (r * 100).toFixed(4) + '%' : '—'; }
-
-function fundZoneColor(z) {
-  return z === 'LONG_SQUEEZE' ? 'var(--bear)' :
-         z === 'DANGER_LONGS' || z === 'ELEVATED' ? 'var(--gold)' :
-         z === 'SHORTS_CROWDED' ? 'var(--accent)' : 'var(--text3)';
-}
-
-function ewLabel(count, dir) {
-  if (count == null) return '—';
-  const arrow = dir === 1 ? '↑' : dir === -1 ? '↓' : '→';
-  return `W${count} ${arrow}`;
-}
-
-function ewColor(count, dir) {
-  if (dir === 1) return count === 3 ? 'var(--bull)' : count === 5 ? 'var(--gold)' : 'var(--bull)';
-  if (dir === -1) return 'var(--bear)';
-  return 'var(--text3)';
-}
-
-// ── WEEKLY REGIME GATE ────────────────────────────────────────────────────────
-// Weekly score is 100% anchor — determines what trades are allowed
-function getWeeklyRegime(bw) {
-  if (!bw) return { label: 'NO DATA', cls: 'gate-none', direction: 'NEUTRAL' };
-  const s = bw.score;
-  if (s >= 40) return { label: 'LONGS ONLY', cls: 'gate-long', direction: 'LONG' };
-  if (s <= -40) return { label: 'SHORTS ONLY', cls: 'gate-short', direction: 'SHORT' };
-  return { label: 'BOTH ALLOWED', cls: 'gate-both', direction: 'NEUTRAL' };
-}
-
-// ── DAILY PROGRESSION SCORE ───────────────────────────────────────────────────
-// D1-D6 with exponential decay weights, D1 = most recent = index 0
-function getDailyProgression(history, currentDaily) {
-  // Build array: use history if available, supplement with current daily
-  let entries = [];
-
-  if (history && Array.isArray(history) && history.length > 0) {
-    entries = history.slice(0, 6);
-  } else if (currentDaily) {
-    // No history yet — use just the current daily as D1
-    entries = [currentDaily];
+// ── HH/HL STRUCTURE DETECTION ─────────────────────────────────────────────────
+function detectStructure(sym){
+  const hist=macro1DHistory[sym];
+  if(!hist||hist.length<2)return{badges:[],verdict:'INSUFFICIENT DATA',color:'var(--text3)'};
+  // Compare last 3 pairs of highs and lows
+  const badges=[];
+  const n=Math.min(hist.length,4);
+  for(let i=0;i<n-1;i++){
+    const curr=hist[i], prev=hist[i+1];
+    if(!curr||!prev)continue;
+    const hh=curr.high>prev.high, ll=curr.low<prev.low;
+    badges.push(hh?'HH':'LH');
+    badges.push(ll?'LL':'HL');
   }
-
-  if (entries.length === 0) return { score: 0, entries: [], weightedScore: 0 };
-
-  let weightedSum = 0;
-  let weightUsed = 0;
-
-  const processed = entries.map((entry, i) => {
-    const bdkb = entry.bdkb || getBDKB(entry);
-    const score = bdkb ? bdkb.score : 0;
-    const weight = DAILY_WEIGHTS[i] || 0;
-    weightedSum += score * weight;
-    weightUsed += weight;
-    return {
-      label: `D${i + 1}`,
-      score,
-      weight: DAILY_WEIGHTS[i],
-      state: bdkb ? bdkb.state : 'NO_TRADE',
-      direction: bdkb ? bdkb.direction : 'NEUTRAL',
-      date: entry.date || entry._received || null
-    };
-  });
-
-  // Normalize if we have fewer than 6 days
-  const normalizedScore = weightUsed > 0 ? Math.round(weightedSum / weightUsed) : 0;
-
-  return {
-    score: normalizedScore,
-    entries: processed,
-    weightedScore: Math.round(weightedSum)
-  };
+  // Determine overall structure from most recent pair
+  const curr=hist[0], prev=hist[1];
+  if(!curr||!prev)return{badges,verdict:'NO DATA',color:'var(--text3)'};
+  const hh=curr.high>prev.high, hl=curr.low>prev.low;
+  let verdict,color;
+  if(hh&&hl){verdict='BULLISH STRUCTURE';color='var(--bull)';}
+  else if(!hh&&!hl){verdict='BEARISH STRUCTURE';color='var(--bear)';}
+  else if(hh&&!hl){verdict='EXPANDING / CHOPPY';color='var(--gold)';}
+  else{verdict='CONTRACTING / COIL';color='var(--accent)';}
+  return{badges,verdict,color};
 }
 
-// ── MACRO VERDICT ─────────────────────────────────────────────────────────────
-// Weekly = regime gate (100% anchor)
-// Daily progression = trend within regime
-// Both must align for GO signal
-function getMacroVerdict(weeklyRegime, dailyProgression) {
-  const wd = weeklyRegime.direction;
-  const ds = dailyProgression.score;
-
-  if (wd === 'LONG' && ds > 15) return { label: '▲ GO LONG', cls: 'verdict-go-long' };
-  if (wd === 'SHORT' && ds < -15) return { label: '▼ GO SHORT', cls: 'verdict-go-short' };
-  if (wd === 'LONG' && ds < -15) return { label: '⚡ CONFLICT', cls: 'verdict-conflict' };
-  if (wd === 'SHORT' && ds > 15) return { label: '⚡ CONFLICT', cls: 'verdict-conflict' };
-  if (wd !== 'NEUTRAL' && Math.abs(ds) <= 15) return { label: '● WATCH', cls: 'verdict-watch' };
-  return { label: '— NO TRADE', cls: 'verdict-notrade' };
+// ── EMA REGIME ────────────────────────────────────────────────────────────────
+function getEMARegime(d){
+  if(!d)return{regime:'NO DATA',color:'var(--text3)'};
+  const c=d.close, e50=d.ema50, e100=d.ema100, e200=d.ema200;
+  if(!c||!e50||!e100||!e200)return{regime:'PARTIAL DATA',color:'var(--text3)'};
+  if(c>e50&&e50>e100&&e100>e200)return{regime:'FULL BULL',color:'var(--bull)'};
+  if(c>e50&&e50>e200)return{regime:'BULL',color:'var(--gold)'};
+  if(c>e50)return{regime:'ABOVE 50',color:'var(--gold)'};
+  if(c<e50&&e50<e100&&e100<e200)return{regime:'FULL BEAR',color:'var(--bear)'};
+  if(c<e50&&e50<e200)return{regime:'BEAR',color:'var(--bear)'};
+  if(c<e50)return{regime:'BELOW 50',color:'var(--bear)'};
+  return{regime:'MIXED',color:'var(--text3)'};
 }
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function render() {
-  renderRegimeStrip();
+// ── CYCLE BIAS ────────────────────────────────────────────────────────────────
+function getCycleBias(sym){
+  const d1=macro1D[sym], w1=macro1W[sym];
+  if(!d1||!w1)return{bias:'UNKNOWN',color:'var(--text3)'};
+  const ws=w1.bdkb?.score||0, ds=d1.bdkb?.score||0;
+  if(ws>=40&&ds>=40)return{bias:'MARKUP',color:'var(--bull)'};
+  if(ws<=-40&&ds<=-40)return{bias:'MARKDOWN',color:'var(--bear)'};
+  if(ws>=40&&ds<40)return{bias:'DISTRIBUTION',color:'var(--gold)'};
+  if(ws<=-40&&ds>-40)return{bias:'ACCUMULATION',color:'var(--accent)'};
+  return{bias:'TRANSITION',color:'var(--text2)'};
+}
+
+// ── WEEKLY x4 WEIGHTED SCORE ──────────────────────────────────────────────────
+function getWeekly4Score(sym){
+  const hist=macro1WHistory[sym];
+  if(!hist||hist.length===0)return{score:null,w1:null,w2:null,w3:null,w4:null,trend:'NO DATA'};
+  const w1=hist[0]?.bdkb?.score??null;
+  const w2=hist[1]?.bdkb?.score??null;
+  const w3=hist[2]?.bdkb?.score??null;
+  const w4=hist[3]?.bdkb?.score??null;
+  if(w1===null)return{score:null,w1,w2,w3,w4,trend:'PENDING'};
+  let score=w1*0.40;
+  let divisor=0.40;
+  if(w2!==null){score+=w2*0.30;divisor+=0.30;}
+  if(w3!==null){score+=w3*0.20;divisor+=0.20;}
+  if(w4!==null){score+=w4*0.10;divisor+=0.10;}
+  score=Math.round(score/divisor*divisor); // keep weighted sum not average
+  score=Math.round(w1*0.40+(w2??w1)*0.30+(w3??w1)*0.20+(w4??w1)*0.10);
+  // Trend direction
+  let trend='FLAT';
+  if(w2!==null){
+    if(w1>w2+5)trend='RISING';
+    else if(w1<w2-5)trend='FALLING';
+    else trend='FLAT';
+  }
+  return{score,w1,w2,w3,w4,trend};
+}
+
+// ── RENDER MACRO GRID ─────────────────────────────────────────────────────────
+function render(){
   renderMacroGrid();
+  renderWeeklySummary();
 }
 
-function renderRegimeStrip() {
-  let html = '';
-  SYMBOLS.forEach((sym, i) => {
-    const dw = weeklyData[sym];
-    const bw = getBDKB(dw);
-    const regime = getWeeklyRegime(bw);
-    const sc = bw ? bw.score : null;
-    const st = bw ? bw.state : 'NO_TRADE';
-    const topColor = sc != null ? scoreColor(sc) : 'var(--text3)';
-    const ew1w = dw ? ewLabel(dw.ewCount, dw.ewDirection) : '—';
+function renderMacroGrid(){
+  let html='';
+  for(const sym of SYMBOLS){
+    const label=LABELS[SYMBOLS.indexOf(sym)];
+    const d1=macro1D[sym], w1=macro1W[sym], hl=macroHL[sym];
+    const d1bdkb=d1?.bdkb, w1bdkb=w1?.bdkb;
+    const d1score=d1bdkb?.score??null, w1score=w1bdkb?.score??null;
+    const d1state=d1bdkb?.state||'NO DATA', w1state=w1bdkb?.state||'NO DATA';
+    const regime=w1bdkb?.regime||'BOTH_ALLOWED';
+    const regimeCls=regime==='LONGS_ONLY'?'regime-long':regime==='SHORTS_ONLY'?'regime-short':'regime-both';
+    const price=d1?.close||w1?.close;
+    const topBarColor=stateColor(d1state);
+    const emaR=getEMARegime(d1);
+    const struct=detectStructure(sym);
+    const cycle=getCycleBias(sym);
+    const w4=getWeekly4Score(sym);
 
-    html += `<div class="regime-cell" style="border-top-color:${topColor}">
-      <div class="regime-label">WEEKLY REGIME</div>
-      <div class="regime-sym">${LABELS[i]}</div>
-      <div class="regime-score" style="color:${topColor}">${sc != null ? (sc > 0 ? '+' : '') + sc : '—'}</div>
-      <div><span class="regime-state badge-${st}" style="color:${stateColor(st)};border-color:${stateColor(st)}40">${st.replace(/_/g,' ')}</span></div>
-      <div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:3px;">EW: ${ew1w}</div>
-      <span class="regime-gate ${regime.cls}">${regime.label}</span>
+    // EWT fields from 1D
+    const ewCount=d1?.ewCount??null;
+    const ewWaveType=d1?.ewWaveType||null;
+    const ewCorrPattern=d1?.ewCorrPattern||null;
+    const ewInvalidated=d1?.ewInvalidated===1;
+    const ewBWave=d1?.ewBWave===1;
+    const ewDivergence=d1?.ewDivergence===1;
+    const ewAlternation=d1?.ewAlternation||null;
+    const ewFibTarget=d1?.ewFibTarget||null;
+    const ewFibRetrace=d1?.ewFibRetrace||null;
+    const ewPriorW4High=d1?.ewPriorW4High||null;
+    const ewPriorW4Low=d1?.ewPriorW4Low||null;
+
+    // Weekly EWT
+    const wEwCount=w1?.ewCount??null;
+    const wEwWaveType=w1?.ewWaveType||null;
+    const wEwBWave=w1?.ewBWave===1;
+    const wEwDivergence=w1?.ewDivergence===1;
+    const wEwInvalidated=w1?.ewInvalidated===1;
+
+    // H/L session
+    const hlHigh=hl?.dailyHigh, hlLow=hl?.dailyLow;
+    const hlHighH=hl?.highHour, hlLowH=hl?.lowHour;
+    const hlHighSess=hl?.highSession||null, hlLowSess=hl?.lowSession||null;
+    const hlRange=hl?.dailyRange, hlPos=hl?.currentPos;
+    const hlBeforeLow=hl?.highBeforeLow;
+
+    // EWT warning flags
+    const hasBWave=ewBWave||wEwBWave;
+    const hasDivergence=ewDivergence||wEwDivergence;
+    const hasInvalid=ewInvalidated||wEwInvalidated;
+
+    // Wave display
+    const waveLabel=ewWaveType==='IMPULSE'?`W${ewCount}`:ewWaveType==='CORRECTIVE'?`C${Math.abs(ewCount||0)}`:ewWaveType==='INVALID'?'INVALID':'—';
+    const waveLabelW=wEwWaveType==='IMPULSE'?`W${wEwCount}`:wEwWaveType==='CORRECTIVE'?`C${Math.abs(wEwCount||0)}`:wEwWaveType==='INVALID'?'INVALID':'—';
+
+    html+=`<div class="mac-card">
+      <div class="mac-top-bar" style="background:${topBarColor}"></div>
+
+      <!-- HEADER -->
+      <div class="mac-header">
+        <div class="mac-sym">${label}</div>
+        <div class="mac-price">${fmtP(price)}</div>
+      </div>
+
+      <!-- REGIME BANNER -->
+      <div class="mac-regime ${regimeCls}">${regime.replace(/_/g,' ')}</div>
+
+      <!-- 1D + 1W SCORES -->
+      <div class="mac-score-row">
+        <div class="mac-score-cell">
+          <div class="mac-tf-label">1D SCORE</div>
+          <div class="mac-score-num" style="color:${scoreColor(d1score)}">${d1score!=null?fmt(d1score):'-'}</div>
+          <div class="mac-state-badge" style="color:${stateColor(d1state)};border-color:${stateColor(d1state)}40">${d1state.replace(/_/g,' ')}</div>
+        </div>
+        <div class="mac-score-cell">
+          <div class="mac-tf-label">1W SCORE</div>
+          <div class="mac-score-num" style="color:${scoreColor(w1score)}">${w1score!=null?fmt(w1score):'-'}</div>
+          <div class="mac-state-badge" style="color:${stateColor(w1state)};border-color:${stateColor(w1state)}40">${w1state.replace(/_/g,' ')}</div>
+        </div>
+      </div>
+
+      <!-- WEEKLY x4 -->
+      <div class="mac-w4-row">
+        <div class="mac-w4-cell"><div class="mac-w4-label">W1 40%</div><div class="mac-w4-val" style="color:${scoreColor(w4.w1)}">${w4.w1!=null?fmt(w4.w1):'—'}</div></div>
+        <div class="mac-w4-cell"><div class="mac-w4-label">W2 30%</div><div class="mac-w4-val" style="color:${scoreColor(w4.w2)}">${w4.w2!=null?fmt(w4.w2):'—'}</div></div>
+        <div class="mac-w4-cell"><div class="mac-w4-label">W3 20%</div><div class="mac-w4-val" style="color:${scoreColor(w4.w3)}">${w4.w3!=null?fmt(w4.w3):'—'}</div></div>
+        <div class="mac-w4-cell"><div class="mac-w4-label">W4 10%</div><div class="mac-w4-val" style="color:${scoreColor(w4.w4)}">${w4.w4!=null?fmt(w4.w4):'—'}</div></div>
+        <div class="mac-w4-weighted">
+          <div class="mac-w4-wtlabel">Wx4</div>
+          <div class="mac-w4-wtval" style="color:${scoreColor(w4.score)}">${w4.score!=null?fmt(w4.score):'—'}</div>
+        </div>
+      </div>
+
+      <!-- EWT PANEL -->
+      <div class="mac-ewt">
+        <div class="mac-ewt-row">
+          <span class="mac-ewt-lbl">1D WAVE</span>
+          <span class="mac-ewt-val" style="color:${ewInvalidated?'var(--bear)':ewBWave?'var(--bear)':'var(--text)'}">${waveLabel}${ewCorrPattern&&ewCorrPattern!=='NONE'?' '+ewCorrPattern:''}</span>
+        </div>
+        <div class="mac-ewt-row">
+          <span class="mac-ewt-lbl">1W WAVE</span>
+          <span class="mac-ewt-val" style="color:${wEwInvalidated?'var(--bear)':wEwBWave?'var(--bear)':'var(--text2)'}">${waveLabelW}</span>
+        </div>
+        ${ewAlternation&&ewAlternation!=='NONE'?`<div class="mac-ewt-row"><span class="mac-ewt-lbl">ALT</span><span class="mac-ewt-val" style="color:var(--accent)">${ewAlternation.replace(/_/g,' ')}</span></div>`:''}
+        <div style="display:flex;gap:3px;margin-top:3px;flex-wrap:wrap;">
+          ${hasBWave?'<span class="mac-ewt-warn ewt-b-wave">B WAVE TRAP</span>':''}
+          ${hasDivergence?'<span class="mac-ewt-warn ewt-diverge">W5 DIV</span>':''}
+          ${hasInvalid?'<span class="mac-ewt-warn ewt-invalid">INVALID</span>':''}
+          ${!hasBWave&&!hasDivergence&&!hasInvalid?'<span style="font-family:var(--mono);font-size:6px;color:var(--text3)">No EWT warnings</span>':''}
+        </div>
+      </div>
+
+      <!-- FIB TARGETS -->
+      <div class="mac-fib">
+        <div class="mac-fib-row">
+          <span class="mac-fib-lbl">FIB TARGET</span>
+          <span class="mac-fib-val" style="color:var(--bull)">${ewFibTarget&&ewFibTarget>0?fmtP(ewFibTarget):'—'}</span>
+        </div>
+        <div class="mac-fib-row">
+          <span class="mac-fib-lbl">INVALIDATION</span>
+          <span class="mac-fib-val" style="color:var(--bear)">${ewFibRetrace&&ewFibRetrace>0?fmtP(ewFibRetrace):'—'}</span>
+        </div>
+        <div class="mac-fib-row">
+          <span class="mac-fib-lbl">W4 ZONE HI</span>
+          <span class="mac-fib-val" style="color:var(--accent)">${ewPriorW4High&&ewPriorW4High>0?fmtP(ewPriorW4High):'—'}</span>
+        </div>
+        <div class="mac-fib-row">
+          <span class="mac-fib-lbl">W4 ZONE LO</span>
+          <span class="mac-fib-val" style="color:var(--accent)">${ewPriorW4Low&&ewPriorW4Low>0?fmtP(ewPriorW4Low):'—'}</span>
+        </div>
+      </div>
+
+      <!-- HH/HL STRUCTURE -->
+      <div class="mac-struct">
+        <div style="font-family:var(--mono);font-size:6px;color:var(--text3);margin-bottom:3px;letter-spacing:1px;">DAILY STRUCTURE</div>
+        <div class="mac-struct-badges">
+          ${struct.badges.slice(0,6).map(b=>`<span class="struct-badge ${b.toLowerCase()}">${b}</span>`).join('')}
+        </div>
+        <div class="mac-struct-verdict" style="color:${struct.color}">${struct.verdict}</div>
+      </div>
+
+      <!-- EMA REGIME -->
+      <div class="mac-ema">
+        <div class="mac-ema-row">
+          <span class="mac-ema-lbl">EMA REGIME</span>
+          <span class="mac-ema-val" style="color:${emaR.color}">${emaR.regime}</span>
+        </div>
+        <div class="mac-ema-row">
+          <span class="mac-ema-lbl">50/100/200</span>
+          <span class="mac-ema-val" style="color:var(--text3)">${d1?fmtP(d1.ema50)+'/'+fmtP(d1.ema100):'-'}</span>
+        </div>
+      </div>
+
+      <!-- DAILY H/L SESSION -->
+      <div class="mac-hl">
+        <div class="mac-hl-row">
+          <span class="mac-hl-lbl">HIGH ${hlHighH!=null?hlHighH+'h':''}</span>
+          <span style="display:flex;align-items:center;gap:3px;">
+            <span class="mac-hl-val" style="color:var(--bull)">${fmtP(hlHigh)}</span>
+            ${hlHighSess?`<span class="session-badge session-${hlHighSess}">${hlHighSess}</span>`:''}
+          </span>
+        </div>
+        <div class="mac-hl-row">
+          <span class="mac-hl-lbl">LOW ${hlLowH!=null?hlLowH+'h':''}</span>
+          <span style="display:flex;align-items:center;gap:3px;">
+            <span class="mac-hl-val" style="color:var(--bear)">${fmtP(hlLow)}</span>
+            ${hlLowSess?`<span class="session-badge session-${hlLowSess}">${hlLowSess}</span>`:''}
+          </span>
+        </div>
+        ${hlRange?`<div class="mac-hl-row"><span class="mac-hl-lbl">RANGE / POS</span><span class="mac-hl-val">${fmtP(hlRange)} / ${hlPos!=null?hlPos.toFixed(1)+'%':'-'}</span></div>`:''}
+        ${hlBeforeLow!=null?`<div class="mac-hl-row"><span class="mac-hl-lbl">H BEFORE L</span><span class="mac-hl-val" style="color:${hlBeforeLow?'var(--bull)':'var(--bear)'}">${hlBeforeLow?'YES':'NO'}</span></div>`:''}
+      </div>
+
+      <!-- CYCLE BIAS -->
+      <div class="mac-cycle">
+        <div class="mac-ema-row">
+          <span class="mac-ema-lbl">CYCLE BIAS</span>
+          <span class="mac-cycle-val" style="color:${cycle.color}">${cycle.bias}</span>
+        </div>
+      </div>
+
     </div>`;
-  });
-  document.getElementById('regime-strip').innerHTML = html;
+  }
+  document.getElementById('macro-grid').innerHTML=html;
 }
 
-function renderMacroGrid() {
-  // Sort by absolute macro score strength
-  const sorted = [...SYMBOLS].sort((a, b) => {
-    const bwa = getBDKB(weeklyData[a]);
-    const bwb = getBDKB(weeklyData[b]);
-    const dpA = getDailyProgression(historyData[a], dailyData[a]);
-    const dpB = getDailyProgression(historyData[b], dailyData[b]);
-    const sA = Math.abs((bwa?.score||0)) + Math.abs(dpA.score);
-    const sB = Math.abs((bwb?.score||0)) + Math.abs(dpB.score);
-    return sB - sA;
-  });
+// ── RENDER WEEKLY SUMMARY ─────────────────────────────────────────────────────
+function renderWeeklySummary(){
+  let html='';
+  for(const sym of SYMBOLS){
+    const label=LABELS[SYMBOLS.indexOf(sym)];
+    const w4=getWeekly4Score(sym);
+    const w1=macro1W[sym];
+    const regime=w1?.bdkb?.regime||'BOTH_ALLOWED';
+    const trendColor=w4.trend==='RISING'?'var(--bull)':w4.trend==='FALLING'?'var(--bear)':'var(--text3)';
+    const trendArrow=w4.trend==='RISING'?'^':w4.trend==='FALLING'?'v':'-';
 
-  let html = '';
-
-  sorted.forEach(sym => {
-    const label = LABELS[SYMBOLS.indexOf(sym)];
-    const dw = weeklyData[sym];
-    const dd = dailyData[sym];
-    const bw = getBDKB(dw);
-    const bd = getBDKB(dd);
-
-    const weeklyRegime = getWeeklyRegime(bw);
-    const dailyProgression = getDailyProgression(historyData[sym], dd);
-    const verdict = getMacroVerdict(weeklyRegime, dailyProgression);
-
-    const sc1w = bw ? bw.score : null;
-    const st1w = bw ? bw.state : 'NO_TRADE';
-    const dir1w = bw ? bw.direction : 'NEUTRAL';
-    const sc1d = bd ? bd.score : null;
-    const st1d = bd ? bd.state : 'NO_TRADE';
-    const dir1d = bd ? bd.direction : 'NEUTRAL';
-
-    const topColor = sc1w != null ? scoreColor(sc1w) : 'var(--text3)';
-    const price = dd ? fmtP(dd.close) : dw ? fmtP(dw.close) : '—';
-
-    // EW
-    const ew1d = ewLabel(dd?.ewCount, dd?.ewDirection);
-    const ew1w = ewLabel(dw?.ewCount, dw?.ewDirection);
-    const ew1dColor = ewColor(dd?.ewCount, dd?.ewDirection);
-    const ew1wColor = ewColor(dw?.ewCount, dw?.ewDirection);
-
-    // Funding
-    const fund = dd?.funding || dw?.funding;
-    const fr = fund?.fundingRate != null ? pctFmt(fund.fundingRate) : '—';
-    const fz = fund?.fundingZone || 'UNKNOWN';
-    const fzc = fundZoneColor(fz);
-
-    // Daily progression bars
-    let barsHtml = '';
-    if (dailyProgression.entries.length > 0) {
-      dailyProgression.entries.forEach(entry => {
-        const barWidth = Math.min(100, Math.abs(entry.score));
-        const barColor = entry.score > 0 ? 'var(--bull)' : entry.score < 0 ? 'var(--bear)' : 'var(--text3)';
-        const weightPct = Math.round(entry.weight * 100) + '%';
-        barsHtml += `<div class="daily-bar-row">
-          <span class="daily-bar-label">${entry.label}</span>
-          <span class="daily-bar-weight">${weightPct}</span>
-          <div class="daily-bar-track">
-            <div class="daily-bar-fill" style="width:${barWidth}%;background:${barColor};opacity:0.8"></div>
-          </div>
-          <span class="daily-bar-val" style="color:${barColor}">${entry.score > 0 ? '+' : ''}${entry.score}</span>
-          <span class="daily-bar-state">${entry.state.replace(/_/g,' ').substring(0,8)}</span>
-        </div>`;
-      });
-    } else {
-      barsHtml = `<div style="font-family:var(--mono);font-size:8px;color:var(--text3);padding:4px 0;">Awaiting daily closes — history building...</div>`;
-    }
-
-    const dpScoreColor = dailyProgression.score > 15 ? 'var(--bull)' :
-                         dailyProgression.score < -15 ? 'var(--bear)' : 'var(--text3)';
-
-    html += `<div class="mc-cell">
-      <div class="mc-top-bar" style="background:${topColor}"></div>
-
-      <div class="mc-header">
-        <div>
-          <div class="mc-sym">${label}</div>
-          <div class="mc-price">${price}</div>
-        </div>
-        <span class="mc-verdict ${verdict.cls}">${verdict.label}</span>
+    html+=`<div class="ws-cell">
+      <div class="ws-sym">${label}</div>
+      <div class="ws-row">
+        <span class="ws-lbl">Wx4 SCORE</span>
+        <span class="ws-val" style="color:${scoreColor(w4.score)}">${w4.score!=null?fmt(w4.score):w4.trend}</span>
       </div>
-
-      <div class="mc-scores">
-        <div>
-          <div class="mc-tf-label">Weekly · 1W · REGIME</div>
-          <div class="mc-score-num" style="color:${scoreColor(sc1w)}">${sc1w != null ? (sc1w > 0 ? '+' : '') + sc1w : '—'}</div>
-          <div><span class="mc-state-badge badge-${st1w}" style="color:${stateColor(st1w)};border-color:${stateColor(st1w)}40">${st1w.replace(/_/g,' ')}</span></div>
-          <div class="mc-dir" style="color:${dirColor(dir1w)}">${dirArrow(dir1w)} ${dir1w}</div>
-        </div>
-        <div>
-          <div class="mc-tf-label">Daily D1 · Latest</div>
-          <div class="mc-score-num" style="color:${scoreColor(sc1d)}">${sc1d != null ? (sc1d > 0 ? '+' : '') + sc1d : '—'}</div>
-          <div><span class="mc-state-badge badge-${st1d}" style="color:${stateColor(st1d)};border-color:${stateColor(st1d)}40">${st1d.replace(/_/g,' ')}</span></div>
-          <div class="mc-dir" style="color:${dirColor(dir1d)}">${dirArrow(dir1d)} ${dir1d}</div>
-        </div>
+      <div class="ws-row">
+        <span class="ws-lbl">TREND</span>
+        <span class="ws-val" style="color:${trendColor}">${trendArrow} ${w4.trend}</span>
       </div>
-
-      <div class="mc-daily">
-        <div class="mc-daily-header">
-          <span class="mc-daily-title">DAILY PROGRESSION · EXP DECAY</span>
-          <span class="mc-daily-score" style="color:${dpScoreColor}">${dailyProgression.score > 0 ? '+' : ''}${dailyProgression.score}</span>
-        </div>
-        <div class="daily-bars">${barsHtml}</div>
+      <div class="ws-row">
+        <span class="ws-lbl">W1/W2/W3/W4</span>
+        <span class="ws-val" style="font-size:6px;color:var(--text3)">${[w4.w1,w4.w2,w4.w3,w4.w4].map(v=>v!=null?fmt(v):'—').join(' ')}</span>
       </div>
-
-      <div class="mc-ew">
-        <div>
-          <div class="mc-ew-lbl">Elliott Wave · 1D</div>
-          <div class="mc-ew-val" style="color:${ew1dColor}">${ew1d}</div>
-          <div class="mc-ew-sub">${dd?.ewDirection === 1 ? 'Impulse' : dd?.ewDirection === -1 ? 'Corrective' : 'No signal'}</div>
-        </div>
-        <div>
-          <div class="mc-ew-lbl">Elliott Wave · 1W</div>
-          <div class="mc-ew-val" style="color:${ew1wColor}">${ew1w}</div>
-          <div class="mc-ew-sub">${dw?.ewDirection === 1 ? 'Impulse' : dw?.ewDirection === -1 ? 'Corrective' : 'No signal'}</div>
-        </div>
-      </div>
-
-      <div class="mc-foot">
-        <span class="mc-fund">${fr}</span>
-        <span class="mc-fund-zone zone-${fz}" style="color:${fzc};border-color:${fzc}40">${fz.replace(/_/g,' ')}</span>
-        <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">
-          ${dailyProgression.entries.length}/6 days
+      <div class="ws-row">
+        <span class="ws-lbl">REGIME</span>
+        <span class="ws-val" style="color:${regime==='LONGS_ONLY'?'var(--bull)':regime==='SHORTS_ONLY'?'var(--bear)':'var(--text3)'}">
+          ${regime.replace(/_/g,' ')}
         </span>
       </div>
     </div>`;
-  });
+  }
+  document.getElementById('weekly-summary').innerHTML=html;
+}
 
-  document.getElementById('macro-grid').innerHTML = html;
+// ── MARKET INTELLIGENCE (reused from Signal Desk) ─────────────────────────────
+const WHALE_API='https://whale-monitor.onrender.com/api/summary';
+
+async function fetchWhaleData(){
+  try{
+    const r=await fetch(WHALE_API+'?t='+Date.now());
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    whaleData=await r.json();
+    renderMI();
+  }catch(err){
+    const p=document.getElementById('mi-panel');
+    if(p)p.innerHTML='<div style="font-family:var(--mono);font-size:8px;color:var(--bear);padding:0.75rem 1rem;background:var(--bear-dim);border:1px solid rgba(255,45,85,0.2);">! MARKET INTELLIGENCE UNAVAILABLE . '+err.message+'</div>';
+  }
+}
+
+function startWhalePolling(){
+  fetchWhaleData();
+  if(whaleInterval)clearInterval(whaleInterval);
+  whaleInterval=setInterval(fetchWhaleData,60000);
+}
+
+function miTimeSince(ts){if(!ts)return'-';const diff=Date.now()-new Date(ts).getTime();const m=Math.floor(diff/60000);if(m<1)return'just now';if(m<60)return m+'m ago';return Math.floor(m/60)+'h '+(m%60)+'m ago';}
+function fmtUSDmi(n){if(n==null||n===0)return'$0';if(Math.abs(n)>=1e9)return'$'+(n/1e9).toFixed(2)+'B';if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(Math.abs(n)>=1e3)return'$'+(n/1e3).toFixed(1)+'K';return'$'+n.toFixed(2);}
+function fgColorMI(v){if(v==null)return'var(--text2)';if(v>=75)return'var(--bull)';if(v>=55)return'var(--gold)';if(v>=45)return'var(--text2)';if(v>=25)return'var(--gold)';return'var(--bear)';}
+function fundColorMI(v){if(v==null)return'var(--text3)';if(v>0.05)return'var(--bear)';if(v>0.01)return'var(--gold)';if(v>0)return'var(--gold)';if(v<-0.01)return'var(--accent)';return'var(--text2)';}
+function cvdSigCls(sig){if(!sig)return'neut';const s=sig.toUpperCase();if(s.includes('STRONG BUY'))return'bull';if(s.includes('BUY'))return'bull';if(s.includes('STRONG SELL'))return'bear';if(s.includes('SELL'))return'bear';return'neut';}
+
+function renderMI(){
+  const d=whaleData;
+  if(!d)return;
+  const ts=miTimeSince(d.last_poll);
+  const fg=d.fear_greed, dxy=d.dxy, dom=d.btc_dominance, etf=d.etf;
+  const fund=d.funding, oi=d.oi, ls=d.long_short;
+  const cvd=d.cvd, cbp=d.coinbase_premium, netflow=d.exchange_netflow;
+  const fgC=fgColorMI(fg?.value);
+  const dxyDir=dxy?.direction??'-';
+  const dxyC=dxyDir==='DOWN'?'var(--bull)':dxyDir==='UP'?'var(--bear)':'var(--text2)';
+  const etfC=etf?.signal?.includes('SELLING')?'var(--bear)':etf?.signal?.includes('BUY')?'var(--bull)':'var(--text2)';
+  const etfSigCls=etf?.signal?.includes('SELLING')?'bear':etf?.signal?.includes('BUY')?'bull':'neut';
+  const etfFlow=etf?.net_flow_usd!=null?fmtUSDmi(etf.net_flow_usd):'-';
+  const cbpC=cbp?.value!=null?(cbp.value>0?'var(--bull)':cbp.value<0?'var(--bear)':'var(--text2)'):'var(--text2)';
+  const cbpSigCls=cbp?.signal?.includes('SELLING')?'bear':cbp?.signal?.includes('BUY')?'bull':'neut';
+  const lsDomC=ls?.long!=null?(ls.long>50?'var(--bull)':'var(--bear)'):'var(--text3)';
+  const oiC4=oi?.chg_4h!=null?(oi.chg_4h>=0?'var(--bull)':'var(--bear)'):'var(--text2)';
+
+  let html='<div class="mi-grid-top">';
+  html+='<div class="mi-cell"><div class="mi-label">Fear & Greed</div><div class="mi-val" style="color:'+fgC+'">'+(fg?.value??'-')+'</div><div class="mi-sub">'+(fg?.label??'-')+'</div><div class="mi-ts">'+ts+'</div></div>';
+  html+='<div class="mi-cell"><div class="mi-label">DXY . Dollar Index</div><div class="mi-val" style="color:'+dxyC+'">'+(dxy?.price?.toFixed(2)??'-')+'</div><div class="mi-sub">'+(dxy?.chg!=null?(dxy.chg>=0?'+':'')+dxy.chg.toFixed(2)+'%':'-')+' . '+dxyDir+'</div><span class="mi-signal '+(dxyDir==='DOWN'?'bull':dxyDir==='UP'?'bear':'neut')+'">'+(dxyDir==='DOWN'?'v RISK-ON':dxyDir==='UP'?'^ RISK-OFF':'NEUTRAL')+'</span></div>';
+  html+='<div class="mi-cell"><div class="mi-label">ETF Net Flow</div><div class="mi-val" style="color:'+etfC+'">'+etfFlow+'</div><span class="mi-signal '+etfSigCls+'">'+(etf?.signal??'-')+'</span></div>';
+  html+='<div class="mi-cell"><div class="mi-label">Coinbase Premium</div><div class="mi-val" style="color:'+cbpC+'">'+(cbp?.value?.toFixed(2)??'-')+'</div><span class="mi-signal '+cbpSigCls+'">'+(cbp?.signal??'-')+'</span><div class="mi-sub">OI 4H: <span style="color:'+oiC4+'">'+(oi?.chg_4h!=null?(oi.chg_4h>=0?'+':'')+oi.chg_4h.toFixed(2)+'%':'-')+'</span> . L/S: <span style="color:'+lsDomC+'">'+(ls?.long?.toFixed(1)??'-')+'%L/'+(ls?.short?.toFixed(1)??'-')+'%S</span></div></div>';
+  html+='</div>';
+
+  // CVD row
+  html+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1px;">';
+  ['1h','4h','1d'].forEach(function(tf){
+    const cv=cvd?.[tf];
+    const vc=cv?.value!=null?(cv.value>0?'var(--bull)':'var(--bear)'):'var(--text2)';
+    html+='<div class="mi-cell"><div class="mi-label">BTC CVD '+tf.toUpperCase()+'</div><div class="mi-val" style="color:'+vc+';font-size:16px">'+(cv?.value?.toFixed(2)??'-')+'</div><span class="mi-signal '+cvdSigCls(cv?.signal)+'" style="font-size:6px">'+(cv?.signal??'-')+'</span></div>';
+  });
+  html+='</div>';
+
+  // Netflow + Funding
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1px;">';
+  html+='<div class="mi-cell"><div class="mi-label">Exchange Netflow</div>';
+  html+='<div style="display:flex;gap:12px;"><div><div class="mi-sub">NET</div><div class="mi-val" style="color:'+(netflow?.net_usd!=null?(netflow.net_usd<0?'var(--bull)':'var(--bear)'):'var(--text2)')+';font-size:16px">'+(netflow?.net_usd!=null?'$'+netflow.net_usd.toFixed(2)+'B':'--')+'</div></div><div><div class="mi-sub">SIGNAL</div><div class="mi-val" style="font-size:12px;color:'+(netflow?.signal==='ACCUMULATION'?'var(--bull)':netflow?.signal==='DISTRIBUTION'?'var(--bear)':'var(--text3)')+'">'+((netflow?.signal)||'--')+'</div></div></div></div>';
+  html+='<div class="mi-cell"><div class="mi-label">Funding Rates</div><div style="display:flex;gap:16px;">';
+  ['binance','okx','bybit'].forEach(function(ex){html+='<div><div class="mi-sub">'+ex.toUpperCase()+'</div><div class="mi-val" style="color:'+fundColorMI(fund?.[ex])+';font-size:14px">'+(fund?.[ex]!=null?fund[ex].toFixed(4)+'%':'-')+'</div></div>';});
+  html+='</div></div></div>';
+
+  html+='<div style="font-family:var(--mono);font-size:7px;color:var(--text3);padding:4px 2px;letter-spacing:1px;">LAST POLL: '+ts+' . BTC CVD = BTC futures only . Auto-refresh 60s</div>';
+
+  document.getElementById('mi-panel').innerHTML=html;
 }
 
 loadAll();
-setInterval(loadAll, 60 * 60 * 1000); // refresh every hour
+startWhalePolling();
+setInterval(loadAll, 5*60*1000);
 </script>
 </body>
 </html>
