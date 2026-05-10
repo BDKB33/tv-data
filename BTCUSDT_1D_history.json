@@ -1,5 +1,52 @@
 [
   {
+    "date": "2026-05-10T00:00:07.277Z",
+    "symbol": "BTCUSDT",
+    "timeframe": "1D",
+    "open": 80193.18,
+    "high": 81080,
+    "low": 80129.85,
+    "close": 80678.4,
+    "volume": 7548.4218,
+    "vwap": 80629.4167,
+    "ema50": 75559.9978,
+    "ema100": 76345.7106,
+    "ema200": 82044.5173,
+    "rsi": 63.968,
+    "macdLine": 1869.2239,
+    "macdHist": 50.8702,
+    "atr": 2022.1484,
+    "trendBias": 0,
+    "ewCount": -1,
+    "ewDirection": 1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": null,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "ewPriorW4High": null,
+    "ewPriorW4Low": null,
+    "regime": null,
+    "bdkb": {
+      "score": 30,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 30,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 1,
+        "funding": -0.5,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-09T00:00:09.860Z",
     "symbol": "BTCUSDT",
     "timeframe": "1D",
@@ -183,42 +230,6 @@
         "cvd": 1,
         "funding": -0.5,
         "oi": 1
-      }
-    }
-  },
-  {
-    "date": "2026-05-05T00:00:11.912Z",
-    "symbol": "BTCUSDT",
-    "timeframe": "1D",
-    "open": 78568.58,
-    "high": 80776.99,
-    "low": 78202,
-    "close": 79861.01,
-    "volume": 26040.3268,
-    "vwap": 79613.3333,
-    "ema50": 74436.742,
-    "ema100": 75894.1393,
-    "ema200": 82116.3947,
-    "rsi": 65.2059,
-    "macdLine": 1690.1535,
-    "macdHist": 14.7258,
-    "atr": 2179.0738,
-    "trendBias": 0,
-    "ewCount": -1,
-    "ewDirection": 1,
-    "bdkb": {
-      "score": 35,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 35,
-      "shortScore": 0,
-      "components": {
-        "structure": 0.5,
-        "ew": 0,
-        "ema": 0.25,
-        "cvd": 1,
-        "funding": -0.5,
-        "oi": 0.5
       }
     }
   }
