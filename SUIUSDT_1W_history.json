@@ -1,1 +1,49 @@
-[]
+[
+  {
+    "date": "2026-05-11T00:00:18.469Z",
+    "symbol": "SUIUSDT",
+    "timeframe": "1W",
+    "open": 0.9201,
+    "high": 1.4223,
+    "low": 0.9125,
+    "close": 1.3325,
+    "volume": 498279391,
+    "vwap": 1.2224,
+    "ema50": 1.7909,
+    "ema100": 1.8575,
+    "ema200": null,
+    "rsi": 48.4631,
+    "macdLine": -0.3105,
+    "macdHist": 0.0889,
+    "atr": 0.2981,
+    "trendBias": 0,
+    "ewCount": 1,
+    "ewDirection": -1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": null,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "ewPriorW4High": null,
+    "ewPriorW4Low": null,
+    "regime": "BOTH_ALLOWED",
+    "bdkb": {
+      "score": 5,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 5,
+      "shortScore": 0,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": -0.25,
+        "cvd": 1,
+        "funding": 0,
+        "oi": 0.5
+      }
+    }
+  }
+]
