@@ -1,1 +1,49 @@
-[]
+[
+  {
+    "date": "2026-05-11T00:00:21.842Z",
+    "symbol": "SOLUSDT",
+    "timeframe": "1W",
+    "open": 83.91,
+    "high": 97,
+    "low": 83.23,
+    "close": 96.47,
+    "volume": 19506699.512,
+    "vwap": 92.2333,
+    "ema50": 127.4302,
+    "ema100": 133.9382,
+    "ema200": 117.0307,
+    "rsi": 43.0362,
+    "macdLine": -17.0641,
+    "macdHist": 2.8569,
+    "atr": 16.6501,
+    "trendBias": 0,
+    "ewCount": 1,
+    "ewDirection": -1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": null,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "ewPriorW4High": null,
+    "ewPriorW4Low": null,
+    "regime": "BOTH_ALLOWED",
+    "bdkb": {
+      "score": -5,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 0,
+      "shortScore": 5,
+      "components": {
+        "structure": 0,
+        "ew": 0,
+        "ema": -0.25,
+        "cvd": 0,
+        "funding": 0.5,
+        "oi": 0
+      }
+    }
+  }
+]
