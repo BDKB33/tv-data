@@ -1,5 +1,52 @@
 [
   {
+    "date": "2026-05-11T00:00:13.053Z",
+    "symbol": "ADAUSDT",
+    "timeframe": "1D",
+    "open": 0.2708,
+    "high": 0.2887,
+    "low": 0.2682,
+    "close": 0.2824,
+    "volume": 140362484.8,
+    "vwap": 0.2798,
+    "ema50": 0.2587,
+    "ema100": 0.2845,
+    "ema200": 0.3651,
+    "rsi": 69.3024,
+    "macdLine": 0.0058,
+    "macdHist": 0.0035,
+    "atr": 0.0114,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": null,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "ewPriorW4High": null,
+    "ewPriorW4Low": null,
+    "regime": null,
+    "bdkb": {
+      "score": 35,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 35,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": 1,
+        "funding": -0.5,
+        "oi": 0.5
+      }
+    }
+  },
+  {
     "date": "2026-05-10T00:00:04.777Z",
     "symbol": "ADAUSDT",
     "timeframe": "1D",
@@ -193,42 +240,6 @@
         "ema": 0.25,
         "cvd": 1,
         "funding": -0.5,
-        "oi": 0
-      }
-    }
-  },
-  {
-    "date": "2026-05-05T00:00:20.612Z",
-    "symbol": "ADAUSDT",
-    "timeframe": "1D",
-    "open": 0.2495,
-    "high": 0.255,
-    "low": 0.247,
-    "close": 0.2499,
-    "volume": 131303088.4,
-    "vwap": 0.2506,
-    "ema50": 0.2556,
-    "ema100": 0.2864,
-    "ema200": 0.371,
-    "rsi": 50.1019,
-    "macdLine": -0.0009,
-    "macdHist": 0.0005,
-    "atr": 0.0094,
-    "trendBias": 0,
-    "ewCount": 0,
-    "ewDirection": 1,
-    "bdkb": {
-      "score": -20,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 0,
-      "shortScore": 20,
-      "components": {
-        "structure": 0,
-        "ew": 0,
-        "ema": -1,
-        "cvd": 1,
-        "funding": 0,
         "oi": 0
       }
     }
