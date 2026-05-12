@@ -1,5 +1,52 @@
 [
   {
+    "date": "2026-05-12T00:00:14.662Z",
+    "symbol": "ETHUSDT",
+    "timeframe": "1D",
+    "open": 2371.26,
+    "high": 2374.92,
+    "low": 2304,
+    "close": 2339.87,
+    "volume": 236883.9154,
+    "vwap": 2339.5967,
+    "ema50": 2274.9773,
+    "ema100": 2343.7348,
+    "ema200": 2585.0594,
+    "rsi": 54.0446,
+    "macdLine": 22.2038,
+    "macdHist": -2.5299,
+    "atr": 76.5768,
+    "trendBias": 0,
+    "ewCount": -3,
+    "ewDirection": -1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": null,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "ewPriorW4High": null,
+    "ewPriorW4Low": null,
+    "regime": null,
+    "bdkb": {
+      "score": 0,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 0,
+      "shortScore": 0,
+      "components": {
+        "structure": 0,
+        "ew": -0.5,
+        "ema": 0.25,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-10T00:00:05.778Z",
     "symbol": "ETHUSDT",
     "timeframe": "1D",
@@ -186,42 +233,6 @@
         "ema": 0.25,
         "cvd": 1,
         "funding": -0.5,
-        "oi": 0
-      }
-    }
-  },
-  {
-    "date": "2026-05-04T00:00:14.742Z",
-    "symbol": "ETHUSDT",
-    "timeframe": "1D",
-    "open": 2316.97,
-    "high": 2356.92,
-    "low": 2297.59,
-    "close": 2322.65,
-    "volume": 151505.7005,
-    "vwap": 2325.72,
-    "ema50": 2251.6882,
-    "ema100": 2344.9465,
-    "ema200": 2605.7382,
-    "rsi": 54.4786,
-    "macdLine": 23.8334,
-    "macdHist": -9.8757,
-    "atr": 84.8569,
-    "trendBias": 0,
-    "ewCount": -2,
-    "ewDirection": -1,
-    "bdkb": {
-      "score": 18,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 18,
-      "shortScore": 0,
-      "components": {
-        "structure": 0,
-        "ew": 0,
-        "ema": 0.25,
-        "cvd": 1,
-        "funding": 0,
         "oi": 0
       }
     }
