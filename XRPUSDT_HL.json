@@ -5,14 +5,14 @@
   "highHour": 5,
   "highMinute": 0,
   "highSession": "LONDON",
-  "dailyLow": 1.4349,
-  "lowHour": 20,
+  "dailyLow": 1.4256,
+  "lowHour": 8,
   "lowMinute": 0,
-  "lowSession": "ASIA",
-  "highBeforeLow": true,
-  "highToLowBars": 9,
-  "dailyRange": 0.0344,
-  "currentPos": 39.24,
-  "close": 1.4484,
-  "_received": "2026-05-13T12:00:14.043Z"
+  "lowSession": "LONDON",
+  "highBeforeLow": false,
+  "highToLowBars": 3,
+  "dailyRange": 0.0437,
+  "currentPos": 18.54,
+  "close": 1.4337,
+  "_received": "2026-05-13T13:00:09.432Z"
 }
