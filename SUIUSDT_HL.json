@@ -1,18 +1,18 @@
 {
   "symbol": "SUIUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 1.2183,
-  "highHour": 22,
+  "dailyHigh": 1.22,
+  "highHour": 0,
   "highMinute": 0,
   "highSession": "ASIA",
   "dailyLow": 1.1932,
   "lowHour": 23,
   "lowMinute": 0,
   "lowSession": "ASIA",
-  "highBeforeLow": false,
+  "highBeforeLow": true,
   "highToLowBars": 1,
-  "dailyRange": 0.0251,
-  "currentPos": 10.76,
-  "close": 1.1959,
-  "_received": "2026-05-14T04:00:21.488Z"
+  "dailyRange": 0.0268,
+  "currentPos": 46.27,
+  "close": 1.2056,
+  "_received": "2026-05-14T05:00:06.091Z"
 }
