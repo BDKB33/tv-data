@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-05-14",
+    "symbol": "SOLUSDT",
+    "dailyHigh": 93.25,
+    "highHour": 11,
+    "highMinute": 0,
+    "highSession": "NYSE",
+    "dailyLow": 89.82,
+    "lowHour": 23,
+    "lowMinute": 0,
+    "lowSession": "ASIA",
+    "highBeforeLow": true,
+    "highToLowBars": 12,
+    "dailyRange": 3.43,
+    "currentPos": 97.38,
+    "close": 93.16,
+    "_received": "2026-05-14T16:00:26.580Z"
+  }
+]
