@@ -1,18 +1,18 @@
 {
   "symbol": "BTCUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 79998,
-  "highHour": 1,
+  "dailyHigh": 80059.71,
+  "highHour": 9,
   "highMinute": 0,
-  "highSession": "ASIA",
+  "highSession": "LONDON",
   "dailyLow": 78922,
   "lowHour": 23,
   "lowMinute": 0,
   "lowSession": "ASIA",
   "highBeforeLow": true,
-  "highToLowBars": 2,
-  "dailyRange": 1076,
-  "currentPos": 78.54,
-  "close": 79767.11,
-  "_received": "2026-05-14T13:00:14.142Z"
+  "highToLowBars": 10,
+  "dailyRange": 1137.71,
+  "currentPos": 68.54,
+  "close": 79701.73,
+  "_received": "2026-05-14T14:00:07.804Z"
 }
