@@ -1,26 +1,26 @@
 {
   "symbol": "XRPUSDT",
   "timeframe": "30M",
-  "open": 1.4603,
-  "high": 1.467,
-  "low": 1.4585,
-  "close": 1.4664,
-  "volume": 2587571.6,
-  "wickRange": 0.0085,
-  "vwap": 1.4775,
-  "ema50": 1.4738,
+  "open": 1.4663,
+  "high": 1.4729,
+  "low": 1.4648,
+  "close": 1.4686,
+  "volume": 4060777.5,
+  "wickRange": 0.0081,
+  "vwap": 1.4767,
+  "ema50": 1.4736,
   "ema100": null,
-  "ema200": 1.4533,
+  "ema200": 1.4534,
   "sma50": null,
   "sma200": null,
-  "rsi": 41.2795,
-  "stochK": 7.2357,
-  "stochD": 3.8297,
-  "macdLine": -0.003,
-  "macdHist": -0.0051,
-  "atr": 0.0118,
-  "volSMA20": 3100715.08,
-  "bbWidth": 3.5111,
+  "rsi": 42.7784,
+  "stochK": 17.0709,
+  "stochD": 8.1022,
+  "macdLine": -0.0036,
+  "macdHist": -0.0045,
+  "atr": 0.0115,
+  "volSMA20": 2984134.58,
+  "bbWidth": 3.4641,
   "trendBias": 0,
   "ewCount": 0,
   "ewDirection": 1,
@@ -39,9 +39,9 @@
   "dailyOpenHour": null,
   "dailyOpenSession": null,
   "bdkb": {
-    "score": 3,
-    "longScore": 3,
-    "shortScore": 0,
+    "score": -8,
+    "longScore": 0,
+    "shortScore": 8,
     "state": "NEUTRAL",
     "direction": "NEUTRAL",
     "components": {
@@ -50,7 +50,7 @@
       "cvd": 0,
       "funding": 0.5,
       "oi": 0,
-      "delta": 1
+      "delta": 0
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -61,7 +61,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-05-15T06:30:09.106Z",
+  "_received": "2026-05-15T07:00:10.139Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -73,6 +73,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-15T06:30:09.260Z"
+    "_fetched": "2026-05-15T07:00:10.319Z"
   }
 }
