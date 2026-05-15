@@ -1,18 +1,18 @@
 {
   "symbol": "SOLUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 93.68,
-  "highHour": 12,
+  "dailyHigh": 92.66,
+  "highHour": 20,
   "highMinute": 0,
-  "highSession": "NYSE",
-  "dailyLow": 89.82,
-  "lowHour": 23,
+  "highSession": "ASIA",
+  "dailyLow": 92.1,
+  "lowHour": 20,
   "lowMinute": 0,
   "lowSession": "ASIA",
   "highBeforeLow": true,
-  "highToLowBars": 13,
-  "dailyRange": 3.86,
-  "currentPos": 73.58,
-  "close": 92.66,
-  "_received": "2026-05-14T23:00:09.811Z"
+  "highToLowBars": null,
+  "dailyRange": 0.56,
+  "currentPos": 58.93,
+  "close": 92.43,
+  "_received": "2026-05-15T01:00:12.346Z"
 }
