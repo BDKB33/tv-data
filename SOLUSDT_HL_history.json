@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-05-15",
+    "symbol": "SOLUSDT",
+    "dailyHigh": 92.66,
+    "highHour": 20,
+    "highMinute": 0,
+    "highSession": "ASIA",
+    "dailyLow": 92.1,
+    "lowHour": 20,
+    "lowMinute": 0,
+    "lowSession": "ASIA",
+    "highBeforeLow": true,
+    "highToLowBars": null,
+    "dailyRange": 0.56,
+    "currentPos": 58.93,
+    "close": 92.43,
+    "_received": "2026-05-15T01:00:12.346Z"
+  },
+  {
     "date": "2026-05-14",
     "symbol": "SOLUSDT",
     "dailyHigh": 93.68,
