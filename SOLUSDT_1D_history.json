@@ -1,5 +1,52 @@
 [
   {
+    "date": "2026-05-16T00:00:06.523Z",
+    "symbol": "SOLUSDT",
+    "timeframe": "1D",
+    "open": 92.16,
+    "high": 92.66,
+    "low": 88.55,
+    "close": 89.24,
+    "volume": 2675844.432,
+    "vwap": 90.15,
+    "ema50": 88.2098,
+    "ema100": 93.7846,
+    "ema200": 110.8431,
+    "rsi": 50.8988,
+    "macdLine": 1.9749,
+    "macdHist": 0.211,
+    "atr": 3.5717,
+    "trendBias": 0,
+    "ewCount": 2,
+    "ewDirection": 1,
+    "ewWaveType": "IMPULSE",
+    "ewCorrPattern": "NONE",
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": "NONE",
+    "ewFibTarget": 0,
+    "ewFibRetrace": 0,
+    "ewPriorW4High": 0,
+    "ewPriorW4Low": 0,
+    "regime": null,
+    "bdkb": {
+      "score": 26,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 26,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": 0.25,
+        "ema": 0.25,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 0
+      }
+    }
+  },
+  {
     "date": "2026-05-14T00:00:12.077Z",
     "symbol": "SOLUSDT",
     "timeframe": "1D",
@@ -231,49 +278,6 @@
         "cvd": 1,
         "funding": -0.5,
         "oi": 0
-      }
-    }
-  },
-  {
-    "date": "2026-05-09T00:00:07.661Z",
-    "symbol": "SOLUSDT",
-    "timeframe": "1D",
-    "open": 88.43,
-    "high": 92.8,
-    "low": 87.6,
-    "close": 92.01,
-    "volume": 2644434.859,
-    "vwap": 90.8033,
-    "ema50": 86.582,
-    "ema100": 93.8537,
-    "ema200": 112.1105,
-    "rsi": 65.8927,
-    "macdLine": 0.882,
-    "macdHist": 0.6973,
-    "atr": 3.1787,
-    "trendBias": 0,
-    "ewCount": 2,
-    "ewDirection": 1,
-    "ewWaveType": null,
-    "ewCorrPattern": null,
-    "ewInvalidated": 0,
-    "ewBWave": 0,
-    "ewDivergence": 0,
-    "ewFibTarget": null,
-    "ewFibRetrace": null,
-    "bdkb": {
-      "score": 35,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 35,
-      "shortScore": 0,
-      "components": {
-        "structure": 0.5,
-        "ew": 0,
-        "ema": 0.25,
-        "cvd": 1,
-        "funding": -0.5,
-        "oi": 0.5
       }
     }
   }
