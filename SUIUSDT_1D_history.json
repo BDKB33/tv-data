@@ -1,5 +1,52 @@
 [
   {
+    "date": "2026-05-16T00:00:04.889Z",
+    "symbol": "SUIUSDT",
+    "timeframe": "1D",
+    "open": 1.1881,
+    "high": 1.1991,
+    "low": 1.06,
+    "close": 1.0997,
+    "volume": 91620847.6,
+    "vwap": 1.1196,
+    "ema50": 1.0149,
+    "ema100": 1.0867,
+    "ema200": 1.4184,
+    "rsi": 54.6623,
+    "macdLine": 0.0689,
+    "macdHist": 0.0156,
+    "atr": 0.0783,
+    "trendBias": 0,
+    "ewCount": 0,
+    "ewDirection": 1,
+    "ewWaveType": "UNKNOWN",
+    "ewCorrPattern": "NONE",
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": "NONE",
+    "ewFibTarget": 0,
+    "ewFibRetrace": 0,
+    "ewPriorW4High": 0,
+    "ewPriorW4Low": 0,
+    "regime": null,
+    "bdkb": {
+      "score": 18,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 18,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": 0,
+        "ema": 0.25,
+        "cvd": -1,
+        "funding": 0,
+        "oi": 0.5
+      }
+    }
+  },
+  {
     "date": "2026-05-15T00:00:18.095Z",
     "symbol": "SUIUSDT",
     "timeframe": "1D",
@@ -231,42 +278,6 @@
         "cvd": 1,
         "funding": -1,
         "oi": 1
-      }
-    }
-  },
-  {
-    "date": "2026-05-08T00:00:11.493Z",
-    "symbol": "SUIUSDT",
-    "timeframe": "1D",
-    "open": 0.9926,
-    "high": 1.0133,
-    "low": 0.957,
-    "close": 0.9683,
-    "volume": 38815309.3,
-    "vwap": 0.9795,
-    "ema50": 0.9517,
-    "ema100": 1.0702,
-    "ema200": 1.4381,
-    "rsi": 56.1728,
-    "macdLine": 0.0063,
-    "macdHist": 0.0049,
-    "atr": 0.0427,
-    "trendBias": 0,
-    "ewCount": 0,
-    "ewDirection": 1,
-    "bdkb": {
-      "score": 5,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 5,
-      "shortScore": 0,
-      "components": {
-        "structure": 0,
-        "ew": 0,
-        "ema": 0.25,
-        "cvd": 0,
-        "funding": -0.5,
-        "oi": 0
       }
     }
   }
