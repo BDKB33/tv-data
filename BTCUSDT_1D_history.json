@@ -1,5 +1,52 @@
 [
   {
+    "date": "2026-05-16T00:00:07.622Z",
+    "symbol": "BTCUSDT",
+    "timeframe": "1D",
+    "open": 81090,
+    "high": 81664.45,
+    "low": 78659,
+    "close": 79113.21,
+    "volume": 17351.3378,
+    "vwap": 79812.22,
+    "ema50": 76635.7639,
+    "ema100": 76830.4027,
+    "ema200": 81963.1504,
+    "rsi": 52.2071,
+    "macdLine": 1418.3702,
+    "macdHist": -295.2788,
+    "atr": 2198.0683,
+    "trendBias": 0,
+    "ewCount": -1,
+    "ewDirection": 1,
+    "ewWaveType": "UNKNOWN",
+    "ewCorrPattern": "NONE",
+    "ewInvalidated": 0,
+    "ewBWave": 1,
+    "ewDivergence": 0,
+    "ewAlternation": "NONE",
+    "ewFibTarget": 0,
+    "ewFibRetrace": 0,
+    "ewPriorW4High": 0,
+    "ewPriorW4Low": 0,
+    "regime": null,
+    "bdkb": {
+      "score": 29,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 29,
+      "shortScore": 0,
+      "components": {
+        "structure": 0.5,
+        "ew": -0.25,
+        "ema": 0.25,
+        "cvd": 0,
+        "funding": 0,
+        "oi": 1
+      }
+    }
+  },
+  {
     "date": "2026-05-14T00:00:07.018Z",
     "symbol": "BTCUSDT",
     "timeframe": "1D",
@@ -231,49 +278,6 @@
         "cvd": 1,
         "funding": -0.5,
         "oi": 0
-      }
-    }
-  },
-  {
-    "date": "2026-05-09T00:00:09.860Z",
-    "symbol": "BTCUSDT",
-    "timeframe": "1D",
-    "open": 80006,
-    "high": 80500,
-    "low": 79181.48,
-    "close": 80193.17,
-    "volume": 16001.3101,
-    "vwap": 79958.2167,
-    "ema50": 75351.0834,
-    "ema100": 76258.1815,
-    "ema200": 82058.2471,
-    "rsi": 62.561,
-    "macdLine": 1880.0331,
-    "macdHist": 74.3968,
-    "atr": 2104.6098,
-    "trendBias": 0,
-    "ewCount": -1,
-    "ewDirection": 1,
-    "ewWaveType": null,
-    "ewCorrPattern": null,
-    "ewInvalidated": 0,
-    "ewBWave": 0,
-    "ewDivergence": 0,
-    "ewFibTarget": null,
-    "ewFibRetrace": null,
-    "bdkb": {
-      "score": 35,
-      "state": "NEUTRAL",
-      "direction": "NEUTRAL",
-      "longScore": 35,
-      "shortScore": 0,
-      "components": {
-        "structure": 0.5,
-        "ew": 0,
-        "ema": 0.25,
-        "cvd": 1,
-        "funding": -0.5,
-        "oi": 0.5
       }
     }
   }
