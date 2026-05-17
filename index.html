@@ -296,7 +296,7 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
     <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:2px;text-align:center;padding:1.5rem;animation:pulse 1.5s infinite;">FETCHING LIVE DATA...</div>
   </div>
 </main>
-<footer>SIGNAL DESK V2 · BDKB TRADING SYSTEM · BDKB33/tv-data · Auto-refresh 5min · Market Intelligence 60s · <span id="footer-ts"></span></footer>
+<footer>SIGNAL DESK V2 · BDKB TRADING SYSTEM · BDKB33/tv-data · Auto-refresh 60s · Market Intelligence 60s · <span id="footer-ts"></span></footer>
 <script>
 
 const OWNER='BDKB33',REPO='tv-data',BRANCH='main';
@@ -310,7 +310,8 @@ SCALP:{'15M':0.20,'30M':0.20,'1H':0.40,'4H':0.20},
 SWING:{'15M':0.00,'30M':0.10,'1H':0.40,'4H':0.50}
 };
 function stateTier(s){if(s==='CONFIRMED'||s==='STRONG_LONG'||s==='STRONG_SHORT')return 0;if(s==='SETUP'||s==='LONG_BIAS'||s==='SHORT_BIAS')return 1;if(s==='WATCHLIST'||s==='NEUTRAL')return 2;return 3;}
-async function fetchFile(sym,tf){try{const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`);if(!r.ok)return null;const d=await r.json();return(d&&Object.keys(d).length>2)?d:null;}catch{return null;}}
+async function fetchFile(sym,tf){try{const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`,{cache:'no-store',headers:{'Cache-Control':'no-cache, no-store, must-revalidate','Pragma':'no-cache'}});if(!r.ok)return null;const d=await r.json();return(d&&Object.keys(d).length>2)?d:null;}catch{return null;}}
+function dataAge(iso){if(!iso)return'?';const s=Math.floor((Date.now()-new Date(iso).getTime())/1000);if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m';return Math.floor(s/3600)+'h';}
 async function loadAll(){
 document.getElementById('ts').textContent='Refreshing…';
 const fetches=[];
@@ -481,7 +482,72 @@ html+='<div style="margin-top:12px;border-top:1px solid var(--border);padding-to
 html+='<button onclick="analyzeToken()" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--accent);background:transparent;border:1px solid rgba(77,156,255,0.25);padding:4px 10px;cursor:pointer;">R RE-ANALYZE</button></div>';
 return html;
 }
-function copyToClaudeGlobal(){const lines=SYMBOLS.map((sym,i)=>{const d=mkt[sym]?.['1H'],b=getBDKB(sym,'1H'),mtf=getMTFScore(sym);return`${LABELS[i]}: Score ${b?.score??'-'} ${b?.state??'-'} ${mtf.direction} MTF:${mtf.score} ${mtf.quality} ${d?fmtP(d.close):'-'}`;}).join('\n');const miLine=whaleData?`\nMI: F&G:${whaleData.fear_greed?.value} DXY:${whaleData.dxy?.price} CVD1H:${whaleData.cvd?.['1h']?.signal} Fund:BNB${whaleData.funding?.binance?.toFixed(3)}%`:'';const p=`SIGNAL DESK V2 - MARKET OVERVIEW\nMode:${activeMode}\nTime:${new Date().toISOString()}\n\n${lines}${miLine}\n\nAnalyze current market state and identify best trade opportunity.`;navigator.clipboard.writeText(p).then(()=>{const btn=document.getElementById('copy-claude-btn');if(btn){btn.textContent='OK COPIED';setTimeout(()=>btn.textContent='C COPY TO CLAUDE',2500);}});}
+function copyToClaudeGlobal(){
+const now=new Date().toISOString();
+const hlTiming={BTC:'US CLOCK · entry 9AM EST · exit 7PM EST · avg 7.3H',ETH:'ASIA/LON CLOCK · entry 3-4AM EST · exit 6-8AM London',SOL:'US CLOCK · entry 9AM EST · exit 7PM EST · avg 7.4H',XRP:'ASIA/LON CLOCK · entry 3-7AM EST · exit 9-11AM · avg 8.3H',ADA:'ASIA/LON CLOCK · entry 2-4AM EST · exit 4-6AM London · avg 7.7H',SUI:'ASIA/LON CLOCK · entry 3-8AM EST · exit 7-9AM London · avg 8.1H'};
+const lines=SYMBOLS.map((sym,i)=>{
+const lbl=LABELS[i];
+const d15=mkt[sym]?.['15M'],d30=mkt[sym]?.['30M'],d1=mkt[sym]?.['1H'],d4=mkt[sym]?.['4H'];
+const b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M'),b1=getBDKB(sym,'1H'),b4=getBDKB(sym,'4H');
+const mtf=getMTFScore(sym);
+const fund=d1?.funding;
+const age15=d15?._received?dataAge(d15._received):'?';
+const age1h=d1?._received?dataAge(d1._received):'?';
+const age4h=d4?._received?dataAge(d4._received):'?';
+// New fields
+const mfi=d1?.mfi??d15?.mfi;
+const fvgBull=d4?.fvgBullActive||d1?.fvgBullActive||0;
+const fvgBear=d4?.fvgBearActive||d1?.fvgBearActive||0;
+const fvgBullZone=fvgBull?(d4?.fvgBullLo||d1?.fvgBullLo)?.toFixed(5):'';
+const fvgBearZone=fvgBear?(d4?.fvgBearHi||d1?.fvgBearHi)?.toFixed(5):'';
+const coffinArmed=d15?.coffinArmed||0;
+const coffinBreakL=d15?.coffinBreakLong||0;
+const coffinBreakS=d15?.coffinBreakShort||0;
+const coffinHi=d15?.coffinHi?.toFixed(5)||'-';
+const coffinLo=d15?.coffinLo?.toFixed(5)||'-';
+const coffinStatus=coffinBreakL?'BREAK LONG':coffinBreakS?'BREAK SHORT':coffinArmed?`ARMED [${coffinLo}-${coffinHi}]`:'IDLE';
+const fracR=d1?.fracResistance?.toFixed(5)||'-';
+const fracS=d1?.fracSupport?.toFixed(5)||'-';
+const ote=getOTEZone(sym);
+const fundStr=fund?.fundingRate!=null?(fund.fundingRate*100).toFixed(4)+'% '+fund.fundingZone:'N/A';
+const mfiGate=mfi!=null?(mfi>45?'PASS':'FAIL'):'N/A';
+return `── ${lbl} ─────────────────────────────────
+  Price:    ${d1?fmtP(d1.close):'-'} | Mode: ${activeMode}
+  MTF Score: ${mtf.score} · Quality: ${mtf.quality} · Dir: ${mtf.direction}
+  Scores:   15M:${b15?.score??'-'} [${age15}] · 30M:${b30?.score??'-'} · 1H:${b1?.score??'-'} [${age1h}] · 4H:${b4?.score??'-'} [${age4h}]
+  State:    1H:${b1?.state??'-'} · 4H:${b4?.state??'-'}
+  Liq:      EVENT:${b1?.liquidityEvent??0} · SETUP:${b1?.setupReady1H??0} · CONF:${b1?.confirmed1H??0} · Type:${b1?.liquidityType??'none'}
+  OTE Zone: ${ote.zone}${ote.pctFrom?' ('+ote.pctFrom+'% away)':''} · 0.618:${ote.fib618?.toFixed(5)||'-'} · 0.786:${ote.fib786?.toFixed(5)||'-'}
+  FracR/S:  R:${fracR} (active:${d1?.fracResActive??0}) · S:${fracS} (active:${d1?.fracSupActive??0})
+  MFI:      ${mfi?.toFixed(1)??'-'} → LONG gate ${mfiGate} (need >45)
+  FVG:      Bull:${fvgBull?'ACTIVE @ below '+fvgBullZone:'NONE'} · Bear:${fvgBear?'ACTIVE @ above '+fvgBearZone:'NONE'}
+  Coffin:   ${coffinStatus}
+  Funding:  ${fundStr}
+  H/L Time: ${hlTiming[lbl]||'-'}`;
+}).join('\n');
+const miLine=whaleData?`\nMARKET INTELLIGENCE:
+  F&G: ${whaleData.fear_greed?.value} (${whaleData.fear_greed?.label??'-'})
+  DXY: ${whaleData.dxy?.price} · ${whaleData.dxy?.direction??'-'}
+  BTC CVD 1H: ${whaleData.cvd?.['1h']?.signal??'-'} · 4H: ${whaleData.cvd?.['4h']?.signal??'-'}
+  Funding BNB:${whaleData.funding?.binance?.toFixed(3)??'-'}% OKX:${whaleData.funding?.okx?.toFixed(3)??'-'}% BYB:${whaleData.funding?.bybit?.toFixed(3)??'-'}%
+  L/S: ${whaleData.long_short?.long??'-'}% Long / ${whaleData.long_short?.short??'-'}% Short`:'';
+const p=`SIGNAL DESK V2 - MARKET OVERVIEW
+Mode: ${activeMode} | Time: ${now}
+
+${lines}
+${miLine}
+
+SYSTEM CONTEXT:
+  H/L Timing Overlay: MANDATORY on all entry/exit decisions
+  MFI Gate: >45 required for LONG · <55 for SHORT
+  Coffin: ARMED = wait for break · BREAK = precision entry bar
+  FVG + OTE overlap = A+ setup zone
+  EWT B-Wave in 1D payload: check before entry
+
+Analyze current market state and identify best trade opportunity.
+Apply H/L timing overlay. Flag any MFI/FVG/Coffin confluence.`;
+navigator.clipboard.writeText(p).then(()=>{const btn=document.getElementById('copy-claude-btn');if(btn){btn.textContent='✓ COPIED';setTimeout(()=>btn.textContent='⎋ COPY TO CLAUDE',2500);}});
+}
 function loadJournal(){try{return JSON.parse(localStorage.getItem('bdkb_journal')||'[]');}catch{return[];}}
 function saveJournal(e){localStorage.setItem('bdkb_journal',JSON.stringify(e));}
 function toggleJournalForm(){document.getElementById('journal-form').classList.toggle('open');}
@@ -671,7 +737,7 @@ document.getElementById('mi-panel').innerHTML = html;
 
 loadAll();
 startWhalePolling();
-setInterval(loadAll,5*60*1000);
+setInterval(loadAll, 60*1000);
 
 </script>
 </body>
