@@ -1,1 +1,49 @@
-[]
+[
+  {
+    "date": "2026-05-04T00:00:17.970Z",
+    "symbol": "ADAUSDT",
+    "timeframe": "1W",
+    "open": 0.2522,
+    "high": 0.2561,
+    "low": 0.2383,
+    "close": 0.2495,
+    "volume": 569857412.1,
+    "vwap": 0.248,
+    "ema50": 0.4541,
+    "ema100": 0.5244,
+    "ema200": 0.5237,
+    "rsi": 32.7868,
+    "macdLine": -0.0823,
+    "macdHist": 0.0117,
+    "atr": 0.0628,
+    "trendBias": 0,
+    "ewCount": -1,
+    "ewDirection": -1,
+    "ewWaveType": null,
+    "ewCorrPattern": null,
+    "ewInvalidated": 0,
+    "ewBWave": 0,
+    "ewDivergence": 0,
+    "ewAlternation": null,
+    "ewFibTarget": null,
+    "ewFibRetrace": null,
+    "ewPriorW4High": null,
+    "ewPriorW4Low": null,
+    "regime": "BOTH_ALLOWED",
+    "bdkb": {
+      "score": -23,
+      "state": "NEUTRAL",
+      "direction": "NEUTRAL",
+      "longScore": 0,
+      "shortScore": 23,
+      "components": {
+        "structure": 0,
+        "ew": -0.25,
+        "ema": -0.5,
+        "cvd": -0.5,
+        "funding": 0.5,
+        "oi": 0
+      }
+    }
+  }
+]
