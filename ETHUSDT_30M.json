@@ -1,26 +1,26 @@
 {
   "symbol": "ETHUSDT",
   "timeframe": "30M",
-  "open": 2108.21,
-  "high": 2109.12,
-  "low": 2077.23,
-  "close": 2088.36,
-  "volume": 22062.7628,
-  "wickRange": 31.89,
-  "vwap": 2116.2065,
-  "ema50": 2131.4477,
+  "open": 2088.37,
+  "high": 2092.12,
+  "low": 2079.86,
+  "close": 2081.32,
+  "volume": 7541.8649,
+  "wickRange": 12.26,
+  "vwap": 2115.4181,
+  "ema50": 2129.4819,
   "ema100": null,
-  "ema200": 2188.2505,
+  "ema200": 2187.1865,
   "sma50": null,
   "sma200": null,
-  "rsi": 35.4652,
-  "stochK": 25.4207,
-  "stochD": 23.8045,
-  "macdLine": -9.5585,
-  "macdHist": -1.8074,
-  "atr": 13.9306,
-  "volSMA20": 9700.6901,
-  "bbWidth": 3.1438,
+  "rsi": 33.1716,
+  "stochK": 14.9185,
+  "stochD": 22.6398,
+  "macdLine": -10.9605,
+  "macdHist": -2.5676,
+  "atr": 13.8113,
+  "volSMA20": 9927.6436,
+  "bbWidth": 3.456,
   "trendBias": -1,
   "mfi": null,
   "fracResistance": null,
@@ -57,9 +57,9 @@
   "dailyOpenHour": null,
   "dailyOpenSession": null,
   "bdkb": {
-    "score": -93,
+    "score": -73,
     "longScore": 0,
-    "shortScore": 93,
+    "shortScore": 73,
     "state": "STRONG_SHORT",
     "direction": "SHORT",
     "components": {
@@ -67,8 +67,8 @@
       "ema": -1,
       "cvd": -1,
       "funding": 0.5,
-      "oi": -1,
-      "delta": -1
+      "oi": 0,
+      "delta": -0.5
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -79,7 +79,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-05-18T18:30:07.663Z",
+  "_received": "2026-05-18T19:00:13.392Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -91,6 +91,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-18T18:30:07.824Z"
+    "_fetched": "2026-05-18T19:00:13.574Z"
   }
 }
