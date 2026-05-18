@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-05-18",
+    "symbol": "SUIUSDT",
+    "dailyHigh": 1.0897,
+    "highHour": 6,
+    "highMinute": 0,
+    "highSession": "LONDON",
+    "dailyLow": 1.0108,
+    "lowHour": 19,
+    "lowMinute": 0,
+    "lowSession": "NYSE_AFTER",
+    "highBeforeLow": false,
+    "highToLowBars": 13,
+    "dailyRange": 0.0789,
+    "currentPos": 41.95,
+    "close": 1.0439,
+    "_received": "2026-05-18T00:00:09.892Z"
+  },
+  {
     "date": "2026-05-17",
     "symbol": "SUIUSDT",
     "dailyHigh": 1.0897,
