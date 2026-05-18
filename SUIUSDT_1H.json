@@ -82,11 +82,11 @@
     "bdkbScore1HPrev2": -15,
     "mode": "confirmed"
   },
-  "_received": "2026-05-18T14:00:11.779Z",
+  "_received": "2026-05-18T14:00:14.134Z",
   "_sample": false,
   "funding": {
-    "fundingRate": 0.0000080998185958,
-    "fundingRatePct": "0.0008%",
+    "fundingRate": 0.0000072489584262,
+    "fundingRatePct": "0.0007%",
     "fundingZone": "ELEVATED",
     "fundingSource": "OKX",
     "nextFundingTime": "1779148800000",
@@ -94,6 +94,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-18T14:00:11.937Z"
+    "_fetched": "2026-05-18T14:00:14.320Z"
   }
 }
