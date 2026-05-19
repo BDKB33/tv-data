@@ -315,18 +315,44 @@ async function fetchFile(sym,tf){try{const r=await fetch(`${WORKER_URL}?file=${s
 function dataAge(iso){if(!iso)return'?';const s=Math.floor((Date.now()-new Date(iso).getTime())/1000);if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m';return Math.floor(s/3600)+'h';}
 async function loadAll(){
 document.getElementById('ts').textContent='Refreshing…';
+let snapLoaded=false;
 try{
-  // Single fetch — Worker serves _snapshot.json via GitHub API (no CDN cache)
   const r=await fetch(`${WORKER_URL}?file=_snapshot.json`,{cache:'no-store'});
   if(r.ok){
     const snap=await r.json();
-    for(const sym of SYMBOLS){
-      mkt[sym]={};
-      for(const tf of TIMEFRAMES){if(snap[sym]?.[tf])mkt[sym][tf]=snap[sym][tf];}
+    // Require actual scoring data — not just an empty object
+    const hasData=snap&&snap['BTCUSDT']&&snap['BTCUSDT']['15M']&&snap['BTCUSDT']['15M'].close;
+    if(hasData){
+      for(const sym of SYMBOLS){
+        mkt[sym]={};
+        for(const tf of TIMEFRAMES){if(snap[sym]?.[tf]&&snap[sym][tf].close)mkt[sym][tf]=snap[sym][tf];}
+      }
+      snapLoaded=true;
+      console.log('Snapshot loaded OK —',snap._updated);
+    }else{
+      console.log('Snapshot exists but has no scoring data yet — falling back to individual files');
     }
   }
 }catch(e){console.error('Snapshot fetch failed:',e);}
-// Positions still fetched separately (different data source)
+
+// Fallback — individual files via Worker proxy (bypasses CDN cache)
+if(!snapLoaded){
+  console.log('Fetching individual files via Worker proxy');
+  const fetches=[];
+  for(const sym of SYMBOLS){
+    mkt[sym]={};
+    for(const tf of TIMEFRAMES){
+      fetches.push(
+        fetch(`${WORKER_URL}?file=${sym}_${tf}.json`,{cache:'no-store'})
+          .then(r=>r.ok?r.json():null)
+          .then(d=>{if(d&&d.close)mkt[sym][tf]=d;})
+          .catch(()=>{})
+      );
+    }
+  }
+  await Promise.all(fetches);
+}
+
 fetch(`${WORKER_URL}?file=positions.json`,{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>renderPositions(d)).catch(()=>renderPositions(null));
 render();
 const now=new Date();
