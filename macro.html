@@ -224,21 +224,57 @@ let whaleData=null, whaleInterval=null;
 // All 6 tokens × all timeframes in one request
 async function loadAll(){
   document.getElementById('ts').textContent='Refreshing...';
+  let snapLoaded=false;
   try{
     const r=await fetch(`${WORKER_URL}?file=_snapshot.json`,{cache:'no-store'});
     if(r.ok){
       const snap=await r.json();
-      for(const sym of SYMBOLS){
-        if(snap[sym]){
-          if(snap[sym]['1D'])macro1D[sym]=snap[sym]['1D'];
-          if(snap[sym]['1W'])macro1W[sym]=snap[sym]['1W'];
-          if(snap[sym]['HL'])macroHL[sym]=snap[sym]['HL'];
-          if(Array.isArray(snap[sym]['1D_history']))macro1DHistory[sym]=snap[sym]['1D_history'];
-          if(Array.isArray(snap[sym]['1W_history']))macro1WHistory[sym]=snap[sym]['1W_history'];
+      const hasHL=snap&&snap['BTCUSDT']&&snap['BTCUSDT']['HL'];
+      if(hasHL){
+        for(const sym of SYMBOLS){
+          if(snap[sym]){
+            if(snap[sym]['1D'])macro1D[sym]=snap[sym]['1D'];
+            if(snap[sym]['1W'])macro1W[sym]=snap[sym]['1W'];
+            if(snap[sym]['HL'])macroHL[sym]=snap[sym]['HL'];
+            if(Array.isArray(snap[sym]['1D_history']))macro1DHistory[sym]=snap[sym]['1D_history'];
+            if(Array.isArray(snap[sym]['1W_history']))macro1WHistory[sym]=snap[sym]['1W_history'];
+          }
         }
+        snapLoaded=true;
+        console.log('Snapshot loaded — HL data present');
       }
     }
   }catch(e){console.error('Snapshot fetch failed:',e);}
+
+  // Fallback for any data missing from snapshot — individual files via Worker proxy
+  const fallbacks=[];
+  for(const sym of SYMBOLS){
+    if(!macro1D[sym]){
+      fallbacks.push(fetch(`${WORKER_URL}?file=${sym}_1D.json`,{cache:'no-store'})
+        .then(r=>r.ok?r.json():null).then(d=>{if(d&&d.close)macro1D[sym]=d;}).catch(()=>{}));
+    }
+    if(!macro1W[sym]){
+      fallbacks.push(fetch(`${WORKER_URL}?file=${sym}_1W.json`,{cache:'no-store'})
+        .then(r=>r.ok?r.json():null).then(d=>{if(d&&d.close)macro1W[sym]=d;}).catch(()=>{}));
+    }
+    if(!macroHL[sym]){
+      fallbacks.push(fetch(`${WORKER_URL}?file=${sym}_HL.json`,{cache:'no-store'})
+        .then(r=>r.ok?r.json():null).then(d=>{if(d&&d.dailyHigh)macroHL[sym]=d;}).catch(()=>{}));
+    }
+    if(!macro1DHistory[sym]){
+      fallbacks.push(fetch(`${WORKER_URL}?file=${sym}_1D_history.json`,{cache:'no-store'})
+        .then(r=>r.ok?r.json():null).then(d=>{if(Array.isArray(d)&&d.length)macro1DHistory[sym]=d;}).catch(()=>{}));
+    }
+    if(!macro1WHistory[sym]){
+      fallbacks.push(fetch(`${WORKER_URL}?file=${sym}_1W_history.json`,{cache:'no-store'})
+        .then(r=>r.ok?r.json():null).then(d=>{if(Array.isArray(d)&&d.length)macro1WHistory[sym]=d;}).catch(()=>{}));
+    }
+  }
+  if(fallbacks.length>0){
+    console.log(`Fetching ${fallbacks.length} missing files via Worker proxy`);
+    await Promise.all(fallbacks);
+  }
+
   render();
   const now=new Date();
   document.getElementById('ts').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' ET';
