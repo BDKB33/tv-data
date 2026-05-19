@@ -6,16 +6,16 @@
     "highHour": 20,
     "highMinute": 0,
     "highSession": "ASIA",
-    "dailyLow": 2111.25,
-    "lowHour": 5,
+    "dailyLow": 2106.77,
+    "lowHour": 6,
     "lowMinute": 0,
     "lowSession": "LONDON",
     "highBeforeLow": false,
-    "highToLowBars": 9,
-    "dailyRange": 35.7,
-    "currentPos": 9.08,
-    "close": 2114.49,
-    "_received": "2026-05-19T10:00:07.127Z"
+    "highToLowBars": 10,
+    "dailyRange": 40.18,
+    "currentPos": 29.17,
+    "close": 2118.49,
+    "_received": "2026-05-19T13:00:08.489Z"
   },
   {
     "date": "2026-05-18",
