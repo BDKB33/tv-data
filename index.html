@@ -310,14 +310,24 @@ SCALP:{'15M':0.20,'30M':0.20,'1H':0.40,'4H':0.20},
 SWING:{'15M':0.00,'30M':0.10,'1H':0.40,'4H':0.50}
 };
 function stateTier(s){if(s==='CONFIRMED'||s==='STRONG_LONG'||s==='STRONG_SHORT')return 0;if(s==='SETUP'||s==='LONG_BIAS'||s==='SHORT_BIAS')return 1;if(s==='WATCHLIST'||s==='NEUTRAL')return 2;return 3;}
-async function fetchFile(sym,tf){try{const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${sym}_${tf}.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)return null;const d=await r.json();return(d&&Object.keys(d).length>2)?d:null;}catch{return null;}}
+const WORKER_URL = 'https://signal-desk.p2gdhfm8vc.workers.dev';
+async function fetchFile(sym,tf){try{const r=await fetch(`${WORKER_URL}?file=${sym}_${tf}.json`,{cache:'no-store'});if(!r.ok)return null;const d=await r.json();return(d&&Object.keys(d).length>2)?d:null;}catch{return null;}}
 function dataAge(iso){if(!iso)return'?';const s=Math.floor((Date.now()-new Date(iso).getTime())/1000);if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m';return Math.floor(s/3600)+'h';}
 async function loadAll(){
 document.getElementById('ts').textContent='Refreshing…';
-const fetches=[];
-for(const sym of SYMBOLS){mkt[sym]={};for(const tf of TIMEFRAMES){fetches.push(fetchFile(sym,tf).then(d=>{if(d)mkt[sym][tf]=d;}));}}
-fetches.push(fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/positions.json?t=${Date.now()}`).then(r=>r.ok?r.json():null).then(d=>renderPositions(d)).catch(()=>renderPositions(null)));
-await Promise.all(fetches);
+try{
+  // Single fetch — Worker serves _snapshot.json via GitHub API (no CDN cache)
+  const r=await fetch(`${WORKER_URL}?file=_snapshot.json`,{cache:'no-store'});
+  if(r.ok){
+    const snap=await r.json();
+    for(const sym of SYMBOLS){
+      mkt[sym]={};
+      for(const tf of TIMEFRAMES){if(snap[sym]?.[tf])mkt[sym][tf]=snap[sym][tf];}
+    }
+  }
+}catch(e){console.error('Snapshot fetch failed:',e);}
+// Positions still fetched separately (different data source)
+fetch(`${WORKER_URL}?file=positions.json`,{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>renderPositions(d)).catch(()=>renderPositions(null));
 render();
 const now=new Date();
 document.getElementById('ts').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' ET';
