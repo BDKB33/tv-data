@@ -1,8 +1,8 @@
 {
   "symbol": "SUIUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 1.0806,
-  "highHour": 12,
+  "dailyHigh": 1.0832,
+  "highHour": 13,
   "highMinute": 0,
   "highSession": "NYSE",
   "dailyLow": 1.0288,
@@ -10,9 +10,9 @@
   "lowMinute": 0,
   "lowSession": "ASIA",
   "highBeforeLow": true,
-  "highToLowBars": 16,
-  "dailyRange": 0.0518,
-  "currentPos": 87.07,
-  "close": 1.0739,
-  "_received": "2026-05-20T17:00:17.679Z"
+  "highToLowBars": 17,
+  "dailyRange": 0.0544,
+  "currentPos": 86.95,
+  "close": 1.0761,
+  "_received": "2026-05-20T18:00:24.019Z"
 }
