@@ -135,6 +135,18 @@ main{padding:1.5rem 2rem;max-width:1800px;margin:0 auto;}
 .session-LONDON_PRE{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.2);}
 .session-OFF_HOURS{color:var(--text3);background:var(--bg4);border-color:var(--border);}
 
+/* DAILY 6-DAY WEIGHTED SCORE */
+.mac-d6{padding:0.4rem 0.8rem;border-bottom:1px solid var(--border);}
+.mac-d6-label{font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:1px;margin-bottom:3px;}
+.mac-d6-row{display:grid;grid-template-columns:repeat(6,1fr) auto;gap:0;}
+.mac-d6-cell{padding:2px 3px;text-align:center;border-right:1px solid var(--border);}
+.mac-d6-cell:last-child{border-right:none;}
+.mac-d6-wt{font-family:var(--mono);font-size:5px;color:var(--text3);display:block;}
+.mac-d6-val{font-family:var(--mono);font-size:8px;font-weight:700;display:block;}
+.mac-d6-composite{padding:2px 5px;text-align:center;background:var(--bg4);}
+.mac-d6-comp-lbl{font-family:var(--mono);font-size:5px;color:var(--text3);}
+.mac-d6-comp-val{font-family:var(--mono);font-size:10px;font-weight:700;}
+
 /* CYCLE BIAS */
 .mac-cycle{padding:0.4rem 0.8rem;}
 .mac-cycle-val{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;}
@@ -342,6 +354,29 @@ function getCycleBias(sym){
   return{bias:'TRANSITION',color:'var(--text2)'};
 }
 
+// ── DAILY 6-DAY WEIGHTED SCORE ─────────────────────────────────────────────────
+// D1×40% + D2×25% + D3×15% + D4×10% + D5×6% + D6×4% = 100%
+function getDaily6Score(sym){
+  const hist=macro1DHistory[sym];
+  if(!hist||hist.length===0)return{score:null,days:[],trend:'NO DATA'};
+  const weights=[0.40,0.25,0.15,0.10,0.06,0.04];
+  const labels=['D1 40%','D2 25%','D3 15%','D4 10%','D5 6%','D6 4%'];
+  const days=hist.slice(0,6).map(d=>d?.bdkb?.score??null);
+  const d1=days[0];
+  if(d1===null)return{score:null,days,trend:'PENDING'};
+  let score=0,totalW=0;
+  days.forEach((s,i)=>{
+    if(s!==null){score+=s*weights[i];totalW+=weights[i];}
+  });
+  score=totalW>0?Math.round(score/totalW*totalW):0;
+  // Actually just weighted sum (not normalize — weights already sum to 1 for full 6 days)
+  score=Math.round(days.reduce((acc,s,i)=>s!==null?acc+s*weights[i]:acc,0));
+  let trend='FLAT';
+  const d2=days[1];
+  if(d2!==null){if(d1>d2+5)trend='RISING';else if(d1<d2-5)trend='FALLING';}
+  return{score,days,labels,weights,trend};
+}
+
 // ── WEEKLY x4 SCORE ────────────────────────────────────────────────────────────
 function getWeekly4Score(sym){
   const hist=macro1WHistory[sym];
@@ -437,6 +472,7 @@ function renderMacroGrid(){
     const struct=detectStructure(sym);
     const cycle=getCycleBias(sym);
     const w4=getWeekly4Score(sym);
+    const d6=getDaily6Score(sym);
 
     // EWT from 1D
     const ewCount=d1?.ewCount??null,ewWaveType=d1?.ewWaveType||null,ewCorrPattern=d1?.ewCorrPattern||null;
@@ -503,6 +539,16 @@ function renderMacroGrid(){
         <div style="font-family:var(--mono);font-size:6px;color:var(--text3);margin-bottom:3px;letter-spacing:1px;">DAILY STRUCTURE</div>
         <div class="mac-struct-badges">${struct.badges.slice(0,6).map(b=>`<span class="struct-badge ${b.toLowerCase()}">${b}</span>`).join('')}</div>
         <div class="mac-struct-verdict" style="color:${struct.color}">${struct.verdict}</div>
+      </div>
+      <div class="mac-d6">
+        <div class="mac-d6-label">1D × 6 WEIGHTED · D1×40% D2×25% D3×15% D4×10% D5×6% D6×4%</div>
+        <div class="mac-d6-row">
+          ${(d6.days||[]).slice(0,6).map((s,i)=>{
+            const wts=['40%','25%','15%','10%','6%','4%'];
+            return `<div class="mac-d6-cell"><span class="mac-d6-wt">D${i+1} ${wts[i]}</span><span class="mac-d6-val" style="color:${scoreColor(s)}">${s!=null?(s>0?'+':'')+s:'—'}</span></div>`;
+          }).join('')}
+          <div class="mac-d6-composite"><div class="mac-d6-comp-lbl">Dx6</div><div class="mac-d6-comp-val" style="color:${scoreColor(d6.score)}">${d6.score!=null?(d6.score>0?'+':'')+d6.score:d6.trend}</div></div>
+        </div>
       </div>
       <div class="mac-ema">
         <div class="mac-ema-row"><span class="mac-ema-lbl">EMA REGIME</span><span class="mac-ema-val" style="color:${emaR.color}">${emaR.regime}</span></div>
