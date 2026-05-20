@@ -306,8 +306,8 @@ const TIMEFRAMES=['15M','30M','1H','4H'];
 let mkt={},activeMode='SCALP';
 let taToken='ETH',taDir='AUTO',taResult=null,taEditId=null;
 const TFW={
-SCALP:{'15M':0.20,'30M':0.20,'1H':0.40,'4H':0.20},
-SWING:{'15M':0.00,'30M':0.10,'1H':0.40,'4H':0.50}
+SCALP:{'15M':4/7,'30M':2/7,'1H':1/7,'4H':0},
+SWING:{'15M':0,'30M':0,'1H':0.25,'4H':0.50}
 };
 function stateTier(s){if(s==='CONFIRMED'||s==='STRONG_LONG'||s==='STRONG_SHORT')return 0;if(s==='SETUP'||s==='LONG_BIAS'||s==='SHORT_BIAS')return 1;if(s==='WATCHLIST'||s==='NEUTRAL')return 2;return 3;}
 const WORKER_URL = 'https://signal-desk.p2gdhfm8vc.workers.dev';
@@ -388,10 +388,21 @@ function getMTFScore(sym){
 const b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M'),b1=getBDKB(sym,'1H'),b4=getBDKB(sym,'4H');
 if(!b15&&!b30&&!b1&&!b4)return{score:0,quality:'NO_DATA',direction:'NEUTRAL',trendBias:0,scores:{'15M':0,'30M':0,'1H':0,'4H':0},directions:{'15M':'NEUTRAL','30M':'NEUTRAL','1H':'NEUTRAL','4H':'NEUTRAL'},tradeReady:false};
 const w=TFW[activeMode];let n=0,d=0;
-if(b15&&w['15M']>0){n+=b15.score*w['15M'];d+=w['15M'];}
-if(b30&&w['30M']>0){n+=b30.score*w['30M'];d+=w['30M'];}
-if(b1&&w['1H']>0){n+=b1.score*w['1H'];d+=w['1H'];}
-if(b4&&w['4H']>0){n+=b4.score*w['4H'];d+=w['4H'];}
+if(activeMode==='SCALP'){
+  // SCALP: 15M×4 + 30M×2 + 1H×1 (4:2:1 ratio), zero 4H weight
+  if(b15&&w['15M']>0){n+=b15.score*w['15M'];d+=w['15M'];}
+  if(b30&&w['30M']>0){n+=b30.score*w['30M'];d+=w['30M'];}
+  if(b1&&w['1H']>0){n+=b1.score*w['1H'];d+=w['1H'];}
+  // 4H intentionally excluded from SCALP
+}else{
+  // SWING: 4H=50%, 1H curr=25%, 1H prev1=15%, 1H prev2=10%
+  const b4score=b4?.score||0;
+  const s1hCurr=b1?.score||0;
+  const s1hPrev1=b1?.bdkbScore1HPrev1??s1hCurr;
+  const s1hPrev2=b1?.bdkbScore1HPrev2??s1hCurr;
+  n=(b4score*0.50)+(s1hCurr*0.25)+(s1hPrev1*0.15)+(s1hPrev2*0.10);
+  d=1.0;
+}
 const score=d>0?Math.round(n/d):0;
 const d15=b15?.direction||'NEUTRAL',d30=b30?.direction||'NEUTRAL',d1=b1?.direction||'NEUTRAL',d4=b4?.direction||'NEUTRAL';
 const full=d1===d4&&d1!=='NEUTRAL'&&(d15===d1||d15==='NEUTRAL')&&(d30===d1||d30==='NEUTRAL');
@@ -479,7 +490,9 @@ const compRows=compDefs.map(c=>{const v=comps[c.key]||0,active=v>0,col=active?'v
 const s1hCurr=b1?.score||0;
 const s1hPrev1=b1?.bdkbScore1HPrev1??null;
 const s1hPrev2=b1?.bdkbScore1HPrev2??null;
-const swing1Hx3=s1hPrev1!==null&&s1hPrev2!==null?Math.round((s1hPrev2*0.20)+(s1hPrev1*0.30)+(s1hCurr*0.50)):null;
+// Display: 1H portion of SWING only (4H shown separately in panel)
+// Weights: curr=25%, prev1=15%, prev2=10% (the 1H side of the 4H=50%/1Hx3=50% split)
+const swing1Hx3=s1hPrev1!==null&&s1hPrev2!==null?Math.round((s1hPrev2*0.10)+(s1hPrev1*0.15)+(s1hCurr*0.25)):Math.round(s1hCurr*0.25);
 const swing1Hx3Str=swing1Hx3!==null?(swing1Hx3>0?'+':'')+swing1Hx3:'-';
 const swing1Hx3Color=swing1Hx3!==null?scoreColor(swing1Hx3):'var(--text3)';
 const vwapPos=dOHLCV?.vwap?dOHLCV.close>dOHLCV.vwap?'ABOVE':'BELOW':'-';
