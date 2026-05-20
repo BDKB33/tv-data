@@ -495,7 +495,6 @@ const mfiVal=mfi1h??mfi15;
 const mfiStr=mfiVal!==null?mfiVal.toFixed(1):'-';
 const mfiCls=mfiVal===null?'mfi-neut':mfiVal>=60?'mfi-bull':mfiVal<=40?'mfi-bear':'mfi-neut';
 // ── FVG badge (4H priority, fall back to 1H) ────────────────────────────
-const d4=mkt[sym]?.['4H'];
 const fvgBullActive=(d4?.fvgBullActive||d1?.fvgBullActive)||0;
 const fvgBearActive=(d4?.fvgBearActive||d1?.fvgBearActive)||0;
 const fvgBullLo=d4?.fvgBullLo??d1?.fvgBullLo??null;
@@ -506,7 +505,6 @@ const fvgBullBadge=fvgBullActive?`<span class="cs-fvg-badge fvg-bull">BULL FVG $
 const fvgBearBadge=fvgBearActive?`<span class="cs-fvg-badge fvg-bear">BEAR FVG ${fvgBearLo?fmtP(fvgBearLo)+'-'+fmtP(fvgBearHi):''}</span>`:'';
 const fvgNoneBadge=(!fvgBullActive&&!fvgBearActive)?`<span class="cs-fvg-badge fvg-none">NO FVG</span>`:'';
 // ── Coffin badge (15M data only) ─────────────────────────────────────────
-const d15=mkt[sym]?.['15M'];
 const coffinBreakLong=d15?.coffinBreakLong||0;
 const coffinBreakShort=d15?.coffinBreakShort||0;
 const coffinArmed=d15?.coffinArmed||0;
