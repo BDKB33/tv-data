@@ -1,18 +1,18 @@
 {
   "symbol": "SUIUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 1.0602,
-  "highHour": 2,
+  "dailyHigh": 1.065,
+  "highHour": 4,
   "highMinute": 0,
-  "highSession": "LONDON_PRE",
+  "highSession": "LONDON",
   "dailyLow": 1.0288,
   "lowHour": 20,
   "lowMinute": 0,
   "lowSession": "ASIA",
   "highBeforeLow": true,
-  "highToLowBars": 6,
-  "dailyRange": 0.0314,
-  "currentPos": 86.62,
-  "close": 1.056,
-  "_received": "2026-05-20T07:00:09.224Z"
+  "highToLowBars": 8,
+  "dailyRange": 0.0362,
+  "currentPos": 82.6,
+  "close": 1.0587,
+  "_received": "2026-05-20T09:00:16.664Z"
 }
