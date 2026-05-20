@@ -377,9 +377,6 @@ const now=new Date();
 document.getElementById('ts').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' ET';
 document.getElementById('footer-ts').textContent=now.toISOString().substring(0,19)+' UTC';
 }
-document.getElementById('ts').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' ET';
-document.getElementById('footer-ts').textContent=now.toISOString().substring(0,19)+' UTC';
-}
 function getBDKB(sym,tf){const d=mkt[sym]?.[tf];if(!d)return null;if(d.bdkb&&typeof d.bdkb.score==='number')return d.bdkb;return computeLegacyBDKB(d,tf);}
 function computeLegacyBDKB(d,tf){if(!d)return null;const ss=legacyStructure(d),es=legacyEMA(d),vs=legacyVolume(d),rs=legacyRSI(d),ms=legacyMACD(d),vp=d.vwap?(d.close>d.vwap?1:0):0,rd=d.rsiDiv===1?1:0;let ls,ss2;if(tf==='1H'||tf==='2H'){ls=(ss>0?25:0)+(es>0?20:0)+(vp>0?15:0)+(vs>0?15:0)+(rs>0.2?10:0)+(rd?15:0);ss2=(ss<0?25:0)+(es<0?20:0)+(vp<1?15:0)+(vs<0?15:0)+(rs<-0.2?10:0);}else if(tf==='4H'||tf==='8H'){ls=(ss>0?25:0)+(es>0?25:0)+(vs>0?15:0)+(rs>0.2?10:0)+(ms>0?10:0);ss2=(ss<0?25:0)+(es<0?25:0)+(vs<0?15:0)+(rs<-0.2?10:0)+(ms<0?10:0);}else{ls=(ss>0?30:0)+(es>0?25:0)+(vs>0?15:0)+(rs>0.2?10:0)+(ms>0?10:0);ss2=(ss<0?30:0)+(es<0?25:0)+(vs<0?15:0)+(rs<-0.2?10:0)+(ms<0?10:0);}const score=Math.max(ls,ss2);const dir=ls>=65&&(ls-ss2)>=10?'LONG':ss2>=65&&(ss2-ls)>=10?'SHORT':'NEUTRAL';const state=score>=80?'CONFIRMED':score>=65?'SETUP':score>=50?'WATCHLIST':'NO_TRADE';return{score,longScore:ls,shortScore:ss2,state,direction:dir,components:{structure:ss>0?1:0,ema:es>0?1:0,vwap:vp,volume:vs>0?1:0,rsi:rs>0.2?1:0,macd:ms>0?1:0,liquidity:rd},liquidityEvent:0,setupReady1H:0,confirmed1H:0,tradeReady1H:0};}
 function legacyStructure(d){const aR=d.fracResActive===0,aS=d.fracSupActive===1,eB=d.ewDirection===1&&d.ewCount>0,eBr=d.ewDirection===-1;if(aR&&aS&&eB)return 1;if(!aR&&!aS&&eBr)return -1;if(aS&&eB)return 0.5;if(!aR&&eBr)return -0.5;return 0;}
