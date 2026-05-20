@@ -2,20 +2,20 @@
   {
     "date": "2026-05-20",
     "symbol": "XRPUSDT",
-    "dailyHigh": 1.3754,
-    "highHour": 6,
+    "dailyHigh": 1.376,
+    "highHour": 10,
     "highMinute": 0,
-    "highSession": "LONDON",
+    "highSession": "NYSE",
     "dailyLow": 1.3477,
     "lowHour": 21,
     "lowMinute": 0,
     "lowSession": "ASIA",
     "highBeforeLow": true,
-    "highToLowBars": 9,
-    "dailyRange": 0.0277,
-    "currentPos": 64.26,
-    "close": 1.3655,
-    "_received": "2026-05-20T12:00:04.423Z"
+    "highToLowBars": 13,
+    "dailyRange": 0.0283,
+    "currentPos": 90.11,
+    "close": 1.3732,
+    "_received": "2026-05-20T15:00:19.344Z"
   },
   {
     "date": "2026-05-19",
