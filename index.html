@@ -318,7 +318,7 @@ document.getElementById('ts').textContent='Refreshing…';
 let snapLoaded=false;
 
 // Max age per timeframe before we consider a slot stale (in ms)
-const MAX_AGE={'15M':22*60000,'30M':45*60000,'1H':90*60000,'4H':6*60*60000};
+const MAX_AGE={'15M':16*60000,'30M':32*60000,'1H':65*60000,'4H':6*60*60000};
 
 function slotFresh(d,tf){
   if(!d||!d._received)return false;
@@ -811,9 +811,20 @@ document.getElementById('mi-panel').innerHTML = html;
 
 loadAll();
 startWhalePolling();
-// Poll every 15 minutes — aligned to 15M candle close cycle
-// TradingView fires alerts at candle close → Worker writes GitHub → dashboard picks up
-setInterval(loadAll, 15*60*1000);
+
+// ── CANDLE-ALIGNED AUTO-REFRESH ───────────────────────────────────────────────
+// Refreshes 90 seconds after each 15M candle boundary (:00, :15, :30, :45)
+// Ensures dashboard always shows the most recent closed candle within ~2 minutes
+function scheduleNextRefresh(){
+  const now=Date.now();
+  const interval=15*60*1000; // 15 minutes in ms
+  const grace=90*1000;       // 90 second grace period after close
+  const nextBoundary=Math.ceil((now-grace)/interval)*interval+grace;
+  const delay=nextBoundary-now;
+  console.log(`Next refresh in ${Math.round(delay/1000)}s (candle-aligned)`);
+  setTimeout(()=>{loadAll();scheduleNextRefresh();},delay);
+}
+scheduleNextRefresh();
 
 </script>
 </body>
