@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-20T10:00:15.136Z",
+  "_updated": "2026-05-20T10:00:26.688Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -874,9 +874,9 @@
       "highBeforeLow": true,
       "highToLowBars": 6,
       "dailyRange": 0.0259,
-      "currentPos": 79.15,
-      "close": 1.3682,
-      "_received": "2026-05-20T08:00:07.048Z"
+      "currentPos": 86.1,
+      "close": 1.37,
+      "_received": "2026-05-20T10:00:06.237Z"
     },
     "1H": {
       "symbol": "XRPUSDT",
