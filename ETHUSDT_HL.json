@@ -1,18 +1,18 @@
 {
   "symbol": "ETHUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 2130.38,
-  "highHour": 1,
+  "dailyHigh": 2134.41,
+  "highHour": 2,
   "highMinute": 0,
-  "highSession": "ASIA",
+  "highSession": "LONDON_PRE",
   "dailyLow": 2103.29,
   "lowHour": 21,
   "lowMinute": 0,
   "lowSession": "ASIA",
   "highBeforeLow": true,
-  "highToLowBars": 4,
-  "dailyRange": 27.09,
-  "currentPos": 82.47,
-  "close": 2125.63,
-  "_received": "2026-05-20T06:00:05.353Z"
+  "highToLowBars": 5,
+  "dailyRange": 31.12,
+  "currentPos": 97.88,
+  "close": 2133.75,
+  "_received": "2026-05-20T07:00:06.561Z"
 }
