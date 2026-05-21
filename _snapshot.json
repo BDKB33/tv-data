@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-21T17:00:20.040Z",
+  "_updated": "2026-05-21T17:00:30.817Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1608,8 +1608,8 @@
     "HL": {
       "symbol": "SUIUSDT",
       "type": "daily_hl_timing",
-      "dailyHigh": 1.1453,
-      "highHour": 22,
+      "dailyHigh": 1.1507,
+      "highHour": 0,
       "highMinute": 0,
       "highSession": "ASIA",
       "dailyLow": 1.078,
@@ -1617,11 +1617,11 @@
       "lowMinute": 0,
       "lowSession": "ASIA",
       "highBeforeLow": true,
-      "highToLowBars": 2,
-      "dailyRange": 0.0673,
-      "currentPos": 54.98,
-      "close": 1.115,
-      "_received": "2026-05-21T03:00:06.884Z"
+      "highToLowBars": 4,
+      "dailyRange": 0.0727,
+      "currentPos": 47.04,
+      "close": 1.1122,
+      "_received": "2026-05-21T17:00:11.195Z"
     },
     "30M": {
       "symbol": "SUIUSDT",
