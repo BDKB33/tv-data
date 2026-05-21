@@ -199,6 +199,7 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
     <div class="ts-display" id="ts">—</div>
     <a href="index.html" class="nav-btn nav-btn-signal">← SIGNAL DESK</a>
     <button class="nav-btn nav-btn-refresh" onclick="loadAll()">↺ REFRESH</button>
+    <button class="nav-btn" id="macro-copy-btn" onclick="copyMacroToClaude()" style="color:var(--purple);background:var(--purple-dim);border:1px solid rgba(157,122,255,0.25);">⎋ COPY TO CLAUDE</button>
   </div>
 </header>
 <main>
@@ -665,6 +666,131 @@ function renderMI(){
 
   html+='<div style="font-family:var(--mono);font-size:7px;color:var(--text3);padding:4px 2px;letter-spacing:1px;">LAST POLL: '+ts+' · BTC CVD = BTC futures only · Auto-refresh 60s</div>';
   document.getElementById('mi-panel').innerHTML=html;
+}
+
+// ── COPY TO CLAUDE — MACRO DESK ───────────────────────────────────────────────
+function copyMacroToClaude(){
+  const now=new Date().toISOString();
+  const rel1D=getRelStrength1D(),rel1W=getRelStrength1W(),relW4=getRelStrengthW4();
+
+  const lines=SYMBOLS.map((sym,i)=>{
+    const lbl=LABELS[i];
+    const d1=macro1D[sym],w1=macro1W[sym],hl=macroHL[sym];
+    const d1bdkb=d1?.bdkb,w1bdkb=w1?.bdkb;
+    const d1score=d1bdkb?.score??null;
+    const w1score=w1bdkb?.score??null;
+    const d1state=d1bdkb?.state||'NO DATA';
+    const w1state=w1bdkb?.state||'NO DATA';
+    const regime=w1bdkb?.regime||'BOTH_ALLOWED';
+    const w4=getWeekly4Score(sym);
+    const d6=getDaily6Score(sym);
+    const struct=detectStructure(sym);
+    const emaR=getEMARegime(d1);
+    const cycle=getCycleBias(sym);
+
+    // EWT fields
+    const ewWaveType=d1?.ewWaveType||'—';
+    const ewCorrPattern=d1?.ewCorrPattern||'NONE';
+    const ewBWave=d1?.ewBWave===1;
+    const ewDivergence=d1?.ewDivergence===1;
+    const ewInvalidated=d1?.ewInvalidated===1;
+    const ewFibTarget=d1?.ewFibTarget||null;
+    const ewFibRetrace=d1?.ewFibRetrace||null;
+    const wEwWaveType=w1?.ewWaveType||'—';
+    const wEwBWave=w1?.ewBWave===1;
+
+    // Wave labels
+    const ewCount=d1?.ewCount??null;
+    const wEwCount=w1?.ewCount??null;
+    const waveLabel1D=d1?.ewWaveType==='IMPULSE'?`W${ewCount}`:d1?.ewWaveType==='CORRECTIVE'?`C${Math.abs(ewCount||0)}`:d1?.ewWaveType==='INVALID'?'INVALID':'UNKNOWN';
+    const waveLabel1W=w1?.ewWaveType==='IMPULSE'?`W${wEwCount}`:w1?.ewWaveType==='CORRECTIVE'?`C${Math.abs(wEwCount||0)}`:w1?.ewWaveType==='INVALID'?'INVALID':'UNKNOWN';
+
+    // EWT warnings
+    const ewtWarnings=[];
+    if(ewBWave||wEwBWave)ewtWarnings.push('⚠️ B-WAVE TRAP');
+    if(ewDivergence)ewtWarnings.push('⚠️ W5 DIVERGENCE');
+    if(ewInvalidated)ewtWarnings.push('⚠️ WAVE INVALIDATED');
+
+    // H/L session
+    const hlHigh=hl?.dailyHigh,hlLow=hl?.dailyLow;
+    const hlHighSess=hl?.highSession||'-',hlLowSess=hl?.lowSession||'-';
+    const hlRange=hl?.dailyRange,hlPos=hl?.currentPos;
+    const hlBeforeLow=hl?.highBeforeLow;
+
+    // REL
+    const r1d=rel1D.rel[sym],r1w=rel1W.rel[sym],rw4=relW4.rel[sym];
+    const relFmt=v=>v!=null?(v>0?'+':'')+v:'-';
+
+    // Candle patterns from 1D OHLCV
+    function macroCandle(d){
+      if(!d||d.open==null||d.close==null||d.high==null||d.low==null)return'NO DATA';
+      const o=d.open,h=d.high,l=d.low,c=d.close;
+      const body=Math.abs(c-o),range=h-l;
+      if(range===0)return'Doji';
+      const bodyPct=body/range,upperPct=(h-Math.max(o,c))/range,lowerPct=(Math.min(o,c)-l)/range;
+      const bull=c>o;
+      if(bodyPct<0.1){if(upperPct>0.6)return'Gravestone Doji (Bearish)';if(lowerPct>0.6)return'Dragonfly Doji (Bullish)';return'Doji (Neutral)';}
+      if(bodyPct>0.9)return bull?'Bullish Marubozu (Strong Bull)':'Bearish Marubozu (Strong Bear)';
+      if(lowerPct>0.55&&upperPct<0.1&&bodyPct<0.35)return bull?'Hammer (Bullish)':'Hanging Man (Bearish)';
+      if(upperPct>0.55&&lowerPct<0.1&&bodyPct<0.35)return bull?'Inverted Hammer (Bullish)':'Shooting Star (Bearish)';
+      if(bodyPct<0.35&&upperPct>0.2&&lowerPct>0.2)return'Spinning Top (Neutral)';
+      if(bull)return bodyPct>0.6?'Strong Bull Candle':'Bullish Candle';
+      return bodyPct>0.6?'Strong Bear Candle':'Bearish Candle';
+    }
+    const pat1d=macroCandle(d1);
+    const pat1w=macroCandle(w1);
+
+    return `── ${lbl} ─────────────────────────────────
+  Price:    ${fmtP(d1?.close||w1?.close)} | Regime: ${regime.replace(/_/g,' ')}
+  1D Score: ${d1score!=null?(d1score>0?'+':'')+d1score:'-'} [${d1state.replace(/_/g,' ')}] · 1W Score: ${w1score!=null?(w1score>0?'+':'')+w1score:'-'} [${w1state.replace(/_/g,' ')}]
+  Daily 6x: ${d6.score!=null?(d6.score>0?'+':'')+d6.score:d6.trend} (D1:${d6.days[0]??'-'} D2:${d6.days[1]??'-'} D3:${d6.days[2]??'-'} D4:${d6.days[3]??'-'} D5:${d6.days[4]??'-'} D6:${d6.days[5]??'-'})
+  Weekly 4x: ${w4.score!=null?(w4.score>0?'+':'')+w4.score:w4.trend} (W1:${w4.w1??'-'} W2:${w4.w2??'-'} W3:${w4.w3??'-'} W4:${w4.w4??'-'}) Trend:${w4.trend}
+  EWT 1D:   ${waveLabel1D}${ewCorrPattern!=='NONE'?' '+ewCorrPattern:''} · 1W: ${waveLabel1W}${ewtWarnings.length?' | '+ewtWarnings.join(' '):''}
+  EWT Fibs: Target:${ewFibTarget&&ewFibTarget>0?fmtP(ewFibTarget):'—'} · Invalidation:${ewFibRetrace&&ewFibRetrace>0?fmtP(ewFibRetrace):'—'}
+  Structure: ${struct.verdict} [${struct.badges.slice(0,6).join(' ')}]
+  EMA Regime: ${emaR.regime} · 50/100/200: ${d1?fmtP(d1.ema50)+'/'+fmtP(d1.ema100):'—'}
+  H/L Today: High:${fmtP(hlHigh)} [${hlHighSess}] · Low:${fmtP(hlLow)} [${hlLowSess}] · Range:${hlRange?fmtP(hlRange):'—'} · Pos:${hlPos!=null?hlPos.toFixed(1)+'%':'-'} · H Before L:${hlBeforeLow!=null?(hlBeforeLow?'YES':'NO'):'-'}
+  Cycle Bias: ${cycle.bias} · REL 1D:${relFmt(r1d)} · REL 1W:${relFmt(r1w)} · REL Wx4:${relFmt(rw4)}
+  Candle 1D: ${pat1d} · Candle 1W: ${pat1w}`;
+  }).join('\n');
+
+  const miLine=whaleData?`\nMARKET INTELLIGENCE:
+  F&G: ${whaleData.fear_greed?.value} (${whaleData.fear_greed?.label??'-'})
+  DXY: ${whaleData.dxy?.price} · ${whaleData.dxy?.direction??'-'}
+  BTC CVD 1H: ${whaleData.cvd?.['1h']?.signal??'-'} · 4H: ${whaleData.cvd?.['4h']?.signal??'-'}
+  Funding BNB:${whaleData.funding?.binance?.toFixed(3)??'-'}% OKX:${whaleData.funding?.okx?.toFixed(3)??'-'}% BYB:${whaleData.funding?.bybit?.toFixed(3)??'-'}%
+  L/S: ${whaleData.long_short?.long??'-'}% Long / ${whaleData.long_short?.short??'-'}% Short`:'';
+
+  const p=`MACRO DESK - MARKET OVERVIEW
+Time: ${now}
+
+${lines}
+${miLine}
+
+SYSTEM CONTEXT:
+  EWT B-Wave Trap = DO NOT ENTER in direction of wave. Sucker rally.
+  Daily 6x Score = depreciated 6-day weighted score (D1×40% D2×25% D3×15% D4×10% D5×6% D6×4%)
+  Weekly 4x Score = 4-week depreciated momentum (W1×40% W2×30% W3×20% W4×10%)
+  Structure = HH/HL bullish · LH/LL bearish · Mixed = choppy
+  EMA Regime = Full Bull/Bear most reliable · Above/Below 50 = transitional
+  H/L Timing = HIGH in Asia session, LOW in London = bearish day structure
+  Candle Patterns: MANDATORY — analyze 1D+1W for macro bias per token
+
+MANDATORY ANALYSIS FORMAT:
+1. Market Intelligence — DXY, CVD, funding context
+2. Macro bias per token — 1D+1W scores, Daily 6x trend, Weekly 4x momentum
+3. EWT wave position — B-Wave trap warnings, Fib targets, wave count
+4. Daily structure — HH/HL sequence verdict, EMA regime
+5. Candle pattern read — 1D and 1W patterns per token
+6. REL strength — Leading vs Lagging tokens
+7. Best macro trade thesis with key levels
+
+Analyze current macro state. All layers required. Flag all EWT warnings.`;
+
+  navigator.clipboard.writeText(p).then(()=>{
+    const btn=document.getElementById('macro-copy-btn');
+    if(btn){btn.textContent='✓ COPIED';setTimeout(()=>btn.textContent='⎋ COPY TO CLAUDE',2500);}
+  });
 }
 
 loadAll();
