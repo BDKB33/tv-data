@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-21T06:00:44.728Z",
+  "_updated": "2026-05-21T06:00:45.682Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1911,16 +1911,16 @@
       "highHour": 0,
       "highMinute": 0,
       "highSession": "ASIA",
-      "dailyLow": 0.2489,
-      "lowHour": 20,
+      "dailyLow": 0.2484,
+      "lowHour": 1,
       "lowMinute": 0,
       "lowSession": "ASIA",
-      "highBeforeLow": true,
-      "highToLowBars": 4,
-      "dailyRange": 0.0038,
-      "currentPos": 68.42,
-      "close": 0.2515,
-      "_received": "2026-05-21T05:00:12.730Z"
+      "highBeforeLow": false,
+      "highToLowBars": 1,
+      "dailyRange": 0.0043,
+      "currentPos": 20.93,
+      "close": 0.2493,
+      "_received": "2026-05-21T06:00:17.610Z"
     },
     "30M": {
       "symbol": "ADAUSDT",
