@@ -569,6 +569,50 @@ html+='<div style="margin-top:12px;border-top:1px solid var(--border);padding-to
 html+='<button onclick="analyzeToken()" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--accent);background:transparent;border:1px solid rgba(77,156,255,0.25);padding:4px 10px;cursor:pointer;">R RE-ANALYZE</button></div>';
 return html;
 }
+// ── CANDLE PATTERN DETECTION ──────────────────────────────────────────────────
+function detectCandlePattern(d){
+  if(!d||d.open==null||d.close==null||d.high==null||d.low==null)return'NO DATA';
+  const o=d.open,h=d.high,l=d.low,c=d.close;
+  const body=Math.abs(c-o);
+  const range=h-l;
+  const upperWick=h-Math.max(o,c);
+  const lowerWick=Math.min(o,c)-l;
+  const bull=c>o;
+  if(range===0)return'Doji';
+  const bodyPct=body/range;
+  const upperPct=upperWick/range;
+  const lowerPct=lowerWick/range;
+  // Doji family
+  if(bodyPct<0.1){
+    if(upperPct>0.6)return'Gravestone Doji (Bearish)';
+    if(lowerPct>0.6)return'Dragonfly Doji (Bullish)';
+    return'Doji (Neutral)';
+  }
+  // Marubozu
+  if(bodyPct>0.9){
+    return bull?'Bullish Marubozu (Strong Bull)':'Bearish Marubozu (Strong Bear)';
+  }
+  // Hammer / Hanging Man
+  if(lowerPct>0.55&&upperPct<0.1&&bodyPct<0.35){
+    return bull?'Hammer (Bullish)':'Hanging Man (Bearish)';
+  }
+  // Shooting Star / Inverted Hammer
+  if(upperPct>0.55&&lowerPct<0.1&&bodyPct<0.35){
+    return bull?'Inverted Hammer (Bullish)':'Shooting Star (Bearish)';
+  }
+  // Spinning Top
+  if(bodyPct<0.35&&upperPct>0.2&&lowerPct>0.2){
+    return'Spinning Top (Neutral/Indecision)';
+  }
+  // Standard bull/bear
+  if(bull){
+    if(bodyPct>0.6)return'Strong Bull Candle';
+    return'Bullish Candle';
+  }else{
+    if(bodyPct>0.6)return'Strong Bear Candle';
+    return'Bearish Candle';
+  }
+}
 function copyToClaudeGlobal(){
 const now=new Date().toISOString();
 const hlTiming={BTC:'US CLOCK · entry 9AM EST · exit 7PM EST · avg 7.3H',ETH:'ASIA/LON CLOCK · entry 3-4AM EST · exit 6-8AM London',SOL:'US CLOCK · entry 9AM EST · exit 7PM EST · avg 7.4H',XRP:'ASIA/LON CLOCK · entry 3-7AM EST · exit 9-11AM · avg 8.3H',ADA:'ASIA/LON CLOCK · entry 2-4AM EST · exit 4-6AM London · avg 7.7H',SUI:'ASIA/LON CLOCK · entry 3-8AM EST · exit 7-9AM London · avg 8.1H'};
@@ -598,6 +642,14 @@ const fracS=d1?.fracSupport?.toFixed(5)||'-';
 const ote=getOTEZone(sym);
 const fundStr=fund?.fundingRate!=null?(fund.fundingRate*100).toFixed(4)+'% '+fund.fundingZone:'N/A';
 const mfiGate=mfi!=null?(mfi>45?'PASS':'FAIL'):'N/A';
+const pat15=detectCandlePattern(d15);
+const pat1h=detectCandlePattern(d1);
+const pat4h=detectCandlePattern(d4);
+const candleLines=activeMode==='SCALP'
+  ?'  Candle 15M: '+pat15+'
+  Candle 1H:  '+pat1h
+  :'  Candle 1H:  '+pat1h+'
+  Candle 4H:  '+pat4h;
 return `── ${lbl} ─────────────────────────────────
   Price:    ${d1?fmtP(d1.close):'-'} | Mode: ${activeMode}
   MTF Score: ${mtf.score} · Quality: ${mtf.quality} · Dir: ${mtf.direction}
@@ -610,7 +662,8 @@ return `── ${lbl} ───────────────────�
   FVG:      Bull:${fvgBull?'ACTIVE @ below '+fvgBullZone:'NONE'} · Bear:${fvgBear?'ACTIVE @ above '+fvgBearZone:'NONE'}
   Coffin:   ${coffinStatus}
   Funding:  ${fundStr}
-  H/L Time: ${hlTiming[lbl]||'-'}`;
+  H/L Time: ${hlTiming[lbl]||'-'}
+${candleLines}`;
 }).join('\n');
 const miLine=whaleData?`\nMARKET INTELLIGENCE:
   F&G: ${whaleData.fear_greed?.value} (${whaleData.fear_greed?.label??'-'})
@@ -630,9 +683,17 @@ SYSTEM CONTEXT:
   Coffin: ARMED = wait for break · BREAK = precision entry bar
   FVG + OTE overlap = A+ setup zone
   EWT B-Wave in 1D payload: check before entry
+  Candle Patterns: MANDATORY — analyze 15M+1H for SCALP, 1H+4H for SWING per token
 
-Analyze current market state and identify best trade opportunity.
-Apply H/L timing overlay. Flag any MFI/FVG/Coffin confluence.`;
+MANDATORY ANALYSIS FORMAT:
+1. Timing overlay — is NOW a valid entry window per H/L clock?
+2. Market Intelligence — DXY direction, CVD signal, funding context
+3. Per-token candle pattern read (use patterns provided above)
+4. Confluence stack — score + MFI + Coffin + candle pattern + OTE
+5. Best trade opportunity with entry, stop, TP levels
+6. NO TRADE verdict if timing, MFI, or pattern conflict
+
+Analyze current market state. Apply ALL layers. Candle pattern analysis is required for every token.`;
 navigator.clipboard.writeText(p).then(()=>{const btn=document.getElementById('copy-claude-btn');if(btn){btn.textContent='✓ COPIED';setTimeout(()=>btn.textContent='⎋ COPY TO CLAUDE',2500);}});
 }
 function loadJournal(){try{return JSON.parse(localStorage.getItem('bdkb_journal')||'[]');}catch{return[];}}
