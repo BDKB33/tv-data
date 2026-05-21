@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-05-21",
+    "symbol": "XRPUSDT",
+    "dailyHigh": 1.378,
+    "highHour": 20,
+    "highMinute": 0,
+    "highSession": "ASIA",
+    "dailyLow": 1.3665,
+    "lowHour": 20,
+    "lowMinute": 0,
+    "lowSession": "ASIA",
+    "highBeforeLow": true,
+    "highToLowBars": null,
+    "dailyRange": 0.0115,
+    "currentPos": 84.35,
+    "close": 1.3762,
+    "_received": "2026-05-21T01:00:08.649Z"
+  },
+  {
     "date": "2026-05-20",
     "symbol": "XRPUSDT",
     "dailyHigh": 1.3807,
