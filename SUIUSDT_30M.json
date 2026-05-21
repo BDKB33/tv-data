@@ -79,11 +79,11 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-05-21T06:00:07.911Z",
+  "_received": "2026-05-21T06:00:16.092Z",
   "_sample": false,
   "funding": {
-    "fundingRate": -0.0000055707339546,
-    "fundingRatePct": "-0.0006%",
+    "fundingRate": -0.0000076931567061,
+    "fundingRatePct": "-0.0008%",
     "fundingZone": "NEUTRAL_NEG",
     "fundingSource": "OKX",
     "nextFundingTime": "1779379200000",
@@ -91,6 +91,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-05-21T06:00:08.084Z"
+    "_fetched": "2026-05-21T06:00:16.244Z"
   }
 }
