@@ -645,11 +645,7 @@ const mfiGate=mfi!=null?(mfi>45?'PASS':'FAIL'):'N/A';
 const pat15=detectCandlePattern(d15);
 const pat1h=detectCandlePattern(d1);
 const pat4h=detectCandlePattern(d4);
-const candleLines=activeMode==='SCALP'
-  ?'  Candle 15M: '+pat15+'
-  Candle 1H:  '+pat1h
-  :'  Candle 1H:  '+pat1h+'
-  Candle 4H:  '+pat4h;
+const candleLines=activeMode==='SCALP'?('  Candle 15M: '+pat15+'\n  Candle 1H:  '+pat1h):('  Candle 1H:  '+pat1h+'\n  Candle 4H:  '+pat4h);
 return `── ${lbl} ─────────────────────────────────
   Price:    ${d1?fmtP(d1.close):'-'} | Mode: ${activeMode}
   MTF Score: ${mtf.score} · Quality: ${mtf.quality} · Dir: ${mtf.direction}
