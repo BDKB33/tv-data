@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-22T20:30:10.455Z",
+  "_updated": "2026-05-22T20:30:11.655Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1144,28 +1144,28 @@
     "15M": {
       "symbol": "ETHUSDT",
       "timeframe": "15M",
-      "open": 2065.54,
-      "high": 2075.92,
-      "low": 2064.31,
-      "close": 2071.91,
-      "volume": 2808.2309,
-      "wickRange": 11.61,
-      "vwap": 2112.923,
-      "ema50": 2114.9063,
+      "open": 2071.91,
+      "high": 2074.72,
+      "low": 2069.32,
+      "close": 2072.85,
+      "volume": 2468.3924,
+      "wickRange": 5.4,
+      "vwap": 2112.3881,
+      "ema50": 2113.2571,
       "ema100": null,
-      "ema200": 2126.3062,
+      "ema200": 2125.7743,
       "sma50": null,
       "sma200": null,
-      "rsi": 21.9501,
-      "stochK": 6.3004,
-      "stochD": 2.1001,
-      "macdLine": -13.4185,
-      "macdHist": -5.5535,
-      "atr": 9.5436,
-      "volSMA20": 3982.0251,
-      "bbWidth": 3.8744,
+      "rsi": 23.1226,
+      "stochK": 13.4924,
+      "stochD": 6.5976,
+      "macdLine": -13.991,
+      "macdHist": -4.9008,
+      "atr": 9.2476,
+      "volSMA20": 4011.3252,
+      "bbWidth": 4.1013,
       "trendBias": 0,
-      "mfi": 15.24,
+      "mfi": 17.07,
       "fracResistance": 2130,
       "fracSupport": 2058,
       "fracResActive": 1,
@@ -1200,9 +1200,9 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "bdkb": {
-        "score": -23,
+        "score": -30,
         "longScore": 0,
-        "shortScore": 23,
+        "shortScore": 30,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -1211,7 +1211,7 @@
           "cvd": 0,
           "funding": 1,
           "oi": 0,
-          "delta": 0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1222,7 +1222,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-22T20:15:05.125Z",
+      "_received": "2026-05-22T20:30:05.838Z",
       "_sample": false
     },
     "30M": {
