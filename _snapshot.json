@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-22T11:45:13.201Z",
+  "_updated": "2026-05-22T11:45:15.014Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -764,28 +764,28 @@
     "15M": {
       "symbol": "XRPUSDT",
       "timeframe": "15M",
-      "open": 1.3591,
-      "high": 1.3592,
-      "low": 1.3551,
-      "close": 1.3572,
-      "volume": 1244107.1,
-      "wickRange": 0.0041,
-      "vwap": 1.3664,
-      "ema50": 1.3662,
+      "open": 1.3572,
+      "high": 1.3589,
+      "low": 1.3565,
+      "close": 1.3569,
+      "volume": 964310.6,
+      "wickRange": 0.0024,
+      "vwap": 1.3662,
+      "ema50": 1.3658,
       "ema100": null,
-      "ema200": 1.3706,
+      "ema200": 1.3705,
       "sma50": null,
       "sma200": null,
-      "rsi": 33.3804,
-      "stochK": 11.9319,
-      "stochD": 21.4175,
-      "macdLine": -0.0027,
+      "rsi": 32.8767,
+      "stochK": 4.4092,
+      "stochD": 14.902,
+      "macdLine": -0.0028,
       "macdHist": -0.0003,
       "atr": 0.0033,
-      "volSMA20": 926037.74,
-      "bbWidth": 0.8178,
+      "volSMA20": 829083.74,
+      "bbWidth": 0.8809,
       "trendBias": -1,
-      "mfi": 16.19,
+      "mfi": 24.49,
       "fracResistance": 1.3621,
       "fracSupport": 1.3575,
       "fracResActive": 1,
@@ -820,9 +820,9 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "bdkb": {
-        "score": -70,
+        "score": -78,
         "longScore": 0,
-        "shortScore": 70,
+        "shortScore": 78,
         "state": "STRONG_SHORT",
         "direction": "SHORT",
         "components": {
@@ -830,8 +830,8 @@
           "ema": -1,
           "cvd": -1,
           "funding": 0.5,
-          "oi": 0,
-          "delta": -0.5
+          "oi": -1,
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 1,
@@ -842,7 +842,7 @@
         "tradeReady15M": 1,
         "mode": "confirmed"
       },
-      "_received": "2026-05-22T11:30:05.263Z",
+      "_received": "2026-05-22T11:45:02.297Z",
       "_sample": false
     },
     "30M": {
