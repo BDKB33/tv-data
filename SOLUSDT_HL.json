@@ -1,18 +1,18 @@
 {
   "symbol": "SOLUSDT",
   "type": "daily_hl_timing",
-  "dailyHigh": 87.38,
-  "highHour": 0,
+  "dailyHigh": 87.53,
+  "highHour": 4,
   "highMinute": 0,
-  "highSession": "ASIA",
+  "highSession": "LONDON",
   "dailyLow": 86.52,
   "lowHour": 2,
   "lowMinute": 0,
   "lowSession": "LONDON_PRE",
-  "highBeforeLow": false,
+  "highBeforeLow": true,
   "highToLowBars": 2,
-  "dailyRange": 0.86,
-  "currentPos": 52.33,
-  "close": 86.97,
-  "_received": "2026-05-22T08:00:09.325Z"
+  "dailyRange": 1.01,
+  "currentPos": 61.39,
+  "close": 87.14,
+  "_received": "2026-05-22T09:00:11.393Z"
 }
