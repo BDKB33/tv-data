@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-22T20:30:14.300Z",
+  "_updated": "2026-05-22T20:30:15.704Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -384,28 +384,28 @@
     "15M": {
       "symbol": "SOLUSDT",
       "timeframe": "15M",
-      "open": 84.55,
-      "high": 85.02,
-      "low": 84.55,
+      "open": 84.87,
+      "high": 84.97,
+      "low": 84.72,
       "close": 84.86,
-      "volume": 21524.833,
-      "wickRange": 0.47,
-      "vwap": 86.4934,
-      "ema50": 86.4743,
+      "volume": 28893.264,
+      "wickRange": 0.25,
+      "vwap": 86.4687,
+      "ema50": 86.411,
       "ema100": null,
-      "ema200": 86.5147,
+      "ema200": 86.4983,
       "sma50": null,
       "sma200": null,
       "rsi": 29.3805,
-      "stochK": 17.2769,
-      "stochD": 7.5487,
-      "macdLine": -0.6014,
-      "macdHist": -0.2026,
-      "atr": 0.4853,
-      "volSMA20": 37599.302,
-      "bbWidth": 4.1644,
+      "stochK": 29.1847,
+      "stochD": 17.2769,
+      "macdLine": -0.6061,
+      "macdHist": -0.1659,
+      "atr": 0.4685,
+      "volSMA20": 37582.7198,
+      "bbWidth": 4.3175,
       "trendBias": 0,
-      "mfi": 25.63,
+      "mfi": 26.95,
       "fracResistance": 87.19,
       "fracSupport": 84,
       "fracResActive": 1,
@@ -440,9 +440,9 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "bdkb": {
-        "score": -19,
+        "score": -30,
         "longScore": 0,
-        "shortScore": 19,
+        "shortScore": 30,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -451,7 +451,7 @@
           "cvd": 0,
           "funding": 1,
           "oi": 0,
-          "delta": 0.75
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -462,7 +462,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-22T20:15:06.061Z",
+      "_received": "2026-05-22T20:30:05.610Z",
       "_sample": false
     },
     "30M": {
