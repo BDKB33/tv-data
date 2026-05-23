@@ -2,20 +2,20 @@
   {
     "date": "2026-05-23",
     "symbol": "ETHUSDT",
-    "dailyHigh": 2083.64,
-    "highHour": 14,
+    "dailyHigh": 2149.95,
+    "highHour": 17,
     "highMinute": 0,
-    "highSession": "NYSE",
+    "highSession": "NYSE_AFTER",
     "dailyLow": 2009.3,
     "lowHour": 3,
     "lowMinute": 0,
     "lowSession": "LONDON",
     "highBeforeLow": true,
-    "highToLowBars": 11,
-    "dailyRange": 74.34,
-    "currentPos": 91.51,
-    "close": 2077.33,
-    "_received": "2026-05-23T20:00:05.617Z"
+    "highToLowBars": 14,
+    "dailyRange": 140.65,
+    "currentPos": 76.45,
+    "close": 2116.83,
+    "_received": "2026-05-23T23:00:02.865Z"
   },
   {
     "date": "2026-05-22",
