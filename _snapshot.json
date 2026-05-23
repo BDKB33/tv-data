@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-23T20:30:30.082Z",
+  "_updated": "2026-05-23T20:30:33.175Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2006,26 +2006,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.2445,
-      "high": 0.2447,
-      "low": 0.2439,
-      "close": 0.2443,
-      "volume": 1141432.5,
-      "wickRange": 0.0008,
+      "open": 0.2443,
+      "high": 0.2448,
+      "low": 0.2438,
+      "close": 0.244,
+      "volume": 1845907.7,
+      "wickRange": 0.001,
       "vwap": 0.2407,
       "ema50": 0.2431,
       "ema100": null,
       "ema200": 0.2476,
       "sma50": null,
       "sma200": null,
-      "rsi": 63.8776,
-      "stochK": 96.5935,
-      "stochD": 97.2976,
+      "rsi": 61.3897,
+      "stochK": 91.366,
+      "stochD": 95.4759,
       "macdLine": 0.0007,
       "macdHist": 0.0005,
       "atr": 0.0013,
-      "volSMA20": 2221168.67,
-      "bbWidth": 3.515,
+      "volSMA20": 2263578.92,
+      "bbWidth": 3.5065,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -2062,15 +2062,15 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "bdkb": {
-        "score": 8,
-        "longScore": 8,
-        "shortScore": 0,
+        "score": -23,
+        "longScore": 0,
+        "shortScore": 23,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
           "structure": 0.25,
           "ema": 0.25,
-          "cvd": 0,
+          "cvd": -1,
           "funding": -0.5,
           "oi": 0,
           "delta": 0
@@ -2084,11 +2084,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-23T20:00:05.775Z",
+      "_received": "2026-05-23T20:30:20.359Z",
       "_sample": false,
       "funding": {
-        "fundingRate": -0.0000600742438028,
-        "fundingRatePct": "-0.0060%",
+        "fundingRate": -0.0000694600515072,
+        "fundingRatePct": "-0.0069%",
         "fundingZone": "NEUTRAL_NEG",
         "fundingSource": "OKX",
         "nextFundingTime": "1779609600000",
@@ -2096,7 +2096,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-23T20:00:05.968Z"
+        "_fetched": "2026-05-23T20:30:20.509Z"
       }
     },
     "1H": {
