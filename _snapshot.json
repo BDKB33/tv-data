@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-23T11:30:11.888Z",
+  "_updated": "2026-05-23T11:30:15.534Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -384,28 +384,28 @@
     "15M": {
       "symbol": "SOLUSDT",
       "timeframe": "15M",
-      "open": 82.27,
-      "high": 82.4,
-      "low": 82.23,
-      "close": 82.35,
-      "volume": 16406.674,
-      "wickRange": 0.17,
-      "vwap": 83.0952,
-      "ema50": 83.6663,
+      "open": 82.34,
+      "high": 82.49,
+      "low": 82.34,
+      "close": 82.45,
+      "volume": 8027.204,
+      "wickRange": 0.15,
+      "vwap": 83.0913,
+      "ema50": 83.6186,
       "ema100": null,
-      "ema200": 85.3189,
+      "ema200": 85.2904,
       "sma50": null,
       "sma200": null,
-      "rsi": 32.9856,
-      "stochK": 93.4867,
-      "stochD": 83.92,
-      "macdLine": -0.5342,
-      "macdHist": 0.0514,
-      "atr": 0.2727,
-      "volSMA20": 48551.2094,
-      "bbWidth": 4.6083,
+      "rsi": 36.3855,
+      "stochK": 97.9526,
+      "stochD": 91.7901,
+      "macdLine": -0.492,
+      "macdHist": 0.0749,
+      "atr": 0.2639,
+      "volSMA20": 48700.4349,
+      "bbWidth": 4.2566,
       "trendBias": 0,
-      "mfi": 21.36,
+      "mfi": 49.27,
       "fracResistance": 82.25,
       "fracSupport": 81.99,
       "fracResActive": 0,
@@ -440,9 +440,9 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "bdkb": {
-        "score": -10,
+        "score": -6,
         "longScore": 0,
-        "shortScore": 10,
+        "shortScore": 6,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -451,7 +451,7 @@
           "cvd": 0,
           "funding": 0.5,
           "oi": 0,
-          "delta": 0.5
+          "delta": 0.75
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -462,7 +462,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-23T11:15:03.335Z",
+      "_received": "2026-05-23T11:30:02.880Z",
       "_sample": false
     },
     "30M": {
