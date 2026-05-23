@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-05-23",
+    "symbol": "SUIUSDT",
+    "dailyHigh": 1.0509,
+    "highHour": 20,
+    "highMinute": 0,
+    "highSession": "ASIA",
+    "dailyLow": 1.035,
+    "lowHour": 20,
+    "lowMinute": 0,
+    "lowSession": "ASIA",
+    "highBeforeLow": true,
+    "highToLowBars": null,
+    "dailyRange": 0.0159,
+    "currentPos": 63.52,
+    "close": 1.0451,
+    "_received": "2026-05-23T01:00:04.593Z"
+  },
+  {
     "date": "2026-05-22",
     "symbol": "SUIUSDT",
     "dailyHigh": 1.1329,
