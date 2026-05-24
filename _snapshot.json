@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-24T04:45:24.017Z",
+  "_updated": "2026-05-24T05:00:23.076Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2006,26 +2006,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.2454,
-      "high": 0.246,
-      "low": 0.2453,
+      "open": 0.2458,
+      "high": 0.2461,
+      "low": 0.2454,
       "close": 0.2458,
-      "volume": 651213.5,
+      "volume": 1182025.9,
       "wickRange": 0.0007,
       "vwap": 0.2457,
-      "ema50": 0.2446,
+      "ema50": 0.2447,
       "ema100": null,
       "ema200": 0.2474,
       "sma50": null,
       "sma200": null,
       "rsi": 54.7549,
-      "stochK": 14.6616,
-      "stochD": 11.0323,
-      "macdLine": 0.0007,
-      "macdHist": -0.0003,
-      "atr": 0.0013,
-      "volSMA20": 2316382.945,
-      "bbWidth": 2.2855,
+      "stochK": 20.0133,
+      "stochD": 15.182,
+      "macdLine": 0.0006,
+      "macdHist": -0.0002,
+      "atr": 0.0012,
+      "volSMA20": 2287170.355,
+      "bbWidth": 2.1696,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -2062,8 +2062,8 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "bdkb": {
-        "score": 19,
-        "longScore": 19,
+        "score": 14,
+        "longScore": 14,
         "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
@@ -2073,7 +2073,7 @@
           "cvd": 0,
           "funding": 0,
           "oi": 0,
-          "delta": 0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -2084,7 +2084,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-24T04:30:05.410Z",
+      "_received": "2026-05-24T05:00:03.213Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -2096,7 +2096,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-24T04:30:05.573Z"
+        "_fetched": "2026-05-24T05:00:03.368Z"
       }
     },
     "1H": {
