@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-24T05:45:26.864Z",
+  "_updated": "2026-05-24T06:00:31.122Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -663,20 +663,20 @@
     "HL": {
       "symbol": "SOLUSDT",
       "type": "daily_hl_timing",
-      "dailyHigh": 85.14,
-      "highHour": 14,
+      "dailyHigh": 86.23,
+      "highHour": 21,
       "highMinute": 0,
-      "highSession": "NYSE",
-      "dailyLow": 81.5,
-      "lowHour": 3,
+      "highSession": "ASIA",
+      "dailyLow": 85.58,
+      "lowHour": 1,
       "lowMinute": 0,
-      "lowSession": "LONDON",
-      "highBeforeLow": true,
-      "highToLowBars": 11,
-      "dailyRange": 3.64,
-      "currentPos": 95.05,
-      "close": 84.96,
-      "_received": "2026-05-23T20:00:05.998Z"
+      "lowSession": "ASIA",
+      "highBeforeLow": false,
+      "highToLowBars": 4,
+      "dailyRange": 0.65,
+      "currentPos": 89.23,
+      "close": 86.16,
+      "_received": "2026-05-24T06:00:04.388Z"
     },
     "4H": {
       "symbol": "SOLUSDT",
