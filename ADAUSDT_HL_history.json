@@ -2,8 +2,8 @@
   {
     "date": "2026-05-25",
     "symbol": "ADAUSDT",
-    "dailyHigh": 0.2461,
-    "highHour": 4,
+    "dailyHigh": 0.2462,
+    "highHour": 5,
     "highMinute": 0,
     "highSession": "LONDON",
     "dailyLow": 0.2404,
@@ -11,11 +11,11 @@
     "lowMinute": 0,
     "lowSession": "ASIA",
     "highBeforeLow": true,
-    "highToLowBars": 5,
-    "dailyRange": 0.0057,
-    "currentPos": 98.25,
-    "close": 0.246,
-    "_received": "2026-05-25T09:00:18.238Z"
+    "highToLowBars": 6,
+    "dailyRange": 0.0058,
+    "currentPos": 79.31,
+    "close": 0.245,
+    "_received": "2026-05-25T10:00:08.763Z"
   },
   {
     "date": "2026-05-24",
