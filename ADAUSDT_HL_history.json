@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-05-26",
+    "symbol": "ADAUSDT",
+    "dailyHigh": 0.248,
+    "highHour": 12,
+    "highMinute": 0,
+    "highSession": "NYSE",
+    "dailyLow": 0.2404,
+    "lowHour": 23,
+    "lowMinute": 0,
+    "lowSession": "ASIA",
+    "highBeforeLow": true,
+    "highToLowBars": 13,
+    "dailyRange": 0.0076,
+    "currentPos": 43.42,
+    "close": 0.2437,
+    "_received": "2026-05-26T00:00:19.287Z"
+  },
+  {
     "date": "2026-05-25",
     "symbol": "ADAUSDT",
     "dailyHigh": 0.248,
