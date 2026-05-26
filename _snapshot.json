@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-26T09:00:40.998Z",
+  "_updated": "2026-05-26T09:00:43.120Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1783,9 +1783,9 @@
       "highBeforeLow": true,
       "highToLowBars": 2,
       "dailyRange": 0.0305,
-      "currentPos": 72.13,
-      "close": 1.0387,
-      "_received": "2026-05-26T07:00:09.890Z"
+      "currentPos": 51.15,
+      "close": 1.0323,
+      "_received": "2026-05-26T09:00:13.385Z"
     },
     "30M": {
       "symbol": "SUIUSDT",
