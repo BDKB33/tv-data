@@ -108,6 +108,18 @@ main{padding:1.5rem 2rem;max-width:1800px;margin:0 auto;}
 .coffin-break-short{color:var(--bear);background:var(--bear-dim);border-color:rgba(255,45,85,0.4);animation:tradePulse 1.2s ease-in-out infinite;}
 .coffin-armed{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.4);}
 .coffin-idle{color:var(--text3);background:var(--bg4);border-color:var(--border);}
+
+/* ── NEW GAP FILL BADGES ─────────────────────────────────────────────────── */
+.new-badge-row{display:flex;flex-wrap:wrap;gap:3px;padding:4px 1rem 5px;border-bottom:1px solid var(--border);min-height:0;}
+.nbadge{font-family:var(--mono);font-size:6px;font-weight:700;letter-spacing:1px;padding:2px 5px;border:1px solid;}
+.nbadge-blocked{color:#fff;background:#ff2d2d;border-color:#ff2d2d;animation:tradePulse 1.2s ease-in-out infinite;}
+.nbadge-red{color:var(--bear);background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.35);}
+.nbadge-amber{color:var(--gold);background:rgba(255,184,0,0.08);border-color:rgba(255,184,0,0.35);}
+.nbadge-green{color:var(--bull);background:rgba(0,240,144,0.08);border-color:rgba(0,240,144,0.35);}
+.nbadge-blue{color:var(--accent);background:rgba(77,156,255,0.08);border-color:rgba(77,156,255,0.35);}
+.nbadge-orange{color:#ff9500;background:rgba(255,149,0,0.08);border-color:rgba(255,149,0,0.35);}
+.nbadge-grey{color:var(--text3);background:var(--bg4);border-color:var(--border);}
+
 .ta-full{background:var(--bg2);border:1px solid var(--border);animation:fadeUp 0.4s ease;}
 .ta-header{background:var(--bg3);padding:0.8rem 1rem;font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
 .ta-controls{padding:0.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
@@ -290,7 +302,6 @@ footer{text-align:center;padding:1rem;font-family:var(--mono);font-size:8px;colo
   <div id="positions-panel" style="margin-bottom:1rem;"></div>
 
   <!-- MARKET INTELLIGENCE PANEL -->
-
   <div class="section-label">Market Intelligence · Live L1 Data · Polls Every 60s</div>
   <div class="mi-panel" id="mi-panel">
     <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:2px;text-align:center;padding:1.5rem;animation:pulse 1.5s infinite;">FETCHING LIVE DATA...</div>
@@ -303,6 +314,8 @@ const OWNER='BDKB33',REPO='tv-data',BRANCH='main';
 const SYMBOLS=['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','ADAUSDT','SUIUSDT'];
 const LABELS=['BTC','ETH','SOL','XRP','ADA','SUI'];
 const TIMEFRAMES=['15M','30M','1H','4H'];
+// ── SNAPSHOT_TFS: includes 1D + 1W for BLOCKED gate and marketState badge ──
+const SNAPSHOT_TFS=['15M','30M','1H','4H','1D','1W'];
 let mkt={},activeMode='SCALP';
 let taToken='ETH',taDir='AUTO',taResult=null,taEditId=null;
 const TFW={
@@ -317,9 +330,7 @@ async function loadAll(){
 document.getElementById('ts').textContent='Refreshing…';
 let snapLoaded=false;
 
-// Max age per timeframe before we consider a slot stale (in ms)
 const MAX_AGE={'15M':16*60000,'30M':32*60000,'1H':65*60000,'4H':6*60*60000};
-
 function slotFresh(d,tf){
   if(!d||!d._received)return false;
   const age=Date.now()-new Date(d._received).getTime();
@@ -334,7 +345,9 @@ try{
     if(hasData){
       for(const sym of SYMBOLS){
         mkt[sym]={};
-        for(const tf of TIMEFRAMES){
+        // ── Read ALL timeframes from snapshot including 1D + 1W ──
+        // 1D and 1W are needed for marketState badge and BLOCKED gate
+        for(const tf of SNAPSHOT_TFS){
           if(snap[sym]?.[tf]&&snap[sym][tf].close)mkt[sym][tf]=snap[sym][tf];
         }
       }
@@ -344,7 +357,7 @@ try{
   }
 }catch(e){console.error('Snapshot fetch failed:',e);}
 
-// Fetch individual files for any slot that is missing OR stale
+// Fallback: fetch individual files for stale/missing intraday slots only (not 1D/1W)
 const fallbacks=[];
 for(const sym of SYMBOLS){
   if(!mkt[sym])mkt[sym]={};
@@ -369,7 +382,6 @@ if(fallbacks.length>0){
 fetch(`${WORKER_URL}?file=positions.json`,{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>renderPositions(d)).catch(()=>renderPositions(null));
 render();
 
-// Debug
 const loadedSyms=SYMBOLS.filter(s=>mkt[s]?.['1H']?.close);
 console.log(`Data loaded: ${loadedSyms.length}/6 tokens with 1H data`);
 
@@ -389,13 +401,10 @@ const b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M'),b1=getBDKB(sym,'1H'),b4=getB
 if(!b15&&!b30&&!b1&&!b4)return{score:0,quality:'NO_DATA',direction:'NEUTRAL',trendBias:0,scores:{'15M':0,'30M':0,'1H':0,'4H':0},directions:{'15M':'NEUTRAL','30M':'NEUTRAL','1H':'NEUTRAL','4H':'NEUTRAL'},tradeReady:false};
 const w=TFW[activeMode];let n=0,d=0;
 if(activeMode==='SCALP'){
-  // SCALP: 15M×4 + 30M×2 + 1H×1 (4:2:1 ratio), zero 4H weight
   if(b15&&w['15M']>0){n+=b15.score*w['15M'];d+=w['15M'];}
   if(b30&&w['30M']>0){n+=b30.score*w['30M'];d+=w['30M'];}
   if(b1&&w['1H']>0){n+=b1.score*w['1H'];d+=w['1H'];}
-  // 4H intentionally excluded from SCALP
 }else{
-  // SWING: 4H=50%, 1H curr=25%, 1H prev1=15%, 1H prev2=10%
   const b4score=b4?.score||0;
   const s1hCurr=b1?.score||0;
   const s1hPrev1=b1?.bdkbScore1HPrev1??s1hCurr;
@@ -426,6 +435,77 @@ function fmt(s){return(s>0?'+':'')+s;}
 function pctFmt(r){return r!=null?(r*100).toFixed(4)+'%':'-';}
 function getOTEZone(sym){const d=mkt[sym]?.['1H'];if(!d||!d.fracResistance||!d.fracSupport||!d.close)return{zone:'NA',inZone:false,hi:null,lo:null,pctFrom:null};const range=d.fracResistance-d.fracSupport,hi=d.fracResistance-range*0.618,lo=d.fracResistance-range*0.786;const inZone=d.close>=lo&&d.close<=hi,above=d.close>hi;const nearest=inZone?0:above?((d.close-hi)/d.close*100):((lo-d.close)/d.close*100);return{zone:inZone?'IN_ZONE':above?'ABOVE':'BELOW',inZone,hi,lo,pctFrom:nearest.toFixed(2),fib618:hi,fib786:lo,fib500:d.fracResistance-range*0.500,swingHi:d.fracResistance,swingLo:d.fracSupport,price:d.close};}
 function classifyExecutionModel(sym){const b1=getBDKB(sym,'1H'),d1=mkt[sym]?.['1H'],ote=getOTEZone(sym),mtf=getMTFScore(sym);if(!b1||!d1)return{model:0,label:'NO DATA',desc:'Awaiting data',sizeRec:'STANDBY',color:'var(--text3)',ote};const li=b1.liquidityEvent===1,lt=b1.liquidityType||'none',st=b1.state,co=st==='CONFIRMED',se=st==='SETUP',inv=st==='INVALIDATED';if(inv)return{model:2,label:'MODEL 2 . TRAP',desc:'Recent INVALIDATED',sizeRec:'WAIT',color:'var(--bear)',ote};if(ote.inZone&&li&&(co||se)&&mtf.score>=65)return{model:3,label:'MODEL 3 . OTE',desc:'In OTE zone . liquidity confirmed',sizeRec:'FULL SIZE',color:'var(--gold)',ote};if(lt==='equal_hl_sweep'&&li&&(co||se))return{model:4,label:'MODEL 4 . RANGE',desc:'Equal H/L swept & reclaimed',sizeRec:'REDUCED',color:'var(--accent)',ote};if(li&&(co||se))return{model:1,label:'MODEL 1 . HUNT',desc:'Liquidity sweep confirmed',sizeRec:co?'FULL SIZE':'REDUCED',color:'var(--bull)',ote};return{model:0,label:'NO MODEL ACTIVE',desc:st==='WATCHLIST'?'Watching for event':'Score below threshold',sizeRec:'STANDBY',color:'var(--text3)',ote};}
+
+// ── NEW GAP FILL BADGE GENERATOR ──────────────────────────────────────────────
+// Produces all Layer 3 badge HTML for a given symbol
+// Reads from mkt[sym] which now includes 1D and 1W from snapshot
+function getNewBadges(sym){
+  const d1=mkt[sym]?.['1H'];
+  const d4=mkt[sym]?.['4H'];
+  const d1d=mkt[sym]?.['1D'];
+  const b1=getBDKB(sym,'1H');
+  const st1H=b1?.state||'';
+  const dir1H=b1?.direction||'NEUTRAL';
+  // 1W score for BLOCKED gate — read directly from payload bdkb object
+  const score1W=mkt[sym]?.['1W']?.bdkb?.score??0;
+  const badges=[];
+
+  // ── 3.1 BLOCKED — HTF conflict gate ──────────────────────────────────────
+  // 1H direction opposes 1W score by >20 points: hard block
+  let blocked=false,blockReason='';
+  if(dir1H==='LONG'&&score1W<-20){blocked=true;blockReason='1W BEARISH';}
+  if(dir1H==='SHORT'&&score1W>20){blocked=true;blockReason='1W BULLISH';}
+  if(blocked)badges.push(`<span class="nbadge nbadge-blocked">🚫 BLOCKED — HTF CONFLICT (${blockReason})</span>`);
+
+  // ── 3.4 CHoCH — 4H structural break (critical) ───────────────────────────
+  if(d4?.choch===1)badges.push(`<span class="nbadge nbadge-red">🔴 4H STRUCTURE BREAK</span>`);
+  // ── 3.5 CHoCH — 1H warning (only when no 4H CHoCH) ──────────────────────
+  else if(d1?.choch===1)badges.push(`<span class="nbadge nbadge-amber">⚠ 1H CHoCH — MONITOR</span>`);
+
+  // ── 3.7 EMA Stack disordered on 1H ───────────────────────────────────────
+  if(d1?.emaStackAligned===0)badges.push(`<span class="nbadge nbadge-amber">⚠ EMA STACK DISORDERED</span>`);
+
+  // ── 3.12 / 3.13 Vol Regime ───────────────────────────────────────────────
+  const vr=d1?.volRegime||null;
+  if(vr==='EXPANSION')badges.push(`<span class="nbadge nbadge-green">🟢 EXPANSION</span>`);
+  else if(vr==='COMPRESSION')badges.push(`<span class="nbadge nbadge-amber">⚠ COMPRESSION — BREAKOUT RISK</span>`);
+
+  // ── 3.6 Market State RANGE on 1D ─────────────────────────────────────────
+  if(d1d?.marketState==='RANGE')badges.push(`<span class="nbadge nbadge-amber">⚠ 1D RANGING — REDUCED RELIABILITY</span>`);
+
+  // ── 3.9 / 3.10 Divergence — on CONFIRMED states only ─────────────────────
+  const isConfLong=st1H==='STRONG_LONG';
+  const isConfShort=st1H==='STRONG_SHORT';
+  if(isConfLong&&(d1?.rsiDivBearish===1||d1?.macdDivBearish===1))badges.push(`<span class="nbadge nbadge-amber">⚠ DIVERGENCE — MOMENTUM WEAKENING</span>`);
+  if(isConfShort&&(d1?.rsiDivBullish===1||d1?.macdDivBullish===1))badges.push(`<span class="nbadge nbadge-amber">⚠ DIVERGENCE — MOMENTUM WEAKENING</span>`);
+
+  // ── 3.14 Consolidation forming on 4H ─────────────────────────────────────
+  if(d4?.consolidationForming===1)badges.push(`<span class="nbadge nbadge-grey">⏳ COMPRESSION AT LEVEL — WATCH</span>`);
+
+  // ── 3.15 Order Block on 4H ───────────────────────────────────────────────
+  if(d4?.obActive===1){
+    const obt=d4?.obType||'';
+    const obH=d4?.obHigh!=null?fmtP(d4.obHigh):'';
+    const obL=d4?.obLow!=null?fmtP(d4.obLow):'';
+    badges.push(`<span class="nbadge nbadge-orange">🟧 4H OB ${obt} ${obL}–${obH}</span>`);
+  }
+
+  // ── 3.16 BOS Low Volume — only when ratio is confirmed low (<0.7) ─────────
+  // bosVolRatio is always computed; only warn when a BOS occurred on weak volume
+  if(d1?.bosVolRatio!=null&&d1.bosVolRatio>0&&d1.bosVolRatio<0.7&&d1?.bosVolConfirmed===0)
+    badges.push(`<span class="nbadge nbadge-amber">⚠ BOS LOW VOL (${d1.bosVolRatio.toFixed(2)}x)</span>`);
+
+  // ── 3.17 Candle Type — on CONFIRMED states only ───────────────────────────
+  const ct=d1?.candleType||null;
+  if(ct&&ct!=='NEUTRAL'&&ct!==null&&(isConfLong||isConfShort)){
+    const ctCls=ct.includes('BULL')?'nbadge-green':ct.includes('BEAR')?'nbadge-red':'nbadge-grey';
+    badges.push(`<span class="nbadge ${ctCls}">${ct.replace(/_/g,' ')}</span>`);
+  }
+
+  if(!badges.length)return'';
+  return`<div class="new-badge-row">${badges.join('')}</div>`;
+}
+
 function render(){
   try{renderCommandStrip();}
   catch(err){
@@ -459,21 +539,12 @@ const relStr=getRelStrength();const sorted=[...SYMBOLS].map(sym=>{const mtf=getM
 let html='';
 sorted.forEach(({sym,mtf,b1,b4,d1},rank)=>{
 const label=LABELS[SYMBOLS.indexOf(sym)];
-
-// ── PRICE SOURCE: freshest timeframe based on mode ───────────────────────
-// SCALP: use 15M close (freshest), fall back to 30M, then 1H
-// SWING: use 1H close (anchored to hourly structure)
 const d15=mkt[sym]?.['15M'];
 const d30=mkt[sym]?.['30M'];
 const d4=mkt[sym]?.['4H'];
 const dPrice=activeMode==='SCALP'?(d15||d30||d1):(d1||d30);
 const price=dPrice?fmtP(dPrice.close):'-';
-
-// ── OHLCV SOURCE: match to mode ──────────────────────────────────────────
-// SCALP high/low/range/vwap comes from 15M (most recent candle)
-// SWING high/low/range/vwap comes from 1H
 const dOHLCV=activeMode==='SCALP'?(d15||d30||d1):(d1||d30);
-
 const b15=getBDKB(sym,'15M'),b30=getBDKB(sym,'30M');const bdkb=b4||b1;
 const st=bdkb?.state||'NO_TRADE',sc=stateColor(st),score=bdkb?.score||0;
 const ls=bdkb?.longScore||0,ss=bdkb?.shortScore||0,comps=bdkb?.components||{};
@@ -490,8 +561,6 @@ const compRows=compDefs.map(c=>{const v=comps[c.key]||0,active=v>0,col=active?'v
 const s1hCurr=b1?.score||0;
 const s1hPrev1=b1?.bdkbScore1HPrev1??null;
 const s1hPrev2=b1?.bdkbScore1HPrev2??null;
-// Display: 1H portion of SWING only (4H shown separately in panel)
-// Weights: curr=25%, prev1=15%, prev2=10% (the 1H side of the 4H=50%/1Hx3=50% split)
 const swing1Hx3=s1hPrev1!==null&&s1hPrev2!==null?Math.round((s1hPrev2*0.10)+(s1hPrev1*0.15)+(s1hCurr*0.25)):Math.round(s1hCurr*0.25);
 const swing1Hx3Str=swing1Hx3!==null?(swing1Hx3>0?'+':'')+swing1Hx3:'-';
 const swing1Hx3Color=swing1Hx3!==null?scoreColor(swing1Hx3):'var(--text3)';
@@ -501,13 +570,11 @@ const volC=(comps.volume||0)?'var(--bull)':'var(--text2)';
 const evCls=liq?.liquidityEvent?'active-event':'';
 const setupCls=liq?.setupReady1H?'active-setup':'';
 const confCls=liq?.confirmed1H?'active-confirm':'';
-// ── MFI badge (from 1H data) ─────────────────────────────────────────────
 const mfi15=mkt[sym]?.['15M']?.mfi??null;
 const mfi1h=d1?.mfi??null;
 const mfiVal=mfi1h??mfi15;
 const mfiStr=mfiVal!==null?mfiVal.toFixed(1):'-';
 const mfiCls=mfiVal===null?'mfi-neut':mfiVal>=60?'mfi-bull':mfiVal<=40?'mfi-bear':'mfi-neut';
-// ── FVG badge (4H priority, fall back to 1H) ────────────────────────────
 const fvgBullActive=(d4?.fvgBullActive||d1?.fvgBullActive)||0;
 const fvgBearActive=(d4?.fvgBearActive||d1?.fvgBearActive)||0;
 const fvgBullLo=d4?.fvgBullLo??d1?.fvgBullLo??null;
@@ -517,7 +584,6 @@ const fvgBearHi=d4?.fvgBearHi??d1?.fvgBearHi??null;
 const fvgBullBadge=fvgBullActive?`<span class="cs-fvg-badge fvg-bull">BULL FVG ${fvgBullLo?fmtP(fvgBullLo)+'-'+fmtP(fvgBullHi):''}</span>`:'';
 const fvgBearBadge=fvgBearActive?`<span class="cs-fvg-badge fvg-bear">BEAR FVG ${fvgBearLo?fmtP(fvgBearLo)+'-'+fmtP(fvgBearHi):''}</span>`:'';
 const fvgNoneBadge=(!fvgBullActive&&!fvgBearActive)?`<span class="cs-fvg-badge fvg-none">NO FVG</span>`:'';
-// ── Coffin badge (15M data only) ─────────────────────────────────────────
 const coffinBreakLong=d15?.coffinBreakLong||0;
 const coffinBreakShort=d15?.coffinBreakShort||0;
 const coffinArmed=d15?.coffinArmed||0;
@@ -527,7 +593,9 @@ if(coffinBreakLong)coffinBadge=`<span class="cs-coffin coffin-break-long">COFFIN
 else if(coffinBreakShort)coffinBadge=`<span class="cs-coffin coffin-break-short">COFFIN GO-</span>`;
 else if(coffinArmed&&coffinAtLevel)coffinBadge=`<span class="cs-coffin coffin-armed">COFFIN ARMED</span>`;
 else coffinBadge=`<span class="cs-coffin coffin-idle">COFFIN -</span>`;
-html+=`<div class="cs-cell"> <div class="cs-top-bar" style="background:${sc}"></div> <div class="cs-header"><div class="cs-header-left"><div class="cs-sym">${label}</div><div class="cs-price">${price}</div></div> <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><div class="cs-rank">#${rank+1} . ${activeMode==='SCALP'?'15M-1H':'1H-4H'}</div>${mtf.tradeReady?'<div class="cs-trade-ready">TRADE READY</div>':''}</div></div> <div class="cs-score-model"><span class="cs-score-num" style="color:${sc}">${score}</span> <div class="cs-score-mid"><span class="cs-state badge-${st}" style="color:${sc};border-color:${sc}40">${st.replace(/_/g,' ')}</span><span class="cs-dir" style="color:${dirColor(mtf.direction)}">${dirArrow(mtf.direction)} ${mtf.direction}</span></div> <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="cs-model-badge ${mcls}">${exec.label}</span><span class="cs-size-badge ${scls}">${exec.sizeRec}</span></div></div> <div class="cs-body"> <div class="cs-col"><div style="font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;">Components</div>${compRows} <div style="margin-top:5px;"><div class="cs-ls-row"><span class="cs-ls-lbl" style="color:var(--bull)">LONG</span><div class="cs-ls-track"><div class="cs-ls-fill" style="width:${Math.min(100,Math.max(0,ls))}%;background:var(--bull)"></div></div><span class="cs-ls-val" style="color:var(--bull)">${ls}</span></div> <div class="cs-ls-row"><span class="cs-ls-lbl" style="color:var(--bear)">SHORT</span><div class="cs-ls-track"><div class="cs-ls-fill" style="width:${Math.min(100,Math.max(0,ss))}%;background:var(--bear)"></div></div><span class="cs-ls-val" style="color:var(--bear)">${ss}</span></div></div></div> <div class="cs-col"> <div class="cs-tf-mode">SCALP . 15M / 30M / 1H</div> <div class="cs-tf-row"><div class="cs-tf-cell"><span class="cs-tf-label">15M</span><span class="cs-tf-val" style="color:${scoreColor(b15?.score||0)}">${fmt(b15?.score||0)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">30M</span><span class="cs-tf-val" style="color:${scoreColor(b30?.score||0)}">${fmt(b30?.score||0)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">1H</span><span class="cs-tf-val" style="color:${scoreColor(b1?.score||0)}">${fmt(b1?.score||0)}</span></div></div> <div class="cs-tf-mode">SWING . 1Hx3 / 4H</div> <div class="cs-tf-row"><div class="cs-tf-cell wide"><span class="cs-tf-label">1H x3</span><span class="cs-tf-val" style="color:${swing1Hx3Color}">${swing1Hx3Str}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div></div> <div style="margin-top:5px;"><div class="cs-row"><span class="cs-lbl">VWAP</span><span class="cs-val" style="color:${vwapC}">${vwapPos}</span></div><div class="cs-row"><span class="cs-lbl">VOLUME</span><span class="cs-val" style="color:${volC}">${(comps.volume||0)?'CONFIRM':'WEAK'}</span></div><div class="cs-row"><span class="cs-lbl">HIGH</span><span class="cs-val" style="color:var(--bull)">${fmtP(dOHLCV?.high)}</span></div><div class="cs-row"><span class="cs-lbl">LOW</span><span class="cs-val" style="color:var(--bear)">${fmtP(dOHLCV?.low)}</span></div><div class="cs-row"><span class="cs-lbl">RANGE</span><span class="cs-val">${dOHLCV?.high&&dOHLCV?.low?fmtP(dOHLCV.high-dOHLCV.low):'-'}</span></div></div></div></div> <div class="cs-exec"> <div class="cs-exec-block"><div class="cs-exec-lbl">OTE ZONE</div>${oteBadge}${ote.pctFrom!==null&&ote.zone!=='IN_ZONE'?`<div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:2px;">${ote.pctFrom}% from zone</div>`:''}</div> <div class="cs-exec-block"><div class="cs-exec-lbl">FIBONACCI</div>${ote.fib618?`<div class="cs-fib-row"><span class="cs-fib-lbl">0.618</span><span class="cs-fib-val" style="color:var(--gold)">${fmtP(ote.fib618)}</span></div><div class="cs-fib-row"><span class="cs-fib-lbl">0.500</span><span class="cs-fib-val" style="color:var(--accent)">${fmtP(ote.fib500)}</span></div><div class="cs-fib-row"><span class="cs-fib-lbl">0.786</span><span class="cs-fib-val" style="color:var(--gold)">${fmtP(ote.fib786)}</span></div>`:'<span style="font-family:var(--mono);font-size:7px;color:var(--text3)">No fractal data</span>'}<div style="margin-top:3px;">${fvgBullBadge}${fvgBearBadge}${fvgNoneBadge}</div></div> <div class="cs-exec-block"><div class="cs-exec-lbl">SWING LEVELS</div><div class="cs-fib-row"><span class="cs-fib-lbl">HI</span><span class="cs-fib-val" style="color:var(--bear)">${fmtP(ote.swingHi)}</span></div><div class="cs-fib-row"><span class="cs-fib-lbl">LO</span><span class="cs-fib-val" style="color:var(--bull)">${fmtP(ote.swingLo)}</span></div><div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:3px;line-height:1.4;">${exec.desc}</div></div></div> <div class="cs-foot"><div class="cs-gate-row"><div class="cs-gate ${evCls}">EVENT</div><div class="cs-gate ${setupCls}">SETUP</div><div class="cs-gate ${confCls}">CONF</div></div><span class="cs-mfi ${mfiCls}">MFI ${mfiStr}</span><span class="cs-fund-rate">${fr}</span><span style="font-family:var(--mono);font-size:7px;font-weight:700;padding:1px 5px;border:1px solid;color:${relColor};border-color:${relColor}40">REL ${relStr2}</span>${coffinBadge}<span class="cs-fund-zone zone-${fz}" style="color:${fzc};border-color:${fzc}40">${fz.replace(/_/g,' ')}</span></div> </div>`;
+
+// ── Build card HTML — new badge row injected between cs-exec and cs-foot ──
+html+=`<div class="cs-cell"> <div class="cs-top-bar" style="background:${sc}"></div> <div class="cs-header"><div class="cs-header-left"><div class="cs-sym">${label}</div><div class="cs-price">${price}</div></div> <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><div class="cs-rank">#${rank+1} . ${activeMode==='SCALP'?'15M-1H':'1H-4H'}</div>${mtf.tradeReady?'<div class="cs-trade-ready">TRADE READY</div>':''}</div></div> <div class="cs-score-model"><span class="cs-score-num" style="color:${sc}">${score}</span> <div class="cs-score-mid"><span class="cs-state badge-${st}" style="color:${sc};border-color:${sc}40">${st.replace(/_/g,' ')}</span><span class="cs-dir" style="color:${dirColor(mtf.direction)}">${dirArrow(mtf.direction)} ${mtf.direction}</span></div> <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span class="cs-model-badge ${mcls}">${exec.label}</span><span class="cs-size-badge ${scls}">${exec.sizeRec}</span></div></div> <div class="cs-body"> <div class="cs-col"><div style="font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;">Components</div>${compRows} <div style="margin-top:5px;"><div class="cs-ls-row"><span class="cs-ls-lbl" style="color:var(--bull)">LONG</span><div class="cs-ls-track"><div class="cs-ls-fill" style="width:${Math.min(100,Math.max(0,ls))}%;background:var(--bull)"></div></div><span class="cs-ls-val" style="color:var(--bull)">${ls}</span></div> <div class="cs-ls-row"><span class="cs-ls-lbl" style="color:var(--bear)">SHORT</span><div class="cs-ls-track"><div class="cs-ls-fill" style="width:${Math.min(100,Math.max(0,ss))}%;background:var(--bear)"></div></div><span class="cs-ls-val" style="color:var(--bear)">${ss}</span></div></div></div> <div class="cs-col"> <div class="cs-tf-mode">SCALP . 15M / 30M / 1H</div> <div class="cs-tf-row"><div class="cs-tf-cell"><span class="cs-tf-label">15M</span><span class="cs-tf-val" style="color:${scoreColor(b15?.score||0)}">${fmt(b15?.score||0)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">30M</span><span class="cs-tf-val" style="color:${scoreColor(b30?.score||0)}">${fmt(b30?.score||0)}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">1H</span><span class="cs-tf-val" style="color:${scoreColor(b1?.score||0)}">${fmt(b1?.score||0)}</span></div></div> <div class="cs-tf-mode">SWING . 1Hx3 / 4H</div> <div class="cs-tf-row"><div class="cs-tf-cell wide"><span class="cs-tf-label">1H x3</span><span class="cs-tf-val" style="color:${swing1Hx3Color}">${swing1Hx3Str}</span></div><div class="cs-tf-cell"><span class="cs-tf-label">4H</span><span class="cs-tf-val" style="color:${scoreColor(b4?.score||0)}">${fmt(b4?.score||0)}</span></div></div> <div style="margin-top:5px;"><div class="cs-row"><span class="cs-lbl">VWAP</span><span class="cs-val" style="color:${vwapC}">${vwapPos}</span></div><div class="cs-row"><span class="cs-lbl">VOLUME</span><span class="cs-val" style="color:${volC}">${(comps.volume||0)?'CONFIRM':'WEAK'}</span></div><div class="cs-row"><span class="cs-lbl">HIGH</span><span class="cs-val" style="color:var(--bull)">${fmtP(dOHLCV?.high)}</span></div><div class="cs-row"><span class="cs-lbl">LOW</span><span class="cs-val" style="color:var(--bear)">${fmtP(dOHLCV?.low)}</span></div><div class="cs-row"><span class="cs-lbl">RANGE</span><span class="cs-val">${dOHLCV?.high&&dOHLCV?.low?fmtP(dOHLCV.high-dOHLCV.low):'-'}</span></div></div></div></div> <div class="cs-exec"> <div class="cs-exec-block"><div class="cs-exec-lbl">OTE ZONE</div>${oteBadge}${ote.pctFrom!==null&&ote.zone!=='IN_ZONE'?`<div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:2px;">${ote.pctFrom}% from zone</div>`:''}</div> <div class="cs-exec-block"><div class="cs-exec-lbl">FIBONACCI</div>${ote.fib618?`<div class="cs-fib-row"><span class="cs-fib-lbl">0.618</span><span class="cs-fib-val" style="color:var(--gold)">${fmtP(ote.fib618)}</span></div><div class="cs-fib-row"><span class="cs-fib-lbl">0.500</span><span class="cs-fib-val" style="color:var(--accent)">${fmtP(ote.fib500)}</span></div><div class="cs-fib-row"><span class="cs-fib-lbl">0.786</span><span class="cs-fib-val" style="color:var(--gold)">${fmtP(ote.fib786)}</span></div>`:'<span style="font-family:var(--mono);font-size:7px;color:var(--text3)">No fractal data</span>'}<div style="margin-top:3px;">${fvgBullBadge}${fvgBearBadge}${fvgNoneBadge}</div></div> <div class="cs-exec-block"><div class="cs-exec-lbl">SWING LEVELS</div><div class="cs-fib-row"><span class="cs-fib-lbl">HI</span><span class="cs-fib-val" style="color:var(--bear)">${fmtP(ote.swingHi)}</span></div><div class="cs-fib-row"><span class="cs-fib-lbl">LO</span><span class="cs-fib-val" style="color:var(--bull)">${fmtP(ote.swingLo)}</span></div><div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:3px;line-height:1.4;">${exec.desc}</div></div></div> ${getNewBadges(sym)}<div class="cs-foot"><div class="cs-gate-row"><div class="cs-gate ${evCls}">EVENT</div><div class="cs-gate ${setupCls}">SETUP</div><div class="cs-gate ${confCls}">CONF</div></div><span class="cs-mfi ${mfiCls}">MFI ${mfiStr}</span><span class="cs-fund-rate">${fr}</span><span style="font-family:var(--mono);font-size:7px;font-weight:700;padding:1px 5px;border:1px solid;color:${relColor};border-color:${relColor}40">REL ${relStr2}</span>${coffinBadge}<span class="cs-fund-zone zone-${fz}" style="color:${fzc};border-color:${fzc}40">${fz.replace(/_/g,' ')}</span></div> </div>`;
 });
 document.getElementById('command-strip').innerHTML=html;
 }
@@ -569,7 +637,6 @@ html+='<div style="margin-top:12px;border-top:1px solid var(--border);padding-to
 html+='<button onclick="analyzeToken()" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--accent);background:transparent;border:1px solid rgba(77,156,255,0.25);padding:4px 10px;cursor:pointer;">R RE-ANALYZE</button></div>';
 return html;
 }
-// ── CANDLE PATTERN DETECTION ──────────────────────────────────────────────────
 function detectCandlePattern(d){
   if(!d||d.open==null||d.close==null||d.high==null||d.low==null)return'NO DATA';
   const o=d.open,h=d.high,l=d.low,c=d.close;
@@ -582,36 +649,17 @@ function detectCandlePattern(d){
   const bodyPct=body/range;
   const upperPct=upperWick/range;
   const lowerPct=lowerWick/range;
-  // Doji family
   if(bodyPct<0.1){
     if(upperPct>0.6)return'Gravestone Doji (Bearish)';
     if(lowerPct>0.6)return'Dragonfly Doji (Bullish)';
     return'Doji (Neutral)';
   }
-  // Marubozu
-  if(bodyPct>0.9){
-    return bull?'Bullish Marubozu (Strong Bull)':'Bearish Marubozu (Strong Bear)';
-  }
-  // Hammer / Hanging Man
-  if(lowerPct>0.55&&upperPct<0.1&&bodyPct<0.35){
-    return bull?'Hammer (Bullish)':'Hanging Man (Bearish)';
-  }
-  // Shooting Star / Inverted Hammer
-  if(upperPct>0.55&&lowerPct<0.1&&bodyPct<0.35){
-    return bull?'Inverted Hammer (Bullish)':'Shooting Star (Bearish)';
-  }
-  // Spinning Top
-  if(bodyPct<0.35&&upperPct>0.2&&lowerPct>0.2){
-    return'Spinning Top (Neutral/Indecision)';
-  }
-  // Standard bull/bear
-  if(bull){
-    if(bodyPct>0.6)return'Strong Bull Candle';
-    return'Bullish Candle';
-  }else{
-    if(bodyPct>0.6)return'Strong Bear Candle';
-    return'Bearish Candle';
-  }
+  if(bodyPct>0.9){return bull?'Bullish Marubozu (Strong Bull)':'Bearish Marubozu (Strong Bear)';}
+  if(lowerPct>0.55&&upperPct<0.1&&bodyPct<0.35){return bull?'Hammer (Bullish)':'Hanging Man (Bearish)';}
+  if(upperPct>0.55&&lowerPct<0.1&&bodyPct<0.35){return bull?'Inverted Hammer (Bullish)':'Shooting Star (Bearish)';}
+  if(bodyPct<0.35&&upperPct>0.2&&lowerPct>0.2){return'Spinning Top (Neutral/Indecision)';}
+  if(bull){if(bodyPct>0.6)return'Strong Bull Candle';return'Bullish Candle';}
+  else{if(bodyPct>0.6)return'Strong Bear Candle';return'Bearish Candle';}
 }
 function copyToClaudeGlobal(){
 const now=new Date().toISOString();
@@ -625,7 +673,6 @@ const fund=d1?.funding;
 const age15=d15?._received?dataAge(d15._received):'?';
 const age1h=d1?._received?dataAge(d1._received):'?';
 const age4h=d4?._received?dataAge(d4._received):'?';
-// New fields
 const mfi=d1?.mfi??d15?.mfi;
 const fvgBull=d4?.fvgBullActive||d1?.fvgBullActive||0;
 const fvgBear=d4?.fvgBearActive||d1?.fvgBearActive||0;
@@ -642,6 +689,15 @@ const fracS=d1?.fracSupport?.toFixed(5)||'-';
 const ote=getOTEZone(sym);
 const fundStr=fund?.fundingRate!=null?(fund.fundingRate*100).toFixed(4)+'% '+fund.fundingZone:'N/A';
 const mfiGate=mfi!=null?(mfi>45?'PASS':'FAIL'):'N/A';
+// New gap fields for Claude context
+const emaAligned=d1?.emaStackAligned??'N/A';
+const vRegime=d1?.volRegime||'N/A';
+const choch1H=d1?.choch===1?'YES':'NO';
+const choch4H=d4?.choch===1?'YES':'NO';
+const candleType=d1?.candleType||'N/A';
+const obActive=d4?.obActive===1?`YES (${d4?.obType} ${d4?.obLow?.toFixed(5)||'-'}-${d4?.obHigh?.toFixed(5)||'-'})`:'NO';
+const mktState=mkt[sym]?.['1D']?.marketState||'N/A';
+const score1W=mkt[sym]?.['1W']?.bdkb?.score??'N/A';
 const pat15=detectCandlePattern(d15);
 const pat1h=detectCandlePattern(d1);
 const pat4h=detectCandlePattern(d4);
@@ -649,7 +705,7 @@ const candleLines=activeMode==='SCALP'?('  Candle 15M: '+pat15+'\n  Candle 1H:  
 return `── ${lbl} ─────────────────────────────────
   Price:    ${d1?fmtP(d1.close):'-'} | Mode: ${activeMode}
   MTF Score: ${mtf.score} · Quality: ${mtf.quality} · Dir: ${mtf.direction}
-  Scores:   15M:${b15?.score??'-'} [${age15}] · 30M:${b30?.score??'-'} · 1H:${b1?.score??'-'} [${age1h}] · 4H:${b4?.score??'-'} [${age4h}]
+  Scores:   15M:${b15?.score??'-'} [${age15}] · 30M:${b30?.score??'-'} · 1H:${b1?.score??'-'} [${age1h}] · 4H:${b4?.score??'-'} [${age4h}] · 1W:${score1W}
   State:    1H:${b1?.state??'-'} · 4H:${b4?.state??'-'}
   Liq:      EVENT:${b1?.liquidityEvent??0} · SETUP:${b1?.setupReady1H??0} · CONF:${b1?.confirmed1H??0} · Type:${b1?.liquidityType??'none'}
   OTE Zone: ${ote.zone}${ote.pctFrom?' ('+ote.pctFrom+'% away)':''} · 0.618:${ote.fib618?.toFixed(5)||'-'} · 0.786:${ote.fib786?.toFixed(5)||'-'}
@@ -659,6 +715,11 @@ return `── ${lbl} ───────────────────�
   Coffin:   ${coffinStatus}
   Funding:  ${fundStr}
   H/L Time: ${hlTiming[lbl]||'-'}
+  EMA Stack: ${emaAligned===1?'ALIGNED':emaAligned===0?'DISORDERED':'N/A'} · Vol Regime: ${vRegime}
+  CHoCH:    1H:${choch1H} · 4H:${choch4H}
+  Candle 1H: ${candleType}
+  Order Block: ${obActive}
+  1D Market State: ${mktState}
 ${candleLines}`;
 }).join('\n');
 const miLine=whaleData?`\nMARKET INTELLIGENCE:
@@ -680,16 +741,24 @@ SYSTEM CONTEXT:
   FVG + OTE overlap = A+ setup zone
   EWT B-Wave in 1D payload: check before entry
   Candle Patterns: MANDATORY — analyze 15M+1H for SCALP, 1H+4H for SWING per token
+  EMA Stack: DISORDERED = reduced EMA signal weight · ALIGNED = full weight
+  CHoCH 4H: STRUCTURE BREAK — exit or abort entry immediately
+  CHoCH 1H: WARNING — monitor for 4H confirmation
+  Order Block: 4H OB = high-probability rejection zone when price enters
+  Vol Regime: EXPANSION = signal confidence elevated · COMPRESSION = breakout risk
+  1D Market State: RANGE = signal reliability reduced · TREND = full signal weight
+  BLOCKED Gate: 1H direction opposing 1W score >20pts = NO ENTRY
 
 MANDATORY ANALYSIS FORMAT:
 1. Timing overlay — is NOW a valid entry window per H/L clock?
 2. Market Intelligence — DXY direction, CVD signal, funding context
-3. Per-token candle pattern read (use patterns provided above)
-4. Confluence stack — score + MFI + Coffin + candle pattern + OTE
-5. Best trade opportunity with entry, stop, TP levels
-6. NO TRADE verdict if timing, MFI, or pattern conflict
+3. Gate checks — BLOCKED? CHoCH active? EMA stack aligned? 1D market state?
+4. Per-token candle pattern read (use patterns provided above)
+5. Confluence stack — score + MFI + Coffin + candle pattern + OTE + Vol Regime
+6. Best trade opportunity with entry, stop, TP levels
+7. NO TRADE verdict if timing, MFI, pattern, or gate checks conflict
 
-Analyze current market state. Apply ALL layers. Candle pattern analysis is required for every token.`;
+Analyze current market state. Apply ALL layers. Gate checks are required before any entry recommendation.`;
 navigator.clipboard.writeText(p).then(()=>{const btn=document.getElementById('copy-claude-btn');if(btn){btn.textContent='✓ COPIED';setTimeout(()=>btn.textContent='⎋ COPY TO CLAUDE',2500);}});
 }
 function loadJournal(){try{return JSON.parse(localStorage.getItem('bdkb_journal')||'[]');}catch{return[];}}
@@ -700,25 +769,13 @@ function editTrade(id){document.querySelectorAll('.edit-form-tr').forEach(el=>el
 function saveEditTrade(id){const j=loadJournal(),idx=j.findIndex(e=>e.id===id);if(idx===-1)return;const e=j[idx];j[idx]={...e,sl:parseFloat(document.getElementById('ef-sl')?.value)||e.sl,tp1:parseFloat(document.getElementById('ef-tp1')?.value)||e.tp1,tp2:parseFloat(document.getElementById('ef-tp2')?.value)||e.tp2,tp3:parseFloat(document.getElementById('ef-tp3')?.value)||e.tp3,exit:parseFloat(document.getElementById('ef-exit')?.value)||null,notes:document.getElementById('ef-notes')?.value??e.notes,size:parseFloat(document.getElementById('ef-size')?.value)||e.size};if(j[idx].exit)j[idx].closedAt=new Date().toISOString();saveJournal(j);taEditId=null;renderJournal();}
 function cancelEdit(){document.querySelectorAll('.edit-form-tr').forEach(el=>el.remove());taEditId=null;}
 function closeTradePrompt(id){const j=loadJournal(),e=j.find(e=>e.id===id);if(!e)return;const v=prompt(`Close ${e.token} ${e.side}\nEntry: ${fmtP(e.entry)}\n\nEnter exit price:`);if(!v||isNaN(parseFloat(v)))return;const idx=j.findIndex(t=>t.id===id);j[idx].exit=parseFloat(v);j[idx].closedAt=new Date().toISOString();saveJournal(j);renderJournal();} function deleteTrade(id){if(!confirm('Delete this trade?'))return;saveJournal(loadJournal().filter(e=>e.id!==id));renderJournal();} const T2S={BTC:'BTCUSDT',ETH:'ETHUSDT',SOL:'SOLUSDT',XRP:'XRPUSDT',ADA:'ADAUSDT',SUI:'SUIUSDT'}; function getLivePrice(t){const s=T2S[t];return s?mkt[s]?.['1H']?.close||null:null;} function calcPnL(e){if(e.exit&&e.entry&&e.size){const p=(e.side==='LONG'?(e.exit-e.entry)/e.entry:(e.entry-e.exit)/e.entry)*e.leverage;return{pnl:e.size*p,isLive:false,markPrice:null};}if(!e.exit&&e.entry&&e.size){const m=getLivePrice(e.token);if(m==null)return{pnl:null,isLive:true,markPrice:null};const p=(e.side==='LONG'?(m-e.entry)/e.entry:(e.entry-m)/e.entry)*e.leverage;return{pnl:e.size*p,isLive:true,markPrice:m};}return{pnl:null,isLive:false,markPrice:null};} function renderJournal(){const j=loadJournal(),cl=j.filter(e=>e.exit),op=j.filter(e=>!e.exit);const rp=cl.map(e=>calcPnL(e).pnl).filter(p=>p!=null),tp=rp.reduce((a,b)=>a+b,0),wi=rp.filter(p=>p>0).length,wr=rp.length>0?Math.round(wi/rp.length*100)+'%':'-';const up=op.map(e=>calcPnL(e).pnl).filter(p=>p!=null),tu=up.reduce((a,b)=>a+b,0);document.getElementById('jstat-total').textContent=j.length;document.getElementById('jstat-pnl').textContent=(tp>=0?'+':'')+'$'+tp.toFixed(2);document.getElementById('jstat-pnl').style.color=tp>=0?'var(--bull)':'var(--bear)';document.getElementById('jstat-wr').textContent=wr;const oc=document.getElementById('jstat-open');if(up.length>0){oc.innerHTML=`${op.length}<span style="display:block;font-size:10px;font-family:var(--mono);color:${tu>=0?'var(--bull)':'var(--bear)'};font-weight:400">${tu>=0?'+':''}$${tu.toFixed(2)}</span>`;}else{oc.textContent=op.length;}const wrap=document.getElementById('journal-table-wrap');if(!j.length){wrap.innerHTML='<div class="journal-empty"><div class="journal-empty-title">NO TRADES LOGGED</div><div class="journal-empty-sub">Click + LOG TRADE to record your first entry</div></div>';return;}let html=`<div class="trade-table-wrap"><table class="trade-table"><thead><tr><th>DATE</th><th>TOKEN</th><th>SIDE</th><th>MODE</th><th>ENTRY</th><th>MARK</th><th>SL</th><th>TP1</th><th>TP2</th><th>TP3</th><th>EXIT</th><th>PNL</th><th>STATUS</th><th>NOTES</th><th>ACTIONS</th></tr></thead><tbody>`;j.forEach(e=>{const{pnl,isLive,markPrice}=calcPnL(e),ps=pnl!=null?(pnl>=0?'+':'')+'$'+pnl.toFixed(2):'-',pc=pnl!=null?(pnl>=0?'pos':'neg'):'',st=e.exit?'CLOSED':'OPEN';const ds=new Date(e.date).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});const mc=e.exit?`<td style="color:var(--text3)">-</td>`:markPrice!=null?`<td style="color:var(--accent)">${fmtP(markPrice)}</td>`:`<td style="color:var(--text3)">-</td>`;const plc=isLive&&pnl!=null?`<td class="tt-pnl ${pc}">${ps} ~</td>`:`<td class="tt-pnl ${pc}">${ps}</td>`;const acts=!e.exit?`<button class="tt-edit" onclick="editTrade(${e.id})">EDIT</button><button class="tt-close-btn" onclick="closeTradePrompt(${e.id})">CLOSE</button><button class="tt-del" onclick="deleteTrade(${e.id})">X</button>`:`<button class="tt-del" onclick="deleteTrade(${e.id})">X</button>`;html+=`<tr data-tid="${e.id}"><td>${ds}</td><td style="font-weight:700">${e.token}</td><td><span class="tt-side ${e.side.toLowerCase()}">${e.side==='LONG'?'^':'v'} ${e.side}</span></td><td style="color:var(--text3)">${e.mode}</td><td>${e.entry?fmtP(e.entry):'-'}</td>${mc}<td style="color:var(--bear)">${e.sl?fmtP(e.sl):'-'}</td><td style="color:var(--bull)">${e.tp1?fmtP(e.tp1):'-'}</td><td style="color:var(--bull)">${e.tp2?fmtP(e.tp2):'-'}</td><td style="color:var(--bull)">${e.tp3?fmtP(e.tp3):'-'}</td><td>${e.exit?fmtP(e.exit):'-'}</td>${plc}<td><span class="tt-status ${st.toLowerCase()}">${st}</span></td><td style="color:var(--text3);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.notes||'-'}</td><td style="white-space:nowrap">${acts}</td></tr>`;});html+='</tbody></table></div>';wrap.innerHTML=html;}
-
-function processPastedResult(){
-const ta=document.getElementById('ta-paste-input');
-if(!ta||!ta.value.trim())return;
-taResult=parseAnalysisText(ta.value.trim());
-document.getElementById('ta-results').innerHTML=renderTAResult(taResult);
-}
+function processPastedResult(){const ta=document.getElementById('ta-paste-input');if(!ta||!ta.value.trim())return;taResult=parseAnalysisText(ta.value.trim());document.getElementById('ta-results').innerHTML=renderTAResult(taResult);}
 function renderPositions(data){const p=document.getElementById('positions-panel');if(!data||!data.positions||!data.positions.length){const u=data?._updated?timeSince(data._updated):'-';p.innerHTML=`<div class="no-pos"><div class="no-pos-title">NO OPEN POSITIONS</div><div class="no-pos-sub">Last sync: ${u}${data?._error?' . Pending BloFin API':''}</div></div>`;return;}let html='<div class="pos-grid">';for(const pos of data.positions){const s=pos.symbol.replace('-USDT','').replace('USDT',''),l=pos.side==='long',pp=pos.unrealizedPnl>=0,pc=(pos.unrealizedPnlPct*100).toFixed(2);html+=`<div class="pos-card ${l?'long':'short'}"><div class="pos-top"><div class="pos-sym">${s}/USDT</div><span class="pos-side ${l?'long':'short'}">${l?'^ LONG':'v SHORT'} ${pos.leverage}x</span></div><div class="pos-pnl ${pp?'pos':'neg'}">${pp?'+':''}$${pos.unrealizedPnl.toFixed(2)} <span style="font-size:13px;font-family:var(--mono)">${pp?'+':''}${pc}%</span></div><div class="pos-row"><span class="pos-lbl">ENTRY</span><span class="pos-val">${fmtP(pos.entryPrice)}</span></div><div class="pos-row"><span class="pos-lbl">MARK</span><span class="pos-val">${fmtP(pos.markPrice)}</span></div><div class="pos-row"><span class="pos-lbl">LIQ</span><span class="pos-val" style="color:var(--bear)">${fmtP(pos.liqPrice)}</span></div><div class="pos-row"><span class="pos-lbl">SIZE</span><span class="pos-val">${pos.size}</span></div><div class="pos-row"><span class="pos-lbl">MARGIN</span><span class="pos-val">${fmtP(pos.margin)}</span></div><div class="pos-updated">Updated: ${timeSince(pos._updated)}</div></div>`;}html+='</div>';p.innerHTML=html;}
 function timeSince(iso){if(!iso)return'-';const diff=Date.now()-new Date(iso).getTime(),h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000);return h>0?h+'h '+m+'m ago':m+'m ago';}
-
-// -- MARKET INTELLIGENCE - WHALE MONITOR API --
-// Source: whale-monitor.onrender.com/api/summary
-// Polls every 60 seconds. BTC CVD only. Market-wide macro context.
-// No API key required.
 
 const WHALE_API = 'https://whale-monitor.onrender.com/api/summary';
 let whaleData = null;
 let whaleInterval = null;
-
 async function fetchWhaleData() {
 try {
 const r = await fetch(WHALE_API + '?t=' + Date.now());
@@ -730,13 +787,11 @@ const p = document.getElementById('mi-panel');
 if (p) p.innerHTML = '<div style="font-family:var(--mono);font-size:8px;color:var(--bear);padding:0.75rem 1rem;background:var(--bear-dim);border:1px solid rgba(255,45,85,0.2);">! MARKET INTELLIGENCE UNAVAILABLE . ' + err.message + '</div>';
 }
 }
-
 function startWhalePolling() {
 fetchWhaleData();
 if (whaleInterval) clearInterval(whaleInterval);
 whaleInterval = setInterval(fetchWhaleData, 60000);
 }
-
 function fundColorMI(v) {
 if (v == null) return 'var(--text3)';
 if (v > 0.05)  return 'var(--bear)';
@@ -778,7 +833,6 @@ if (Math.abs(n) >= 1e3) return '$' + (n/1e3).toFixed(1) + 'K';
 return '$' + n.toFixed(2);
 }
 function stochColorMI(k) { return k > 80 ? 'var(--bear)' : k < 20 ? 'var(--bull)' : 'var(--text)'; }
-
 function renderMI() {
 const d = whaleData;
 if (!d) return;
@@ -787,7 +841,6 @@ const fg = d.fear_greed, dxy = d.dxy, dom = d.btc_dominance, etf = d.etf;
 const fund = d.funding, oi = d.oi, ls = d.long_short, liqs = d.liqs;
 const cvd = d.cvd, cbp = d.coinbase_premium, stoch = d.stoch_rsi, tether = d.tether_flow, netflow = d.exchange_netflow, news = d.news || [];
 const critical = d.critical || [], whales = d.recent_whales || [], opts = d.options || [];
-
 const fgC = fgColorMI(fg?.value);
 const dxyDir = dxy?.direction ?? '-';
 const dxyC = dxyDir==='DOWN'?'var(--bull)':dxyDir==='UP'?'var(--bear)':'var(--text2)';
@@ -809,16 +862,13 @@ const cbpC = cbp?.value!=null?(cbp.value>0?'var(--bull)':cbp.value<0?'var(--bear
 const cbpSigCls = cbp?.signal?.includes('SELLING')?'bear':cbp?.signal?.includes('BUY')?'bull':'neut';
 const tetherC = tether?.signal==='BULLISH'?'var(--bull)':tether?.signal==='BEARISH'?'var(--bear)':'var(--text3)';
 const tetherSigCls = tether?.signal==='BULLISH'?'bull':tether?.signal==='BEARISH'?'bear':'neut';
-
 let html = '';
-
 html += '<div class="mi-grid-top">' +
 '<div class="mi-cell"><div class="mi-label">Fear & Greed . BTC</div><div class="mi-val" style="color:' + fgC + '">' + (fg?.value??'-') + '</div><div class="mi-sub">' + (fg?.label??'-') + '</div><div class="mi-ts">' + ts + '</div></div>' +
 '<div class="mi-cell"><div class="mi-label">DXY . Dollar Index</div><div class="mi-val" style="color:' + dxyC + '">' + (dxy?.price?.toFixed(2)??'-') + '</div><div class="mi-sub">' + dxyChg + ' . ' + dxyDir + '</div><span class="mi-signal ' + (dxyDir==='DOWN'?'bull':dxyDir==='UP'?'bear':'neut') + '">' + (dxyDir==='DOWN'?'v RISK-ON':dxyDir==='UP'?'^ RISK-OFF':'NEUTRAL') + '</span></div>' +
 '<div class="mi-cell"><div class="mi-label">BTC Dominance</div><div class="mi-val" style="color:' + domC + '">' + (dom?.price?.toFixed(2)??'-') + '%</div><div class="mi-sub">' + (dom?.direction??'-') + '</div><span class="mi-signal ' + (dom?.direction==='UP'?'gold':dom?.direction==='DOWN'?'accent':'neut') + '">' + (dom?.direction==='UP'?'ALTS WEAK':dom?.direction==='DOWN'?'ALTS STRONG':'NEUTRAL') + '</span></div>' +
 '<div class="mi-cell"><div class="mi-label">ETF Net Flow</div><div class="mi-val" style="color:' + etfC + '">' + etfFlow + '</div><div class="mi-sub">' + (etf?.date?new Date(parseInt(etf.date)).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'-') + '</div><span class="mi-signal ' + etfSigCls + '">' + (etf?.signal??'-') + '</span></div>' +
 '</div>';
-
 html += '<div class="mi-grid-mid">' +
 '<div class="mi-cell"><div class="mi-label">Funding Rates</div>' +
 '<div class="mi-fund-row"><span class="mi-fund-ex">BINANCE</span><span class="mi-fund-val" style="color:' + fundColorMI(fund?.binance) + '">' + (fund?.binance!=null?fund.binance.toFixed(4)+'%':'-') + '</span></div>' +
@@ -835,7 +885,6 @@ html += '<div class="mi-grid-mid">' +
 '<div class="mi-fund-row"><span class="mi-fund-ex">OUTFLOW</span><span class="mi-fund-val" style="color:var(--bull)">' + (netflow?.outflow_usd!=null?'$'+netflow.outflow_usd.toFixed(1)+'B':'--') + '</span></div>' +
 '<span class="mi-signal ' + (netflow?.signal==='ACCUMULATION'?'bull':netflow?.signal==='DISTRIBUTION'?'bear':'neut') + '" style="margin-top:4px">' + (netflow?.signal||'--') + '</span></div>' +
 '</div>';
-
 html += '<div class="mi-grid-cvd">' +
 '<div class="mi-cell"><div class="mi-label">BTC Futures CVD</div>' +
 '<div class="mi-cvd-row"><span class="mi-cvd-tf">1H</span><span class="mi-cvd-val" style="color:' + (cvd?.['1h']?.value!=null?(cvd['1h'].value>0?'var(--bull)':'var(--bear)'):'var(--text2)') + '">' + (cvd?.['1h']?.value?.toFixed(2)??'-') + '</span><span class="mi-signal ' + cvdSigCls(cvd?.['1h']?.signal) + '" style="font-size:6px">' + (cvd?.['1h']?.signal??'-') + '</span></div>' +
@@ -852,7 +901,6 @@ html += '<div class="mi-grid-cvd">' +
 '<div class="mi-stoch-row"><span class="mi-stoch-label">4H K/D</span><span class="mi-stoch-val" style="color:' + stochColorMI(stoch?.eth?.['4h']?.k??50) + '">' + (stoch?.eth?.['4h']?.k?.toFixed(1)??'-') + ' / ' + (stoch?.eth?.['4h']?.d?.toFixed(1)??'-') + '</span></div></div>' +
 '<div class="mi-cell"><div class="mi-label">Tether Flow</div><div class="mi-fund-row"><span class="mi-fund-ex">MINTED</span><span class="mi-fund-val" style="color:var(--bull)">' + fmtUSDmi(tether?.minted) + '</span></div><div class="mi-fund-row"><span class="mi-fund-ex">BURNED</span><span class="mi-fund-val" style="color:var(--bear)">' + fmtUSDmi(tether?.burned) + '</span></div><div class="mi-fund-row"><span class="mi-fund-ex">NET</span><span class="mi-fund-val" style="color:' + tetherC + '">' + fmtUSDmi(tether?.net) + '</span></div><span class="mi-signal ' + tetherSigCls + '" style="margin-top:4px">' + (tether?.signal??'NEUTRAL') + '</span><div style="margin-top:8px;"><div class="mi-label">Options Max Pain</div>' + opts.slice(0,3).map(function(o){return '<div class="mi-opt-row"><span class="mi-opt-label">' + o.date + '</span><span class="mi-opt-val" style="color:var(--gold)">$' + (o.max_pain?.toLocaleString()??'-') + '</span></div>';}).join('') + '</div></div>' +
 '</div>';
-
 html += '<div class="mi-grid-bot">' +
 '<div class="mi-cell-wide"><div class="mi-label">Critical Whale Alerts . >=$100M</div><div class="mi-whale-list">' +
 (critical.length===0?'<div style="font-family:var(--mono);font-size:8px;color:var(--text3)">No critical alerts</div>':
@@ -862,8 +910,6 @@ critical.map(function(w){return '<div class="mi-whale-row critical"><span class=
 whales.slice(0,8).map(function(w){return '<div class="mi-whale-row"><span class="mi-whale-asset">' + w.asset + '</span><span class="mi-whale-amt">' + fmtUSDmi(w.usd) + '</span><span style="font-family:var(--mono);font-size:7px;color:var(--text3)">' + (w.from??'?').substring(0,12) + ' -> ' + (w.to??'?').substring(0,12) + '</span><span class="mi-whale-time">' + miTimeSince(typeof w.time==='number'?w.time*1000:w.time) + '</span></div>';}).join('') +
 '</div></div>' +
 '</div>';
-
-// News Row
 if(news && news.length > 0) {
 html += '<div style="font-family:var(--mono);font-size:7px;color:var(--text3);letter-spacing:2px;padding:6px 0 3px;margin-top:4px;">CRYPTO NEWS . CoinTelegraph + CoinDesk</div>';
 html += '<div class="mi-news-row">';
@@ -875,7 +921,6 @@ html += '<div class="mi-news-item"><span class="mi-news-source" style="color:'+s
 html += '</div>';
 }
 html += '<div style="font-family:var(--mono);font-size:7px;color:var(--text3);padding:4px 2px;letter-spacing:1px;">LAST POLL: ' + ts + ' . BTC CVD = BTC futures only . Funding = Binance/OKX/Bybit . Whale >=$100M . Auto-refresh 60s</div>';
-
 document.getElementById('mi-panel').innerHTML = html;
 }
 
@@ -883,12 +928,10 @@ loadAll();
 startWhalePolling();
 
 // ── CANDLE-ALIGNED AUTO-REFRESH ───────────────────────────────────────────────
-// Refreshes 90 seconds after each 15M candle boundary (:00, :15, :30, :45)
-// Ensures dashboard always shows the most recent closed candle within ~2 minutes
 function scheduleNextRefresh(){
   const now=Date.now();
-  const interval=15*60*1000; // 15 minutes in ms
-  const grace=90*1000;       // 90 second grace period after close
+  const interval=15*60*1000;
+  const grace=90*1000;
   const nextBoundary=Math.ceil((now-grace)/interval)*interval+grace;
   const delay=nextBoundary-now;
   console.log(`Next refresh in ${Math.round(delay/1000)}s (candle-aligned)`);
