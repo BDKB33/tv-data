@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-28T04:30:22.121Z",
+  "_updated": "2026-05-28T04:30:23.084Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2078,26 +2078,26 @@
     "30M": {
       "symbol": "SUIUSDT",
       "timeframe": "30M",
-      "open": 0.9516,
-      "high": 0.9524,
-      "low": 0.9253,
-      "close": 0.9392,
-      "volume": 4189327.5,
-      "wickRange": 0.0271,
-      "vwap": 0.9489,
-      "ema50": 0.9821,
+      "open": 0.9221,
+      "high": 0.9237,
+      "low": 0.9068,
+      "close": 0.9157,
+      "volume": 6691253,
+      "wickRange": 0.0169,
+      "vwap": 0.9352,
+      "ema50": 0.9772,
       "ema100": null,
-      "ema200": 1.0191,
+      "ema200": 1.0171,
       "sma50": null,
       "sma200": null,
-      "rsi": 26.2432,
-      "stochK": 14.2836,
-      "stochD": 17.7473,
-      "macdLine": -0.0122,
-      "macdHist": -0.0014,
-      "atr": 0.0104,
-      "volSMA20": 1741773.89,
-      "bbWidth": 5.576,
+      "rsi": 19.051,
+      "stochK": 0,
+      "stochD": 7.1238,
+      "macdLine": -0.0158,
+      "macdHist": -0.0035,
+      "atr": 0.0115,
+      "volSMA20": 2070607.145,
+      "bbWidth": 7.8973,
       "trendBias": -1,
       "mfi": null,
       "fracResistance": null,
@@ -2134,7 +2134,7 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "emaStackAligned": 1,
-      "volRegime": "NEUTRAL",
+      "volRegime": "EXPANSION",
       "choch": 0,
       "chochLevel": null,
       "rsiDivBearish": 0,
@@ -2174,7 +2174,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-28T03:30:13.257Z",
+      "_received": "2026-05-28T04:30:04.863Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -2186,7 +2186,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-28T03:30:13.412Z"
+        "_fetched": "2026-05-28T04:30:05.018Z"
       }
     },
     "1H": {
