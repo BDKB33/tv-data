@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-28T23:30:11.942Z",
+  "_updated": "2026-05-28T23:30:14.080Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -791,26 +791,26 @@
     "30M": {
       "symbol": "ETHUSDT",
       "timeframe": "30M",
-      "open": 2011.8,
-      "high": 2011.98,
-      "low": 2005.43,
-      "close": 2005.6,
-      "volume": 3784.7308,
-      "wickRange": 6.55,
-      "vwap": 1995.747,
-      "ema50": 2013.4991,
+      "open": 2005.6,
+      "high": 2011.22,
+      "low": 2005.6,
+      "close": 2010.71,
+      "volume": 2625.3605,
+      "wickRange": 5.62,
+      "vwap": 1995.8447,
+      "ema50": 2013.3897,
       "ema100": null,
-      "ema200": 2056.5931,
+      "ema200": 2056.1366,
       "sma50": null,
       "sma200": null,
-      "rsi": 47.4434,
-      "stochK": 31.0889,
-      "stochD": 47.8159,
-      "macdLine": 3.8965,
-      "macdHist": 0.0056,
-      "atr": 10.3785,
-      "volSMA20": 7579.8927,
-      "bbWidth": 2.7397,
+      "rsi": 51.2063,
+      "stochK": 16.5964,
+      "stochD": 33.6356,
+      "macdLine": 3.43,
+      "macdHist": -0.3687,
+      "atr": 10.0386,
+      "volSMA20": 7385.6103,
+      "bbWidth": 2.5641,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -846,7 +846,7 @@
       "dailyLow": null,
       "dailyOpenHour": null,
       "dailyOpenSession": null,
-      "emaStackAligned": 1,
+      "emaStackAligned": 0,
       "volRegime": "NEUTRAL",
       "choch": 0,
       "chochLevel": null,
@@ -865,18 +865,18 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -31,
-        "longScore": 0,
-        "shortScore": 31,
+        "score": 18,
+        "longScore": 18,
+        "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
-          "structure": -0.25,
-          "ema": -1,
+          "structure": 0.25,
+          "ema": 0.13,
           "cvd": 0,
           "funding": 0,
           "oi": 0,
-          "delta": -1
+          "delta": 1
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -887,7 +887,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-28T23:00:05.727Z",
+      "_received": "2026-05-28T23:30:05.077Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -899,7 +899,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-28T23:00:05.885Z"
+        "_fetched": "2026-05-28T23:30:05.245Z"
       }
     },
     "15M": {
