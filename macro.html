@@ -244,32 +244,60 @@ let whaleData=null, whaleInterval=null;
 async function loadAll(){
   document.getElementById('ts').textContent='Refreshing...';
   let snapLoaded=false;
+
+  // ── FIX: Read from split snapshot files — eliminates 36-writer race ──
+  // _snapshot_1d.json  → 1D data + 1D_history  (6 writers at daily close)
+  // _snapshot_1w.json  → 1W data + 1W_history  (6 writers Sunday only)
+  // _snapshot_hl.json  → HL tracker             (6 writers hourly)
+  // Each file has isolated writers vs the old 36-way collision on _snapshot.json
+
+  // ── 1D snapshot: scores + EWT + 1D history ──
   try{
-    const r=await fetch(`${WORKER_URL}?file=_snapshot.json`,{cache:'no-store'});
+    const r=await fetch(`${WORKER_URL}?file=_snapshot_1d.json`,{cache:'no-store'});
     if(r.ok){
       const snap=await r.json();
-      // ── FIX: gate on 1D data presence, not HL ──
-      // HL writes every 1H and races against 30 other writers at daily close.
-      // Using HL as the validity sentinel caused all 1D data to be rejected
-      // whenever HL lost the write race. 1D is the correct gate — it confirms
-      // the daily scoring payload arrived regardless of HL timing.
       const hasSnap=snap&&snap['BTCUSDT']&&snap['BTCUSDT']['1D'];
       if(hasSnap){
         for(const sym of SYMBOLS){
           if(snap[sym]){
             if(snap[sym]['1D'])macro1D[sym]=snap[sym]['1D'];
-            if(snap[sym]['1W'])macro1W[sym]=snap[sym]['1W'];
-            if(snap[sym]['HL'])macroHL[sym]=snap[sym]['HL'];
             if(Array.isArray(snap[sym]['1D_history']))macro1DHistory[sym]=snap[sym]['1D_history'];
-            if(Array.isArray(snap[sym]['1W_history']))macro1WHistory[sym]=snap[sym]['1W_history'];
           }
         }
         snapLoaded=true;
-        console.log('Snapshot loaded — 1D data present');
+        console.log('1D snapshot loaded —',snap._updated);
       }
     }
-  }catch(e){console.error('Snapshot fetch failed:',e);}
+  }catch(e){console.error('1D snapshot fetch failed:',e);}
 
+  // ── 1W snapshot: weekly scores + 1W history ──
+  try{
+    const r=await fetch(`${WORKER_URL}?file=_snapshot_1w.json`,{cache:'no-store'});
+    if(r.ok){
+      const snap=await r.json();
+      for(const sym of SYMBOLS){
+        if(snap[sym]){
+          if(snap[sym]['1W'])macro1W[sym]=snap[sym]['1W'];
+          if(Array.isArray(snap[sym]['1W_history']))macro1WHistory[sym]=snap[sym]['1W_history'];
+        }
+      }
+      console.log('1W snapshot loaded —',snap._updated);
+    }
+  }catch(e){console.error('1W snapshot fetch failed:',e);}
+
+  // ── HL snapshot: daily session timing ──
+  try{
+    const r=await fetch(`${WORKER_URL}?file=_snapshot_hl.json`,{cache:'no-store'});
+    if(r.ok){
+      const snap=await r.json();
+      for(const sym of SYMBOLS){
+        if(snap[sym]?.['HL']&&snap[sym]['HL'].dailyHigh)macroHL[sym]=snap[sym]['HL'];
+      }
+      console.log('HL snapshot loaded —',snap._updated);
+    }
+  }catch(e){console.error('HL snapshot fetch failed:',e);}
+
+  // ── Fallbacks: individual files for anything still missing ──
   const fallbacks=[];
   for(const sym of SYMBOLS){
     if(!macro1D[sym]){
