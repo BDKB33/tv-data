@@ -116,7 +116,7 @@ main{padding:1.5rem 2rem;max-width:1800px;margin:0 auto;}
 .ch{color:var(--gold);background:var(--gold-dim);border-color:rgba(255,184,0,0.3);}
 .mac-struct-verdict{font-family:var(--mono);font-size:7px;font-weight:700;margin-top:3px;}
 
-/* ── NEW GAP FILL BADGES ────────────────────────────────────────────────── */
+/* NEW GAP FILL BADGES */
 .mac-new-badges{padding:4px 0.8rem 5px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:3px;min-height:0;}
 .mnbadge{font-family:var(--mono);font-size:6px;font-weight:700;letter-spacing:1px;padding:2px 5px;border:1px solid;}
 .mnb-red{color:var(--bear);background:rgba(255,45,85,0.08);border-color:rgba(255,45,85,0.35);}
@@ -248,8 +248,13 @@ async function loadAll(){
     const r=await fetch(`${WORKER_URL}?file=_snapshot.json`,{cache:'no-store'});
     if(r.ok){
       const snap=await r.json();
-      const hasHL=snap&&snap['BTCUSDT']&&snap['BTCUSDT']['HL'];
-      if(hasHL){
+      // ── FIX: gate on 1D data presence, not HL ──
+      // HL writes every 1H and races against 30 other writers at daily close.
+      // Using HL as the validity sentinel caused all 1D data to be rejected
+      // whenever HL lost the write race. 1D is the correct gate — it confirms
+      // the daily scoring payload arrived regardless of HL timing.
+      const hasSnap=snap&&snap['BTCUSDT']&&snap['BTCUSDT']['1D'];
+      if(hasSnap){
         for(const sym of SYMBOLS){
           if(snap[sym]){
             if(snap[sym]['1D'])macro1D[sym]=snap[sym]['1D'];
@@ -260,7 +265,7 @@ async function loadAll(){
           }
         }
         snapLoaded=true;
-        console.log('Snapshot loaded — HL data present');
+        console.log('Snapshot loaded — 1D data present');
       }
     }
   }catch(e){console.error('Snapshot fetch failed:',e);}
@@ -307,10 +312,8 @@ function stateColor(s){return s==='STRONG_LONG'?'var(--bull)':s==='LONG_BIAS'?'v
 function fmtPct(n){if(n==null)return'-';return(n>=0?'+':'')+n.toFixed(2)+'%';}
 
 // ── STRUCTURE DETECTION ───────────────────────────────────────────────────────
-// Cross-references Pine Script marketState field with computed HH/HL sequence
 function detectStructure(sym){
   const hist=macro1DHistory[sym];
-  // Use Pine's marketState directly if available on current 1D payload
   const pineMarketState=macro1D[sym]?.marketState||null;
   if(!hist||hist.length<2){
     if(pineMarketState)return{badges:[],verdict:pineMarketState.replace('_',' '),color:pineMarketState==='TREND_UP'?'var(--bull)':pineMarketState==='TREND_DOWN'?'var(--bear)':'var(--gold)',pineState:pineMarketState};
@@ -333,7 +336,6 @@ function detectStructure(sym){
   else if(!hh&&!hl){verdict='BEARISH STRUCTURE';color='var(--bear)';}
   else if(hh&&!hl){verdict='EXPANDING / CHOPPY';color='var(--gold)';}
   else{verdict='CONTRACTING / COIL';color='var(--accent)';}
-  // If Pine confirms RANGE classification, append it
   if(pineMarketState==='RANGE'&&verdict==='BULLISH STRUCTURE')verdict='RANGE / WEAK BULL';
   else if(pineMarketState==='RANGE'&&verdict==='BEARISH STRUCTURE')verdict='RANGE / WEAK BEAR';
   return{badges,verdict,color,pineState:pineMarketState};
@@ -424,41 +426,27 @@ function getRelStrengthW4(){
 function relColor(v){if(v===null)return'var(--text3)';if(v>=15)return'var(--bull)';if(v>0)return'var(--gold)';if(v<=-15)return'var(--bear)';if(v<0)return'var(--bear)';return'var(--text3)';}
 function relFmt(v){if(v===null)return'-';return(v>0?'+':'')+v;}
 
-// ── NEW GAP FILL BADGE GENERATOR — MACRO CARD ─────────────────────────────────
-// Reads new Pine fields from 1D payload (1W fields also checked where relevant)
-// Returns HTML string for .mac-new-badges row
+// ── NEW GAP FILL BADGE GENERATOR ─────────────────────────────────────────────
 function getMacroBadges(sym){
   const d1=macro1D[sym];
   const w1=macro1W[sym];
   const badges=[];
-
-  // ── EMA Stack — 1D ────────────────────────────────────────────────────────
   if(d1?.emaStackAligned===0)badges.push(`<span class="mnbadge mnb-amber">⚠ 1D EMA DISORDERED</span>`);
-  // ── EMA Stack — 1W ────────────────────────────────────────────────────────
   if(w1?.emaStackAligned===0)badges.push(`<span class="mnbadge mnb-amber">⚠ 1W EMA DISORDERED</span>`);
-
-  // ── Vol Regime — 1D ───────────────────────────────────────────────────────
   const vr1d=d1?.volRegime||null;
   if(vr1d==='EXPANSION')badges.push(`<span class="mnbadge mnb-green">🟢 1D EXPANSION</span>`);
   else if(vr1d==='COMPRESSION')badges.push(`<span class="mnbadge mnb-amber">⚠ 1D COMPRESSION</span>`);
-
-  // ── Vol Regime — 1W ───────────────────────────────────────────────────────
   const vr1w=w1?.volRegime||null;
   if(vr1w==='EXPANSION')badges.push(`<span class="mnbadge mnb-green">🟢 1W EXPANSION</span>`);
   else if(vr1w==='COMPRESSION')badges.push(`<span class="mnbadge mnb-amber">⚠ 1W COMPRESSION</span>`);
-
-  // ── Market State — 1D (Pine confirmed) ───────────────────────────────────
   const ms1d=d1?.marketState||null;
   if(ms1d==='RANGE')badges.push(`<span class="mnbadge mnb-amber">⚠ 1D RANGING</span>`);
   else if(ms1d==='TREND_UP')badges.push(`<span class="mnbadge mnb-green">↑ 1D TREND UP</span>`);
   else if(ms1d==='TREND_DOWN')badges.push(`<span class="mnbadge mnb-red">↓ 1D TREND DOWN</span>`);
-
-  // ── Market State — 1W (Pine confirmed) ───────────────────────────────────
   const ms1w=w1?.marketState||null;
   if(ms1w==='RANGE')badges.push(`<span class="mnbadge mnb-amber">⚠ 1W RANGING</span>`);
   else if(ms1w==='TREND_UP')badges.push(`<span class="mnbadge mnb-green">↑ 1W TREND UP</span>`);
   else if(ms1w==='TREND_DOWN')badges.push(`<span class="mnbadge mnb-red">↓ 1W TREND DOWN</span>`);
-
   if(!badges.length)return'';
   return`<div class="mac-new-badges">${badges.join('')}</div>`;
 }
@@ -508,25 +496,17 @@ function renderMacroGrid(){
     const cycle=getCycleBias(sym);
     const w4=getWeekly4Score(sym);
     const d6=getDaily6Score(sym);
-
-    // EWT from 1D
     const ewCount=d1?.ewCount??null,ewWaveType=d1?.ewWaveType||null,ewCorrPattern=d1?.ewCorrPattern||null;
     const ewInvalidated=d1?.ewInvalidated===1,ewBWave=d1?.ewBWave===1,ewDivergence=d1?.ewDivergence===1;
     const ewAlternation=d1?.ewAlternation||null,ewFibTarget=d1?.ewFibTarget||null;
     const ewFibRetrace=d1?.ewFibRetrace||null,ewPriorW4High=d1?.ewPriorW4High||null,ewPriorW4Low=d1?.ewPriorW4Low||null;
-
-    // EWT from 1W
     const wEwCount=w1?.ewCount??null,wEwWaveType=w1?.ewWaveType||null;
     const wEwBWave=w1?.ewBWave===1,wEwDivergence=w1?.ewDivergence===1,wEwInvalidated=w1?.ewInvalidated===1;
-
-    // H/L session
     const hlHigh=hl?.dailyHigh,hlLow=hl?.dailyLow;
     const hlHighH=hl?.highHour,hlLowH=hl?.lowHour;
     const hlHighSess=hl?.highSession||null,hlLowSess=hl?.lowSession||null;
     const hlRange=hl?.dailyRange,hlPos=hl?.currentPos,hlBeforeLow=hl?.highBeforeLow;
-
     const hasBWave=ewBWave||wEwBWave,hasDivergence=ewDivergence||wEwDivergence,hasInvalid=ewInvalidated||wEwInvalidated;
-
     const waveLabel=ewWaveType==='IMPULSE'?`W${ewCount}`:ewWaveType==='CORRECTIVE'?`C${Math.abs(ewCount||0)}`:ewWaveType==='INVALID'?'INVALID':'—';
     const waveLabelW=wEwWaveType==='IMPULSE'?`W${wEwCount}`:wEwWaveType==='CORRECTIVE'?`C${Math.abs(wEwCount||0)}`:wEwWaveType==='INVALID'?'INVALID':'—';
 
@@ -646,7 +626,7 @@ async function fetchWhaleData(){
     renderMI();
   }catch(err){
     const p=document.getElementById('mi-panel');
-    if(p)p.innerHTML='<div style="font-family:var(--mono);font-size:8px;color:var(--bear);padding:0.75rem 1rem;background:var(--bear-dim);border:1px solid rgba(255,45,85,0.2);">! MARKET INTELLIGENCE UNAVAILABLE . '+err.message+'</div>';
+    if(p)p.innerHTML='<div style="font-family:var(--mono);font-size:8px;color:var(--bear);padding:0.75rem 1rem;background:var(--bear-dim);border:1px solid rgba(255,45,85,0.2);">! MARKET INTELLIGENCE UNAVAILABLE · '+err.message+'</div>';
   }
 }
 
@@ -682,7 +662,7 @@ function renderMI(){
 
   let html='<div class="mi-grid-top">';
   html+='<div class="mi-cell"><div class="mi-label">Fear & Greed</div><div class="mi-val" style="color:'+fgC+'">'+(fg?.value??'-')+'</div><div class="mi-sub">'+(fg?.label??'-')+'</div><div class="mi-ts">'+ts+'</div></div>';
-  html+='<div class="mi-cell"><div class="mi-label">DXY . Dollar Index</div><div class="mi-val" style="color:'+dxyC+'">'+(dxy?.price?.toFixed(2)??'-')+'</div><div class="mi-sub">'+(dxy?.chg!=null?(dxy.chg>=0?'+':'')+dxy.chg.toFixed(2)+'%':'-')+' . '+dxyDir+'</div><span class="mi-signal '+(dxyDir==='DOWN'?'bull':dxyDir==='UP'?'bear':'neut')+'">'+(dxyDir==='DOWN'?'v RISK-ON':dxyDir==='UP'?'^ RISK-OFF':'NEUTRAL')+'</span></div>';
+  html+='<div class="mi-cell"><div class="mi-label">DXY · Dollar Index</div><div class="mi-val" style="color:'+dxyC+'">'+(dxy?.price?.toFixed(2)??'-')+'</div><div class="mi-sub">'+(dxy?.chg!=null?(dxy.chg>=0?'+':'')+dxy.chg.toFixed(2)+'%':'-')+' · '+dxyDir+'</div><span class="mi-signal '+(dxyDir==='DOWN'?'bull':dxyDir==='UP'?'bear':'neut')+'">'+(dxyDir==='DOWN'?'v RISK-ON':dxyDir==='UP'?'^ RISK-OFF':'NEUTRAL')+'</span></div>';
   html+='<div class="mi-cell"><div class="mi-label">ETF Net Flow</div><div class="mi-val" style="color:'+etfC+'">'+etfFlow+'</div><span class="mi-signal '+etfSigCls+'">'+(etf?.signal??'-')+'</span></div>';
   html+='<div class="mi-cell"><div class="mi-label">Coinbase Premium</div><div class="mi-val" style="color:'+cbpC+'">'+(cbp?.value?.toFixed(2)??'-')+'</div><span class="mi-signal '+cbpSigCls+'">'+(cbp?.signal??'-')+'</span><div class="mi-sub">OI 4H: <span style="color:'+oiC4+'">'+(oi?.chg_4h!=null?(oi.chg_4h>=0?'+':'')+oi.chg_4h.toFixed(2)+'%':'-')+'</span> · L/S: <span style="color:'+lsDomC+'">'+(ls?.long?.toFixed(1)??'-')+'%L/'+(ls?.short?.toFixed(1)??'-')+'%S</span></div></div>';
   html+='</div>';
@@ -706,7 +686,7 @@ function renderMI(){
   document.getElementById('mi-panel').innerHTML=html;
 }
 
-// ── COPY TO CLAUDE — MACRO DESK ───────────────────────────────────────────────
+// ── COPY TO CLAUDE ────────────────────────────────────────────────────────────
 function copyMacroToClaude(){
   const now=new Date().toISOString();
   const rel1D=getRelStrength1D(),rel1W=getRelStrength1W(),relW4=getRelStrengthW4();
@@ -725,8 +705,6 @@ function copyMacroToClaude(){
     const struct=detectStructure(sym);
     const emaR=getEMARegime(d1);
     const cycle=getCycleBias(sym);
-
-    // EWT fields
     const ewWaveType=d1?.ewWaveType||'—';
     const ewCorrPattern=d1?.ewCorrPattern||'NONE';
     const ewBWave=d1?.ewBWave===1;
@@ -740,30 +718,22 @@ function copyMacroToClaude(){
     const wEwCount=w1?.ewCount??null;
     const waveLabel1D=d1?.ewWaveType==='IMPULSE'?`W${ewCount}`:d1?.ewWaveType==='CORRECTIVE'?`C${Math.abs(ewCount||0)}`:d1?.ewWaveType==='INVALID'?'INVALID':'UNKNOWN';
     const waveLabel1W=w1?.ewWaveType==='IMPULSE'?`W${wEwCount}`:w1?.ewWaveType==='CORRECTIVE'?`C${Math.abs(wEwCount||0)}`:w1?.ewWaveType==='INVALID'?'INVALID':'UNKNOWN';
-
     const ewtWarnings=[];
     if(ewBWave||wEwBWave)ewtWarnings.push('B-WAVE TRAP');
     if(ewDivergence)ewtWarnings.push('W5 DIVERGENCE');
     if(ewInvalidated)ewtWarnings.push('WAVE INVALIDATED');
-
-    // H/L session
     const hlHigh=hl?.dailyHigh,hlLow=hl?.dailyLow;
     const hlHighSess=hl?.highSession||'-',hlLowSess=hl?.lowSession||'-';
     const hlRange=hl?.dailyRange,hlPos=hl?.currentPos;
     const hlBeforeLow=hl?.highBeforeLow;
-
-    // REL
     const r1d=rel1D.rel[sym],r1w=rel1W.rel[sym],rw4=relW4.rel[sym];
     const rf=v=>v!=null?(v>0?'+':'')+v:'-';
-
-    // New gap fields
     const emaAligned1D=d1?.emaStackAligned!=null?(d1.emaStackAligned===1?'ALIGNED':'DISORDERED'):'N/A';
     const emaAligned1W=w1?.emaStackAligned!=null?(w1.emaStackAligned===1?'ALIGNED':'DISORDERED'):'N/A';
     const vRegime1D=d1?.volRegime||'N/A';
     const vRegime1W=w1?.volRegime||'N/A';
     const mktState1D=d1?.marketState||'N/A';
     const mktState1W=w1?.marketState||'N/A';
-
     function macroCandle(d){
       if(!d||d.open==null||d.close==null||d.high==null||d.low==null)return'NO DATA';
       const o=d.open,h=d.high,l=d.low,c=d.close;
@@ -781,7 +751,6 @@ function copyMacroToClaude(){
     }
     const pat1d=macroCandle(d1);
     const pat1w=macroCandle(w1);
-
     return `── ${lbl} ─────────────────────────────────
   Price:      ${fmtP(d1?.close||w1?.close)} | Regime: ${regime.replace(/_/g,' ')}
   1D Score:   ${d1score!=null?(d1score>0?'+':'')+d1score:'-'} [${d1state.replace(/_/g,' ')}] · 1W Score: ${w1score!=null?(w1score>0?'+':'')+w1score:'-'} [${w1state.replace(/_/g,' ')}]
