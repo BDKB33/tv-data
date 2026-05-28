@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-28T23:30:19.875Z",
+  "_updated": "2026-05-28T23:30:20.700Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1910,30 +1910,30 @@
     "15M": {
       "symbol": "XRPUSDT",
       "timeframe": "15M",
-      "open": 1.3144,
-      "high": 1.3171,
-      "low": 1.3143,
-      "close": 1.3171,
-      "volume": 418587.6,
-      "wickRange": 0.0028,
-      "vwap": 1.2991,
-      "ema50": 1.3137,
+      "open": 1.3171,
+      "high": 1.3187,
+      "low": 1.3158,
+      "close": 1.318,
+      "volume": 336551.6,
+      "wickRange": 0.0029,
+      "vwap": 1.2992,
+      "ema50": 1.3139,
       "ema100": null,
       "ema200": 1.3169,
       "sma50": null,
       "sma200": null,
-      "rsi": 49.0359,
-      "stochK": 18.835,
-      "stochD": 9.1286,
+      "rsi": 50.3197,
+      "stochK": 34.7212,
+      "stochD": 19.684,
       "macdLine": 0.0004,
-      "macdHist": -0.0017,
-      "atr": 0.0048,
-      "volSMA20": 723444.215,
-      "bbWidth": 1.8564,
+      "macdHist": -0.0014,
+      "atr": 0.0047,
+      "volSMA20": 680353.335,
+      "bbWidth": 1.6959,
       "trendBias": 0,
-      "mfi": 30.14,
+      "mfi": 36.01,
       "fracResistance": 1.3234,
-      "fracSupport": 1.3169,
+      "fracSupport": 1.3125,
       "fracResActive": 1,
       "fracSupActive": 1,
       "fvgBullActive": 0,
@@ -1984,8 +1984,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 34,
-        "longScore": 34,
+        "score": 31,
+        "longScore": 31,
         "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
@@ -1995,7 +1995,7 @@
           "cvd": 1,
           "funding": 0,
           "oi": 0,
-          "delta": 0.75
+          "delta": 0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -2006,7 +2006,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-28T23:15:03.010Z",
+      "_received": "2026-05-28T23:30:05.435Z",
       "_sample": false
     }
   }
