@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-29T02:45:27.641Z",
+  "_updated": "2026-05-29T03:00:18.572Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -791,26 +791,26 @@
     "30M": {
       "symbol": "ETHUSDT",
       "timeframe": "30M",
-      "open": 2008.23,
-      "high": 2010.62,
-      "low": 2001.07,
-      "close": 2001.56,
-      "volume": 4087.4342,
-      "wickRange": 9.55,
-      "vwap": 2009.883,
-      "ema50": 2012.434,
+      "open": 2001.56,
+      "high": 2006.07,
+      "low": 1997.24,
+      "close": 1999.22,
+      "volume": 5086.5224,
+      "wickRange": 8.83,
+      "vwap": 2007.6335,
+      "ema50": 2011.9158,
       "ema100": null,
-      "ema200": 2053.3962,
+      "ema200": 2052.8571,
       "sma50": null,
       "sma200": null,
-      "rsi": 43.6449,
-      "stochK": 4.3331,
-      "stochD": 12.5166,
-      "macdLine": 0.7964,
-      "macdHist": -1.6193,
-      "atr": 8.9771,
-      "volSMA20": 4739.0525,
-      "bbWidth": 1.2157,
+      "rsi": 41.9605,
+      "stochK": 2.535,
+      "stochD": 6.3835,
+      "macdLine": -0.1058,
+      "macdHist": -2.0172,
+      "atr": 8.9666,
+      "volSMA20": 4413.0403,
+      "bbWidth": 1.3847,
       "trendBias": -0.5,
       "mfi": null,
       "fracResistance": null,
@@ -865,9 +865,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -59,
+        "score": -64,
         "longScore": 0,
-        "shortScore": 59,
+        "shortScore": 64,
         "state": "SHORT_BIAS",
         "direction": "SHORT",
         "components": {
@@ -875,8 +875,8 @@
           "ema": -1,
           "cvd": -1,
           "funding": 0.5,
-          "oi": 0,
-          "delta": -1
+          "oi": -1,
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -887,7 +887,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-29T02:30:06.878Z",
+      "_received": "2026-05-29T03:00:06.957Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -899,7 +899,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-29T02:30:07.031Z"
+        "_fetched": "2026-05-29T03:00:07.116Z"
       }
     },
     "15M": {
