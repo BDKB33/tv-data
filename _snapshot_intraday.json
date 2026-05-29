@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-29T02:00:12.482Z",
+  "_updated": "2026-05-29T02:00:15.550Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -791,26 +791,26 @@
     "30M": {
       "symbol": "ETHUSDT",
       "timeframe": "30M",
-      "open": 2012.45,
-      "high": 2016.47,
-      "low": 2007.25,
-      "close": 2007.87,
-      "volume": 2521.7841,
-      "wickRange": 9.22,
-      "vwap": 2012.8646,
-      "ema50": 2013.0675,
+      "open": 2007.87,
+      "high": 2010.77,
+      "low": 2005.9,
+      "close": 2008.23,
+      "volume": 2464.2749,
+      "wickRange": 4.87,
+      "vwap": 2011.8662,
+      "ema50": 2012.8778,
       "ema100": null,
-      "ema200": 2054.3763,
+      "ema200": 2053.9172,
       "sma50": null,
       "sma200": null,
-      "rsi": 48.527,
-      "stochK": 20.9343,
-      "stochD": 22.6462,
-      "macdLine": 2.1451,
-      "macdHist": -0.956,
-      "atr": 9.2456,
-      "volSMA20": 5179.7878,
-      "bbWidth": 1.6248,
+      "rsi": 48.8337,
+      "stochK": 12.2825,
+      "stochD": 19.1904,
+      "macdLine": 1.6981,
+      "macdHist": -1.1224,
+      "atr": 8.9331,
+      "volSMA20": 5041.8822,
+      "bbWidth": 1.278,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -865,9 +865,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -26,
+        "score": -21,
         "longScore": 0,
-        "shortScore": 26,
+        "shortScore": 21,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -876,7 +876,7 @@
           "cvd": 0,
           "funding": 0,
           "oi": 0,
-          "delta": -0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -887,7 +887,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-29T01:30:06.607Z",
+      "_received": "2026-05-29T02:00:06.648Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -899,7 +899,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-29T01:30:06.767Z"
+        "_fetched": "2026-05-29T02:00:06.811Z"
       }
     },
     "15M": {
