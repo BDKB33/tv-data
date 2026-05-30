@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-30T13:00:30.800Z",
+  "_updated": "2026-05-30T13:00:32.160Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1846,22 +1846,22 @@
       "high": 0.2356,
       "low": 0.2349,
       "close": 0.2354,
-      "volume": 435428,
+      "volume": 968470.1,
       "wickRange": 0.0007,
-      "vwap": 0.2362,
+      "vwap": 0.2361,
       "ema50": 0.2349,
       "ema100": null,
       "ema200": 0.2367,
       "sma50": null,
       "sma200": null,
       "rsi": 52.3791,
-      "stochK": 56.2891,
-      "stochD": 42.6804,
+      "stochK": 77.1817,
+      "stochD": 58.7532,
       "macdLine": 0.0001,
       "macdHist": -0.0001,
       "atr": 0.0011,
-      "volSMA20": 1798716.44,
-      "bbWidth": 1.6628,
+      "volSMA20": 1615539.51,
+      "bbWidth": 1.1458,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1938,11 +1938,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-30T12:30:03.915Z",
+      "_received": "2026-05-30T13:00:03.057Z",
       "_sample": false,
       "funding": {
-        "fundingRate": -0.0002583324159003,
-        "fundingRatePct": "-0.0258%",
+        "fundingRate": -0.0002498323486954,
+        "fundingRatePct": "-0.0250%",
         "fundingZone": "SHORTS_CROWDED",
         "fundingSource": "OKX",
         "nextFundingTime": "1780185600000",
@@ -1950,7 +1950,7 @@
         "conflictShort": true,
         "confluenceLong": true,
         "confluenceShort": false,
-        "_fetched": "2026-05-30T12:30:04.064Z"
+        "_fetched": "2026-05-30T13:00:03.215Z"
       }
     },
     "1H": {
