@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-30T03:00:23.855Z",
+  "_updated": "2026-05-30T03:00:24.754Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -989,26 +989,26 @@
     "30M": {
       "symbol": "ETHUSDT",
       "timeframe": "30M",
-      "open": 2019.46,
-      "high": 2021.11,
-      "low": 2017.12,
-      "close": 2017.79,
-      "volume": 1185.9561,
-      "wickRange": 3.99,
-      "vwap": 2017.1159,
-      "ema50": 2014.4419,
+      "open": 2017.79,
+      "high": 2021.34,
+      "low": 2017.79,
+      "close": 2021.34,
+      "volume": 1072.571,
+      "wickRange": 3.55,
+      "vwap": 2017.4385,
+      "ema50": 2014.7124,
       "ema100": null,
-      "ema200": 2038.2213,
+      "ema200": 2038.0534,
       "sma50": null,
       "sma200": null,
-      "rsi": 52.0226,
+      "rsi": 54.7858,
       "stochK": 88.0829,
-      "stochD": 74.4811,
-      "macdLine": 0.7961,
-      "macdHist": 0.0614,
-      "atr": 8.9925,
-      "volSMA20": 4705.2908,
-      "bbWidth": 1.7142,
+      "stochD": 85.0479,
+      "macdLine": 1.1386,
+      "macdHist": 0.3231,
+      "atr": 8.6038,
+      "volSMA20": 4155.0087,
+      "bbWidth": 1.4056,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1063,18 +1063,18 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -25,
-        "longScore": 0,
-        "shortScore": 25,
+        "score": 20,
+        "longScore": 20,
+        "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
           "structure": 0.25,
           "ema": 0.25,
-          "cvd": -1,
+          "cvd": 0,
           "funding": 0,
           "oi": 0,
-          "delta": -0.5
+          "delta": 1
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1085,11 +1085,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-30T02:30:02.512Z",
+      "_received": "2026-05-30T03:00:03.895Z",
       "_sample": false,
       "funding": {
-        "fundingRate": 0.0000757222726096,
-        "fundingRatePct": "0.0076%",
+        "fundingRate": 0.0000809708405023,
+        "fundingRatePct": "0.0081%",
         "fundingZone": "ELEVATED",
         "fundingSource": "OKX",
         "nextFundingTime": "1780156800000",
@@ -1097,7 +1097,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-30T02:30:02.671Z"
+        "_fetched": "2026-05-30T03:00:04.056Z"
       }
     },
     "15M": {
