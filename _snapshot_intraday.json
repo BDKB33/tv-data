@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-30T02:15:23.887Z",
+  "_updated": "2026-05-30T02:15:26.148Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1740,28 +1740,28 @@
     "15M": {
       "symbol": "ADAUSDT",
       "timeframe": "15M",
-      "open": 0.2368,
-      "high": 0.2378,
-      "low": 0.2368,
-      "close": 0.2378,
-      "volume": 1181461.9,
-      "wickRange": 0.001,
-      "vwap": 0.2354,
-      "ema50": 0.234,
+      "open": 0.2378,
+      "high": 0.2388,
+      "low": 0.2372,
+      "close": 0.2384,
+      "volume": 3408296,
+      "wickRange": 0.0016,
+      "vwap": 0.236,
+      "ema50": 0.2342,
       "ema100": null,
       "ema200": 0.2349,
       "sma50": null,
       "sma200": null,
-      "rsi": 73.2979,
+      "rsi": 75.2609,
       "stochK": 100,
       "stochD": 100,
-      "macdLine": 0.0008,
-      "macdHist": 0.0005,
+      "macdLine": 0.001,
+      "macdHist": 0.0006,
       "atr": 0.0011,
-      "volSMA20": 1045194,
-      "bbWidth": 2.7096,
+      "volSMA20": 1202799.56,
+      "bbWidth": 3.177,
       "trendBias": 1,
-      "mfi": 76.56,
+      "mfi": 80.18,
       "fracResistance": 0.2338,
       "fracSupport": 0.2317,
       "fracResActive": 0,
@@ -1814,8 +1814,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 79,
-        "longScore": 79,
+        "score": 71,
+        "longScore": 71,
         "shortScore": 0,
         "state": "STRONG_LONG",
         "direction": "LONG",
@@ -1825,7 +1825,7 @@
           "cvd": 1,
           "funding": -1,
           "oi": 1,
-          "delta": 1
+          "delta": 0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1836,7 +1836,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-30T02:00:06.218Z",
+      "_received": "2026-05-30T02:15:13.615Z",
       "_sample": false
     },
     "30M": {
