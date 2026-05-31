@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-05-31T18:00:25.125Z",
+  "_updated": "2026-05-31T18:00:25.995Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -540,26 +540,26 @@
     "30M": {
       "symbol": "SOLUSDT",
       "timeframe": "30M",
-      "open": 81.58,
-      "high": 81.75,
-      "low": 81.46,
-      "close": 81.73,
-      "volume": 26856.688,
-      "wickRange": 0.29,
-      "vwap": 82.5471,
-      "ema50": 82.5685,
+      "open": 81.74,
+      "high": 81.9,
+      "low": 81.73,
+      "close": 81.87,
+      "volume": 12549.918,
+      "wickRange": 0.17,
+      "vwap": 82.5356,
+      "ema50": 82.5411,
       "ema100": null,
-      "ema200": 82.7796,
+      "ema200": 82.7706,
       "sma50": null,
       "sma200": null,
-      "rsi": 32.5631,
-      "stochK": 7.1818,
-      "stochD": 9.9058,
-      "macdLine": -0.2952,
-      "macdHist": -0.111,
-      "atr": 0.3256,
-      "volSMA20": 24782.7482,
-      "bbWidth": 2.199,
+      "rsi": 36.877,
+      "stochK": 16.0167,
+      "stochD": 9.6573,
+      "macdLine": -0.2946,
+      "macdHist": -0.0883,
+      "atr": 0.3145,
+      "volSMA20": 24427.7213,
+      "bbWidth": 2.2754,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -596,7 +596,7 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "emaStackAligned": 1,
-      "volRegime": "EXPANSION",
+      "volRegime": "NEUTRAL",
       "choch": 0,
       "chochLevel": null,
       "rsiDivBearish": 0,
@@ -614,9 +614,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -18,
+        "score": -28,
         "longScore": 0,
-        "shortScore": 18,
+        "shortScore": 28,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -624,8 +624,8 @@
           "ema": -1,
           "cvd": 0,
           "funding": 0.5,
-          "oi": 1,
-          "delta": 0.5
+          "oi": 0,
+          "delta": 1
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -636,11 +636,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-05-31T17:30:03.822Z",
+      "_received": "2026-05-31T18:00:04.744Z",
       "_sample": false,
       "funding": {
-        "fundingRate": 0.0000392215405427,
-        "fundingRatePct": "0.0039%",
+        "fundingRate": 0.0000423365721738,
+        "fundingRatePct": "0.0042%",
         "fundingZone": "ELEVATED",
         "fundingSource": "OKX",
         "nextFundingTime": "1780300800000",
@@ -648,7 +648,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-05-31T17:30:04.107Z"
+        "_fetched": "2026-05-31T18:00:04.920Z"
       }
     },
     "1H": {
