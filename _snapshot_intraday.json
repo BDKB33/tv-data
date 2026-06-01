@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-01T15:00:31.012Z",
+  "_updated": "2026-06-01T15:00:32.152Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -106,28 +106,28 @@
     "1H": {
       "symbol": "BTCUSDT",
       "timeframe": "1H",
-      "open": 72221.74,
-      "high": 72243.52,
-      "low": 71389.88,
-      "close": 71711.89,
-      "volume": 3036.7755,
-      "wickRange": 853.64,
-      "vwap": 72665.1281,
-      "ema50": 73450.0362,
+      "open": 71711.89,
+      "high": 71887.6,
+      "low": 71363.43,
+      "close": 71567.91,
+      "volume": 2060.8594,
+      "wickRange": 524.17,
+      "vwap": 72520.9064,
+      "ema50": 73376.2273,
       "ema100": null,
-      "ema200": 74632.2609,
-      "sma50": 73649.4528,
-      "sma200": 74912.8884,
-      "rsi": 21.5003,
+      "ema200": 74601.7698,
+      "sma50": 73606.8474,
+      "sma200": 74885.7901,
+      "rsi": 20.3752,
       "stochK": 0,
-      "stochD": 0.9765,
-      "macdLine": -410.7018,
-      "macdHist": -160.12,
-      "atr": 414.9703,
-      "volSMA20": 748.5899,
-      "bbWidth": 3.3039,
+      "stochD": 0,
+      "macdLine": -476.1568,
+      "macdHist": -180.46,
+      "atr": 422.7702,
+      "volSMA20": 840.9138,
+      "bbWidth": 3.8291,
       "trendBias": -0.5,
-      "mfi": 26.17,
+      "mfi": 20.7,
       "fracResistance": 74019.58,
       "fracSupport": 73222,
       "fracResActive": 1,
@@ -136,8 +136,8 @@
       "fvgBullLo": 73995.98,
       "fvgBullHi": 74028.64,
       "fvgBearActive": 0,
-      "fvgBearLo": 72243.52,
-      "fvgBearHi": 72290,
+      "fvgBearLo": 71887.6,
+      "fvgBearHi": 71902.98,
       "coffinFormed": 0,
       "coffinHi": null,
       "coffinLo": null,
@@ -170,7 +170,7 @@
       "macdDivBearish": 0,
       "macdDivBullish": 0,
       "bosVolConfirmed": 1,
-      "bosVolRatio": 4.06,
+      "bosVolRatio": 2.45,
       "candleType": "NEUTRAL",
       "consolidationForming": 0,
       "consolidationBars": 0,
@@ -180,9 +180,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -68,
+        "score": -65,
         "longScore": 0,
-        "shortScore": 68,
+        "shortScore": 65,
         "state": "SHORT_BIAS",
         "direction": "SHORT",
         "components": {
@@ -191,7 +191,7 @@
           "cvd": -1,
           "funding": 1,
           "oi": 0,
-          "delta": -0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -205,7 +205,7 @@
         "bdkbScore1HPrev2": -68,
         "mode": "confirmed"
       },
-      "_received": "2026-06-01T14:00:08.469Z",
+      "_received": "2026-06-01T15:00:15.826Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -217,7 +217,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-01T14:00:08.638Z"
+        "_fetched": "2026-06-01T15:00:15.988Z"
       }
     },
     "30M": {
