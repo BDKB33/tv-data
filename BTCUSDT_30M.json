@@ -1,26 +1,26 @@
 {
   "symbol": "BTCUSDT",
   "timeframe": "30M",
-  "open": 66962.18,
-  "high": 67689.65,
-  "low": 66949.9,
-  "close": 67587.77,
-  "volume": 582.3264,
-  "wickRange": 739.75,
-  "vwap": 68816.1866,
-  "ema50": 69283.2175,
+  "open": 67587.78,
+  "high": 67918,
+  "low": 67412,
+  "close": 67887.99,
+  "volume": 474.9094,
+  "wickRange": 506,
+  "vwap": 68798.6277,
+  "ema50": 69228.5027,
   "ema100": null,
-  "ema200": 71921.875,
+  "ema200": 71881.7368,
   "sma50": null,
   "sma200": null,
-  "rsi": 40.2171,
+  "rsi": 44.5931,
   "stochK": 94.3349,
-  "stochD": 86.9498,
-  "macdLine": -718.55,
-  "macdHist": 42.1835,
-  "atr": 504.0882,
-  "volSMA20": 877.5461,
-  "bbWidth": 4.9075,
+  "stochD": 90.6028,
+  "macdLine": -639.5145,
+  "macdHist": 96.9752,
+  "atr": 504.2248,
+  "volSMA20": 890.9921,
+  "bbWidth": 4.4702,
   "trendBias": 0,
   "mfi": null,
   "fracResistance": null,
@@ -75,9 +75,9 @@
   "obLow": null,
   "marketState": null,
   "bdkb": {
-    "score": -28,
+    "score": -33,
     "longScore": 0,
-    "shortScore": 28,
+    "shortScore": 33,
     "state": "NEUTRAL",
     "direction": "NEUTRAL",
     "components": {
@@ -86,7 +86,7 @@
       "cvd": 0,
       "funding": 0.5,
       "oi": 0,
-      "delta": 1
+      "delta": 0.5
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -97,7 +97,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-06-02T21:00:05.505Z",
+  "_received": "2026-06-02T21:30:03.581Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-06-02T21:00:05.664Z"
+    "_fetched": "2026-06-02T21:30:03.744Z"
   }
 }
