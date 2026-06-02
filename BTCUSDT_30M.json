@@ -1,26 +1,26 @@
 {
   "symbol": "BTCUSDT",
   "timeframe": "30M",
-  "open": 69461.73,
-  "high": 69548.13,
-  "low": 69242.02,
-  "close": 69286.03,
-  "volume": 576.2929,
-  "wickRange": 306.11,
-  "vwap": 70212.8964,
-  "ema50": 70882.923,
+  "open": 69286.03,
+  "high": 69286.04,
+  "low": 68989.61,
+  "close": 69010.42,
+  "volume": 806.8314,
+  "wickRange": 296.43,
+  "vwap": 70143.003,
+  "ema50": 70809.4915,
   "ema100": null,
-  "ema200": 72702.2597,
+  "ema200": 72665.525,
   "sma50": null,
   "sma200": null,
-  "rsi": 25.9907,
-  "stochK": 45.8211,
-  "stochD": 47.5754,
-  "macdLine": -489.1575,
-  "macdHist": -25.3936,
-  "atr": 324.847,
-  "volSMA20": 465.8997,
-  "bbWidth": 3.2658,
+  "rsi": 22.8633,
+  "stochK": 30.9633,
+  "stochD": 42.3079,
+  "macdLine": -510.5641,
+  "macdHist": -37.4402,
+  "atr": 322.8172,
+  "volSMA20": 493.3788,
+  "bbWidth": 3.3891,
   "trendBias": -1,
   "mfi": null,
   "fracResistance": null,
@@ -75,9 +75,9 @@
   "obLow": null,
   "marketState": null,
   "bdkb": {
-    "score": -85,
+    "score": -90,
     "longScore": 0,
-    "shortScore": 85,
+    "shortScore": 90,
     "state": "STRONG_SHORT",
     "direction": "SHORT",
     "components": {
@@ -86,7 +86,7 @@
       "cvd": -1,
       "funding": 1,
       "oi": -1,
-      "delta": -0.5
+      "delta": -1
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -97,7 +97,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-06-02T12:30:08.598Z",
+  "_received": "2026-06-02T13:00:15.164Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-06-02T12:30:08.755Z"
+    "_fetched": "2026-06-02T13:00:15.320Z"
   }
 }
