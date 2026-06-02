@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-02T08:45:38.232Z",
+  "_updated": "2026-06-02T09:00:20.734Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -223,26 +223,26 @@
     "30M": {
       "symbol": "BTCUSDT",
       "timeframe": "30M",
-      "open": 70118.42,
-      "high": 70172,
-      "low": 69873.19,
-      "close": 70020,
-      "volume": 453.423,
-      "wickRange": 298.81,
-      "vwap": 70528.8921,
-      "ema50": 71398.6913,
+      "open": 70019.99,
+      "high": 70080,
+      "low": 69705.3,
+      "close": 69821.99,
+      "volume": 491.2269,
+      "wickRange": 374.7,
+      "vwap": 70491.6134,
+      "ema50": 71336.8599,
       "ema100": null,
-      "ema200": 72967.1688,
+      "ema200": 72935.8735,
       "sma50": null,
       "sma200": null,
-      "rsi": 30.1108,
-      "stochK": 27.3945,
-      "stochD": 16.8318,
-      "macdLine": -413.2351,
-      "macdHist": -49.8676,
-      "atr": 340.4549,
-      "volSMA20": 452.9223,
-      "bbWidth": 2.6658,
+      "rsi": 27.5193,
+      "stochK": 33.4845,
+      "stochD": 25.3884,
+      "macdLine": -430.0625,
+      "macdHist": -53.356,
+      "atr": 342.901,
+      "volSMA20": 464.6148,
+      "bbWidth": 2.7671,
       "trendBias": -1,
       "mfi": null,
       "fracResistance": null,
@@ -297,17 +297,17 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -73,
+        "score": -85,
         "longScore": 0,
-        "shortScore": 73,
+        "shortScore": 85,
         "state": "STRONG_SHORT",
         "direction": "SHORT",
         "components": {
           "structure": -1,
           "ema": -1,
           "cvd": -1,
-          "funding": 0.5,
-          "oi": 0,
+          "funding": 1,
+          "oi": -1,
           "delta": -0.5
         },
         "cvdSource": "obv_proxy",
@@ -319,7 +319,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-02T08:30:07.982Z",
+      "_received": "2026-06-02T09:00:06.926Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -331,7 +331,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-02T08:30:08.139Z"
+        "_fetched": "2026-06-02T09:00:07.089Z"
       }
     },
     "4H": {
