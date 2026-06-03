@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-03T00:00:10.911Z",
+  "_updated": "2026-06-03T00:00:20.140Z",
   "ETHUSDT": {
     "1D_history": [
       {
@@ -989,6 +989,56 @@
     },
     "1D_history": [
       {
+        "date": "2026-06-03T00:00:08.694Z",
+        "symbol": "BTCUSDT",
+        "timeframe": "1D",
+        "open": 71408.9,
+        "high": 71408.9,
+        "low": 66193,
+        "close": 66760.83,
+        "volume": 32872.0616,
+        "vwap": 68120.91,
+        "ema50": 75668.4672,
+        "ema100": 76278.1151,
+        "ema200": 80837.0596,
+        "rsi": 21.8906,
+        "macdLine": -1859.3897,
+        "macdHist": -911.8134,
+        "atr": 2184.3868,
+        "trendBias": 0,
+        "ewCount": -1,
+        "ewDirection": 1,
+        "ewWaveType": "UNKNOWN",
+        "ewCorrPattern": "NONE",
+        "ewInvalidated": 0,
+        "ewBWave": 1,
+        "ewDivergence": 0,
+        "ewAlternation": "NONE",
+        "ewFibTarget": 0,
+        "ewFibRetrace": 0,
+        "ewPriorW4High": 0,
+        "ewPriorW4Low": 0,
+        "emaStackAligned": null,
+        "volRegime": null,
+        "marketState": null,
+        "regime": null,
+        "bdkb": {
+          "score": -39,
+          "state": "NEUTRAL",
+          "direction": "NEUTRAL",
+          "longScore": 0,
+          "shortScore": 39,
+          "components": {
+            "structure": 0,
+            "ew": -0.25,
+            "ema": -1,
+            "cvd": -1,
+            "funding": 1,
+            "oi": 0
+          }
+        }
+      },
+      {
         "date": "2026-06-01T00:00:27.193Z",
         "symbol": "BTCUSDT",
         "timeframe": "1D",
@@ -1229,53 +1279,6 @@
             "cvd": 0,
             "funding": 0,
             "oi": 0.5
-          }
-        }
-      },
-      {
-        "date": "2026-05-13T00:00:11.041Z",
-        "symbol": "BTCUSDT",
-        "timeframe": "1D",
-        "open": 81745.66,
-        "high": 81788,
-        "low": 79843.59,
-        "close": 80504.47,
-        "volume": 12386.2568,
-        "vwap": 80712.02,
-        "ema50": 76227.6949,
-        "ema100": 76644.4468,
-        "ema200": 82027.8639,
-        "rsi": 59.5125,
-        "macdLine": 1863.3116,
-        "macdHist": -7.3799,
-        "atr": 2020.5495,
-        "trendBias": 0,
-        "ewCount": -1,
-        "ewDirection": 1,
-        "ewWaveType": null,
-        "ewCorrPattern": null,
-        "ewInvalidated": 0,
-        "ewBWave": 0,
-        "ewDivergence": 0,
-        "ewAlternation": null,
-        "ewFibTarget": null,
-        "ewFibRetrace": null,
-        "ewPriorW4High": null,
-        "ewPriorW4Low": null,
-        "regime": null,
-        "bdkb": {
-          "score": 20,
-          "state": "NEUTRAL",
-          "direction": "NEUTRAL",
-          "longScore": 20,
-          "shortScore": 0,
-          "components": {
-            "structure": 0.5,
-            "ew": 0,
-            "ema": 0.25,
-            "cvd": 0,
-            "funding": -0.5,
-            "oi": 0
           }
         }
       }
