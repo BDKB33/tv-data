@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-03T02:30:20.460Z",
+  "_updated": "2026-06-03T02:30:21.480Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1103,28 +1103,28 @@
     "15M": {
       "symbol": "ETHUSDT",
       "timeframe": "15M",
-      "open": 1864.52,
-      "high": 1864.94,
-      "low": 1857.41,
-      "close": 1859.59,
-      "volume": 7333.6774,
-      "wickRange": 7.53,
-      "vwap": 1863.6644,
-      "ema50": 1900.5057,
+      "open": 1859.59,
+      "high": 1862.56,
+      "low": 1852.21,
+      "close": 1853.64,
+      "volume": 3812.4477,
+      "wickRange": 10.35,
+      "vwap": 1863.1443,
+      "ema50": 1898.6679,
       "ema100": null,
-      "ema200": 1956.7084,
+      "ema200": 1955.6828,
       "sma50": null,
       "sma200": null,
-      "rsi": 40.4745,
-      "stochK": 82.4186,
-      "stochD": 79.3309,
-      "macdLine": -13.5373,
-      "macdHist": 1.0721,
-      "atr": 13.7857,
-      "volSMA20": 9134.4457,
-      "bbWidth": 3.9104,
+      "rsi": 38.3802,
+      "stochK": 88.4913,
+      "stochD": 85.0482,
+      "macdLine": -13.5087,
+      "macdHist": 0.8805,
+      "atr": 13.5403,
+      "volSMA20": 9174.4095,
+      "bbWidth": 3.5969,
       "trendBias": -0.5,
-      "mfi": 31.5,
+      "mfi": 35.68,
       "fracResistance": 1870.01,
       "fracSupport": 1850,
       "fracResActive": 1,
@@ -1177,9 +1177,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -59,
+        "score": -55,
         "longScore": 0,
-        "shortScore": 59,
+        "shortScore": 55,
         "state": "SHORT_BIAS",
         "direction": "SHORT",
         "components": {
@@ -1188,7 +1188,7 @@
           "cvd": -1,
           "funding": 0.5,
           "oi": 0,
-          "delta": -0.75
+          "delta": -0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1199,7 +1199,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-03T02:15:04.494Z",
+      "_received": "2026-06-03T02:30:05.983Z",
       "_sample": false
     },
     "4H": {
