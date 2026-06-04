@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-04T23:00:33.421Z",
+  "_updated": "2026-06-04T23:00:34.162Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1804,
-      "high": 0.1822,
-      "low": 0.18,
-      "close": 0.1816,
-      "volume": 5302446.1,
-      "wickRange": 0.0022,
-      "vwap": 0.1913,
-      "ema50": 0.1927,
+      "open": 0.1815,
+      "high": 0.1823,
+      "low": 0.1799,
+      "close": 0.1819,
+      "volume": 6688606.1,
+      "wickRange": 0.0024,
+      "vwap": 0.1912,
+      "ema50": 0.1923,
       "ema100": null,
-      "ema200": 0.2109,
+      "ema200": 0.2106,
       "sma50": null,
       "sma200": null,
-      "rsi": 31.8532,
-      "stochK": 7.6454,
-      "stochD": 2.764,
-      "macdLine": -0.0029,
+      "rsi": 32.9422,
+      "stochK": 17.3782,
+      "stochD": 8.3412,
+      "macdLine": -0.003,
       "macdHist": -0.0004,
-      "atr": 0.0029,
-      "volSMA20": 6783156.265,
-      "bbWidth": 6.336,
+      "atr": 0.0028,
+      "volSMA20": 6737605.21,
+      "bbWidth": 6.4086,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1916,9 +1916,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -33,
+        "score": -38,
         "longScore": 0,
-        "shortScore": 33,
+        "shortScore": 38,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -1927,18 +1927,18 @@
           "cvd": 0,
           "funding": 0.5,
           "oi": 0,
-          "delta": 0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
-        "liquidityEvent": 0,
-        "liquidityType": "none",
+        "liquidityEvent": 1,
+        "liquidityType": "wick_reclaim",
         "setupReady30M": 0,
         "confirmed30M": 0,
         "stopLevel": null,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-04T22:30:06.209Z",
+      "_received": "2026-06-04T23:00:07.794Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-04T22:30:06.366Z"
+        "_fetched": "2026-06-04T23:00:07.961Z"
       }
     },
     "1H": {
