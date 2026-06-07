@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-07T20:45:21.859Z",
+  "_updated": "2026-06-07T20:45:24.661Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1740,12 +1740,12 @@
     "15M": {
       "symbol": "ADAUSDT",
       "timeframe": "15M",
-      "open": 0.1595,
+      "open": 0.1605,
       "high": 0.1609,
-      "low": 0.1591,
+      "low": 0.16,
       "close": 0.1606,
-      "volume": 3166549.1,
-      "wickRange": 0.0018,
+      "volume": 950683.3,
+      "wickRange": 0.0009,
       "vwap": 0.1622,
       "ema50": 0.1618,
       "ema100": null,
@@ -1753,22 +1753,22 @@
       "sma50": null,
       "sma200": null,
       "rsi": 43.9631,
-      "stochK": 29.8169,
-      "stochD": 14.3413,
+      "stochK": 46.4268,
+      "stochD": 29.1679,
       "macdLine": -0.0008,
-      "macdHist": -0.0003,
+      "macdHist": -0.0002,
       "atr": 0.0013,
-      "volSMA20": 2240355.245,
-      "bbWidth": 4.0657,
+      "volSMA20": 2177438.62,
+      "bbWidth": 4.0751,
       "trendBias": 0,
-      "mfi": 29.18,
+      "mfi": 28.32,
       "fracResistance": 0.164,
       "fracSupport": 0.158,
       "fracResActive": 1,
       "fracSupActive": 1,
       "fvgBullActive": 0,
-      "fvgBullLo": 0.1631,
-      "fvgBullHi": 0.1633,
+      "fvgBullLo": 0.1599,
+      "fvgBullHi": 0.16,
       "fvgBearActive": 0,
       "fvgBearLo": 0.1594,
       "fvgBearHi": 0.1599,
@@ -1814,9 +1814,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -3,
+        "score": -33,
         "longScore": 0,
-        "shortScore": 3,
+        "shortScore": 33,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -1824,8 +1824,8 @@
           "ema": -1,
           "cvd": 0,
           "funding": 0.5,
-          "oi": 1,
-          "delta": 1
+          "oi": 0,
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 1,
@@ -1836,7 +1836,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-07T20:30:15.509Z",
+      "_received": "2026-06-07T20:45:01.765Z",
       "_sample": false
     },
     "30M": {
