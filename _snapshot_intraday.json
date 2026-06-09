@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-09T19:30:29.349Z",
+  "_updated": "2026-06-09T19:30:32.872Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2291,26 +2291,26 @@
     "30M": {
       "symbol": "XRPUSDT",
       "timeframe": "30M",
-      "open": 1.139,
-      "high": 1.1429,
-      "low": 1.1369,
-      "close": 1.139,
-      "volume": 1519586.4,
-      "wickRange": 0.006,
-      "vwap": 1.1515,
-      "ema50": 1.1526,
+      "open": 1.1389,
+      "high": 1.144,
+      "low": 1.1361,
+      "close": 1.1401,
+      "volume": 1372915.4,
+      "wickRange": 0.0079,
+      "vwap": 1.1513,
+      "ema50": 1.1521,
       "ema100": null,
-      "ema200": 1.1516,
+      "ema200": 1.1515,
       "sma50": null,
       "sma200": null,
-      "rsi": 40.981,
-      "stochK": 60.7061,
-      "stochD": 56.0385,
-      "macdLine": -0.0072,
-      "macdHist": -0.0004,
-      "atr": 0.0093,
-      "volSMA20": 2714146.585,
-      "bbWidth": 4.4542,
+      "rsi": 42.2144,
+      "stochK": 63.2185,
+      "stochD": 62.4408,
+      "macdLine": -0.0067,
+      "macdHist": 0,
+      "atr": 0.0092,
+      "volSMA20": 2716681.78,
+      "bbWidth": 4.2429,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -2379,15 +2379,15 @@
           "delta": 0
         },
         "cvdSource": "obv_proxy",
-        "liquidityEvent": 1,
-        "liquidityType": "wick_reclaim",
+        "liquidityEvent": 0,
+        "liquidityType": "none",
         "setupReady30M": 0,
         "confirmed30M": 0,
         "stopLevel": null,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-09T19:00:19.011Z",
+      "_received": "2026-06-09T19:30:13.378Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -2399,7 +2399,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-09T19:00:19.162Z"
+        "_fetched": "2026-06-09T19:30:13.524Z"
       }
     },
     "15M": {
