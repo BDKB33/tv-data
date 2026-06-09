@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-09T10:00:40.218Z",
+  "_updated": "2026-06-09T10:00:41.703Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1306,26 +1306,26 @@
     "30M": {
       "symbol": "SUIUSDT",
       "timeframe": "30M",
-      "open": 0.7487,
-      "high": 0.7526,
-      "low": 0.7477,
-      "close": 0.7477,
-      "volume": 613905.8,
-      "wickRange": 0.0049,
-      "vwap": 0.7478,
-      "ema50": 0.753,
+      "open": 0.7459,
+      "high": 0.746,
+      "low": 0.7413,
+      "close": 0.7456,
+      "volume": 476653.8,
+      "wickRange": 0.0047,
+      "vwap": 0.7477,
+      "ema50": 0.7525,
       "ema100": null,
-      "ema200": 0.7537,
+      "ema200": 0.7535,
       "sma50": null,
       "sma200": null,
-      "rsi": 44.109,
-      "stochK": 41.2814,
-      "stochD": 58.418,
-      "macdLine": -0.0009,
-      "macdHist": 0.0001,
-      "atr": 0.0073,
-      "volSMA20": 919137.325,
-      "bbWidth": 3.7248,
+      "rsi": 42.0798,
+      "stochK": 8.5699,
+      "stochD": 22.8668,
+      "macdLine": -0.0016,
+      "macdHist": -0.0005,
+      "atr": 0.007,
+      "volSMA20": 911854.795,
+      "bbWidth": 3.599,
       "trendBias": -0.5,
       "mfi": null,
       "fracResistance": null,
@@ -1398,11 +1398,11 @@
         "liquidityType": "wick_reclaim",
         "setupReady30M": 1,
         "confirmed30M": 0,
-        "stopLevel": 0.7692,
+        "stopLevel": 0.7625,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-09T09:00:13.946Z",
+      "_received": "2026-06-09T10:00:12.348Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1414,7 +1414,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-09T09:00:14.131Z"
+        "_fetched": "2026-06-09T10:00:12.519Z"
       }
     },
     "15M": {
