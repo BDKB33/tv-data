@@ -1,26 +1,26 @@
 {
   "symbol": "SOLUSDT",
   "timeframe": "30M",
-  "open": 65.63,
-  "high": 65.65,
-  "low": 65.11,
-  "close": 65.13,
-  "volume": 28554.97,
-  "wickRange": 0.54,
-  "vwap": 65.7326,
-  "ema50": 65.7669,
+  "open": 65.14,
+  "high": 65.19,
+  "low": 64.88,
+  "close": 65.02,
+  "volume": 28299.196,
+  "wickRange": 0.31,
+  "vwap": 65.7259,
+  "ema50": 65.7376,
   "ema100": null,
-  "ema200": 66.3539,
+  "ema200": 66.3406,
   "sma50": null,
   "sma200": null,
-  "rsi": 44.6844,
-  "stochK": 90.4149,
-  "stochD": 96.805,
-  "macdLine": -0.22,
-  "macdHist": 0.1087,
-  "atr": 0.56,
-  "volSMA20": 76805.7239,
-  "bbWidth": 3.8409,
+  "rsi": 43.2695,
+  "stochK": 78.8894,
+  "stochD": 89.7681,
+  "macdLine": -0.222,
+  "macdHist": 0.0853,
+  "atr": 0.5421,
+  "volSMA20": 76083.1945,
+  "bbWidth": 3.6398,
   "trendBias": -0.5,
   "mfi": null,
   "fracResistance": null,
@@ -75,10 +75,10 @@
   "obLow": null,
   "marketState": null,
   "bdkb": {
-    "score": -48,
+    "score": -43,
     "longScore": 0,
-    "shortScore": 48,
-    "state": "INVALIDATED",
+    "shortScore": 43,
+    "state": "SHORT_BIAS",
     "direction": "SHORT",
     "components": {
       "structure": -1,
@@ -86,7 +86,7 @@
       "cvd": 0,
       "funding": 0.5,
       "oi": 0,
-      "delta": -1
+      "delta": -0.5
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -97,7 +97,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-06-09T21:30:06.403Z",
+  "_received": "2026-06-09T22:00:08.959Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-06-09T21:30:06.557Z"
+    "_fetched": "2026-06-09T22:00:09.114Z"
   }
 }
