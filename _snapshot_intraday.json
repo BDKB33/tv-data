@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-10T14:15:23.716Z",
+  "_updated": "2026-06-10T14:15:25.024Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1103,28 +1103,28 @@
     "15M": {
       "symbol": "ETHUSDT",
       "timeframe": "15M",
-      "open": 1666.61,
-      "high": 1667.96,
-      "low": 1650.32,
-      "close": 1651.81,
-      "volume": 5673.8002,
-      "wickRange": 17.64,
-      "vwap": 1631.93,
-      "ema50": 1633.3468,
+      "open": 1651.82,
+      "high": 1655.64,
+      "low": 1646.61,
+      "close": 1647.04,
+      "volume": 5198.5907,
+      "wickRange": 9.03,
+      "vwap": 1632.5277,
+      "ema50": 1633.8838,
       "ema100": null,
-      "ema200": 1647.6341,
+      "ema200": 1647.6282,
       "sma50": null,
       "sma200": null,
-      "rsi": 61.822,
-      "stochK": 83.1762,
-      "stochD": 83.3527,
-      "macdLine": 5.0748,
-      "macdHist": 3.9782,
-      "atr": 10.4485,
-      "volSMA20": 3923.4668,
-      "bbWidth": 3.0544,
+      "rsi": 58.3814,
+      "stochK": 72.811,
+      "stochD": 80.8922,
+      "macdLine": 5.4315,
+      "macdHist": 3.4679,
+      "atr": 10.3471,
+      "volSMA20": 4021.0522,
+      "bbWidth": 3.0865,
       "trendBias": 0,
-      "mfi": 76.45,
+      "mfi": 70.05,
       "fracResistance": 1645.46,
       "fracSupport": 1632,
       "fracResActive": 0,
@@ -1177,9 +1177,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -9,
+        "score": -1,
         "longScore": 0,
-        "shortScore": 9,
+        "shortScore": 1,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -1188,7 +1188,7 @@
           "cvd": 0,
           "funding": -0.5,
           "oi": -1,
-          "delta": -1
+          "delta": -0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1199,7 +1199,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-10T14:00:26.453Z",
+      "_received": "2026-06-10T14:15:13.504Z",
       "_sample": false
     },
     "4H": {
