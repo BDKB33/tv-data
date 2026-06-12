@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-12T20:30:34.592Z",
+  "_updated": "2026-06-12T20:30:37.602Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1740,11 +1740,11 @@
     "15M": {
       "symbol": "ADAUSDT",
       "timeframe": "15M",
-      "open": 0.1709,
+      "open": 0.171,
       "high": 0.171,
       "low": 0.1704,
       "close": 0.171,
-      "volume": 1692148.5,
+      "volume": 457260.3,
       "wickRange": 0.0006,
       "vwap": 0.1711,
       "ema50": 0.1712,
@@ -1753,15 +1753,15 @@
       "sma50": null,
       "sma200": null,
       "rsi": 47.2746,
-      "stochK": 15.1613,
-      "stochD": 30.423,
+      "stochK": 11.6542,
+      "stochD": 18.5229,
       "macdLine": 0,
-      "macdHist": -0.0001,
-      "atr": 0.0014,
-      "volSMA20": 2461848.225,
-      "bbWidth": 1.8641,
+      "macdHist": -0.0002,
+      "atr": 0.0013,
+      "volSMA20": 2284055.635,
+      "bbWidth": 1.7817,
       "trendBias": 0,
-      "mfi": 46.43,
+      "mfi": 38.94,
       "fracResistance": 0.1727,
       "fracSupport": 0.17,
       "fracResActive": 1,
@@ -1773,8 +1773,8 @@
       "fvgBearLo": 0.171,
       "fvgBearHi": 0.1711,
       "coffinFormed": 1,
-      "coffinHi": 0.1715,
-      "coffinLo": 0.1708,
+      "coffinHi": 0.171,
+      "coffinLo": 0.1709,
       "coffinArmed": 1,
       "coffinBreakLong": 0,
       "coffinBreakShort": 0,
@@ -1836,7 +1836,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-12T20:15:07.357Z",
+      "_received": "2026-06-12T20:30:10.662Z",
       "_sample": false
     },
     "30M": {
