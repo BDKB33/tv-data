@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-12T13:30:34.289Z",
+  "_updated": "2026-06-12T13:30:37.037Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1306,26 +1306,26 @@
     "30M": {
       "symbol": "SUIUSDT",
       "timeframe": "30M",
-      "open": 0.7558,
-      "high": 0.7579,
-      "low": 0.7534,
-      "close": 0.7548,
-      "volume": 786833.1,
-      "wickRange": 0.0045,
+      "open": 0.7549,
+      "high": 0.7559,
+      "low": 0.7517,
+      "close": 0.7538,
+      "volume": 478657.3,
+      "wickRange": 0.0042,
       "vwap": 0.7561,
       "ema50": 0.7543,
       "ema100": null,
       "ema200": 0.7509,
       "sma50": null,
       "sma200": null,
-      "rsi": 48.6133,
-      "stochK": 61.9815,
-      "stochD": 66.5177,
-      "macdLine": 0.0003,
-      "macdHist": 0,
-      "atr": 0.0047,
-      "volSMA20": 749500.44,
-      "bbWidth": 1.7968,
+      "rsi": 46.8865,
+      "stochK": 50.251,
+      "stochD": 60.325,
+      "macdLine": 0.0001,
+      "macdHist": -0.0001,
+      "atr": 0.0046,
+      "volSMA20": 731941.02,
+      "bbWidth": 1.7991,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1380,9 +1380,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -23,
+        "score": -8,
         "longScore": 0,
-        "shortScore": 23,
+        "shortScore": 8,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -1390,7 +1390,7 @@
           "ema": -0.13,
           "cvd": 0,
           "funding": 0,
-          "oi": -1,
+          "oi": 0,
           "delta": 0
         },
         "cvdSource": "obv_proxy",
@@ -1402,7 +1402,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-12T13:00:18.072Z",
+      "_received": "2026-06-12T13:30:07.855Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1414,7 +1414,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-12T13:00:18.228Z"
+        "_fetched": "2026-06-12T13:30:08.043Z"
       }
     },
     "15M": {
