@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-13T12:30:28.768Z",
+  "_updated": "2026-06-13T12:30:29.883Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2291,26 +2291,26 @@
     "30M": {
       "symbol": "XRPUSDT",
       "timeframe": "30M",
-      "open": 1.1446,
-      "high": 1.1496,
-      "low": 1.1443,
-      "close": 1.149,
-      "volume": 1158011.5,
-      "wickRange": 0.0053,
-      "vwap": 1.1398,
-      "ema50": 1.1373,
+      "open": 1.1486,
+      "high": 1.1506,
+      "low": 1.147,
+      "close": 1.1499,
+      "volume": 737678.9,
+      "wickRange": 0.0036,
+      "vwap": 1.1403,
+      "ema50": 1.1382,
       "ema100": null,
-      "ema200": 1.1343,
+      "ema200": 1.1346,
       "sma50": null,
       "sma200": null,
-      "rsi": 69.6663,
-      "stochK": 98.1165,
-      "stochD": 94.8368,
-      "macdLine": 0.003,
+      "rsi": 70.0697,
+      "stochK": 98.1002,
+      "stochD": 97.4778,
+      "macdLine": 0.0036,
       "macdHist": 0.0011,
-      "atr": 0.0041,
-      "volSMA20": 874124.66,
-      "bbWidth": 1.8145,
+      "atr": 0.004,
+      "volSMA20": 847758.405,
+      "bbWidth": 2.1068,
       "trendBias": 1,
       "mfi": null,
       "fracResistance": null,
@@ -2365,8 +2365,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 93,
-        "longScore": 93,
+        "score": 70,
+        "longScore": 70,
         "shortScore": 0,
         "state": "STRONG_LONG",
         "direction": "LONG",
@@ -2374,9 +2374,9 @@
           "structure": 1,
           "ema": 1,
           "cvd": 1,
-          "funding": -0.5,
-          "oi": 1,
-          "delta": 1
+          "funding": -1,
+          "oi": 0,
+          "delta": 0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -2387,7 +2387,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-13T11:30:03.376Z",
+      "_received": "2026-06-13T12:30:04.356Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -2399,7 +2399,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-13T11:30:03.572Z"
+        "_fetched": "2026-06-13T12:30:04.508Z"
       }
     },
     "15M": {
