@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-14T18:15:16.518Z",
+  "_updated": "2026-06-14T18:15:23.355Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2405,28 +2405,28 @@
     "15M": {
       "symbol": "XRPUSDT",
       "timeframe": "15M",
-      "open": 1.1366,
-      "high": 1.1367,
-      "low": 1.1327,
-      "close": 1.1331,
-      "volume": 501714,
-      "wickRange": 0.004,
-      "vwap": 1.1428,
-      "ema50": 1.1404,
+      "open": 1.133,
+      "high": 1.1351,
+      "low": 1.1323,
+      "close": 1.1349,
+      "volume": 168102.6,
+      "wickRange": 0.0028,
+      "vwap": 1.1427,
+      "ema50": 1.1401,
       "ema100": null,
-      "ema200": 1.1419,
+      "ema200": 1.1418,
       "sma50": null,
       "sma200": null,
-      "rsi": 38.887,
-      "stochK": 77.1922,
-      "stochD": 86.175,
+      "rsi": 43.7607,
+      "stochK": 69.6247,
+      "stochD": 79.1691,
       "macdLine": -0.0015,
       "macdHist": 0.0004,
       "atr": 0.0029,
-      "volSMA20": 505077.77,
-      "bbWidth": 0.8831,
+      "volSMA20": 495930.845,
+      "bbWidth": 0.8471,
       "trendBias": 0,
-      "mfi": 55.64,
+      "mfi": 69.63,
       "fracResistance": 1.1389,
       "fracSupport": 1.1359,
       "fracResActive": 1,
@@ -2479,9 +2479,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -29,
+        "score": -6,
         "longScore": 0,
-        "shortScore": 29,
+        "shortScore": 6,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -2490,7 +2490,7 @@
           "cvd": 0,
           "funding": 0.5,
           "oi": 0,
-          "delta": -0.75
+          "delta": 0.75
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -2501,7 +2501,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-14T18:00:04.398Z",
+      "_received": "2026-06-14T18:15:05.299Z",
       "_sample": false
     },
     "4H": {
