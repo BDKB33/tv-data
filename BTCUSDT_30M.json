@@ -97,7 +97,7 @@
     "tradeReady30M": 1,
     "mode": "confirmed"
   },
-  "_received": "2026-06-14T21:30:05.869Z",
+  "_received": "2026-06-14T21:30:06.144Z",
   "_sample": false,
   "funding": {
     "fundingRate": -0.0000344355821828,
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-06-14T21:30:06.022Z"
+    "_fetched": "2026-06-14T21:30:06.297Z"
   }
 }
