@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-15T23:30:33.316Z",
+  "_updated": "2026-06-15T23:30:34.788Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2291,26 +2291,26 @@
     "30M": {
       "symbol": "XRPUSDT",
       "timeframe": "30M",
-      "open": 1.2427,
-      "high": 1.2473,
-      "low": 1.2379,
-      "close": 1.2402,
-      "volume": 4291310.8,
-      "wickRange": 0.0094,
+      "open": 1.2402,
+      "high": 1.2424,
+      "low": 1.236,
+      "close": 1.2386,
+      "volume": 2324008.8,
+      "wickRange": 0.0064,
       "vwap": 1.2383,
-      "ema50": 1.2251,
+      "ema50": 1.2257,
       "ema100": null,
-      "ema200": 1.173,
+      "ema200": 1.1737,
       "sma50": null,
       "sma200": null,
-      "rsi": 45.8415,
+      "rsi": 44.8674,
       "stochK": 0,
       "stochD": 0,
-      "macdLine": 0.0095,
-      "macdHist": -0.0072,
-      "atr": 0.0146,
-      "volSMA20": 5676869.475,
-      "bbWidth": 5.3256,
+      "macdLine": 0.0074,
+      "macdHist": -0.0075,
+      "atr": 0.014,
+      "volSMA20": 5355187.13,
+      "bbWidth": 5.4282,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -2365,16 +2365,16 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -38,
+        "score": -36,
         "longScore": 0,
-        "shortScore": 38,
+        "shortScore": 36,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
           "structure": -0.25,
           "ema": -0.13,
           "cvd": -1,
-          "funding": 0,
+          "funding": 0.5,
           "oi": 0,
           "delta": 0
         },
@@ -2387,7 +2387,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-15T23:00:07.242Z",
+      "_received": "2026-06-15T23:30:05.994Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -2399,7 +2399,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-15T23:00:07.401Z"
+        "_fetched": "2026-06-15T23:30:06.147Z"
       }
     },
     "15M": {
