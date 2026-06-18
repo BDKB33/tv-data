@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-18T11:00:42.832Z",
+  "_updated": "2026-06-18T11:00:43.893Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1673,
-      "high": 0.1674,
-      "low": 0.166,
-      "close": 0.1667,
-      "volume": 3009481.9,
-      "wickRange": 0.0014,
-      "vwap": 0.1664,
+      "open": 0.1666,
+      "high": 0.1672,
+      "low": 0.1664,
+      "close": 0.1666,
+      "volume": 2136002.8,
+      "wickRange": 0.0008,
+      "vwap": 0.1665,
       "ema50": 0.1681,
       "ema100": null,
-      "ema200": 0.1721,
+      "ema200": 0.172,
       "sma50": null,
       "sma200": null,
-      "rsi": 48.1464,
-      "stochK": 84.148,
-      "stochD": 84.2497,
+      "rsi": 47.5701,
+      "stochK": 85.0666,
+      "stochD": 84.505,
       "macdLine": -0.0003,
       "macdHist": 0.0002,
       "atr": 0.0013,
-      "volSMA20": 1983808.2,
-      "bbWidth": 2.7427,
+      "volSMA20": 2013089.87,
+      "bbWidth": 2.7287,
       "trendBias": -0.5,
       "mfi": null,
       "fracResistance": null,
@@ -1898,7 +1898,7 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "emaStackAligned": 1,
-      "volRegime": "NEUTRAL",
+      "volRegime": "COMPRESSION",
       "choch": 0,
       "chochLevel": null,
       "rsiDivBearish": 0,
@@ -1916,9 +1916,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -56,
+        "score": -59,
         "longScore": 0,
-        "shortScore": 56,
+        "shortScore": 59,
         "state": "SHORT_BIAS",
         "direction": "SHORT",
         "components": {
@@ -1926,19 +1926,19 @@
           "ema": -1,
           "cvd": -1,
           "funding": 0,
-          "oi": 0,
-          "delta": -0.5
+          "oi": -0.5,
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
-        "liquidityEvent": 0,
-        "liquidityType": "none",
-        "setupReady30M": 0,
+        "liquidityEvent": 1,
+        "liquidityType": "wick_reclaim",
+        "setupReady30M": 1,
         "confirmed30M": 0,
         "stopLevel": 0.1689,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-18T10:30:06.365Z",
+      "_received": "2026-06-18T11:00:17.462Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-18T10:30:06.525Z"
+        "_fetched": "2026-06-18T11:00:17.618Z"
       }
     },
     "1H": {
