@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-19T06:00:29.723Z",
+  "_updated": "2026-06-19T06:00:31.571Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2291,26 +2291,26 @@
     "30M": {
       "symbol": "XRPUSDT",
       "timeframe": "30M",
-      "open": 1.1275,
+      "open": 1.1303,
       "high": 1.1336,
-      "low": 1.1273,
-      "close": 1.1302,
-      "volume": 1363087.9,
-      "wickRange": 0.0063,
-      "vwap": 1.1409,
-      "ema50": 1.1551,
+      "low": 1.1275,
+      "close": 1.1335,
+      "volume": 935129.4,
+      "wickRange": 0.0061,
+      "vwap": 1.1405,
+      "ema50": 1.1543,
       "ema100": null,
-      "ema200": 1.1792,
+      "ema200": 1.1787,
       "sma50": null,
       "sma200": null,
-      "rsi": 33.1034,
-      "stochK": 6.2938,
-      "stochD": 5.6834,
+      "rsi": 37.5408,
+      "stochK": 19.9048,
+      "stochD": 8.7329,
       "macdLine": -0.0058,
-      "macdHist": -0.0012,
+      "macdHist": -0.001,
       "atr": 0.007,
-      "volSMA20": 2185069.76,
-      "bbWidth": 2.3364,
+      "volSMA20": 2102721.655,
+      "bbWidth": 2.4805,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -2379,15 +2379,15 @@
           "delta": 0.5
         },
         "cvdSource": "obv_proxy",
-        "liquidityEvent": 0,
-        "liquidityType": "none",
+        "liquidityEvent": 1,
+        "liquidityType": "swing_break_reclaim",
         "setupReady30M": 0,
         "confirmed30M": 0,
         "stopLevel": null,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-19T05:30:09.513Z",
+      "_received": "2026-06-19T06:00:10.958Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -2399,7 +2399,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-19T05:30:09.675Z"
+        "_fetched": "2026-06-19T06:00:11.154Z"
       }
     },
     "15M": {
