@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-20T05:30:17.839Z",
+  "_updated": "2026-06-20T05:30:20.085Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -319,7 +319,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-20T05:30:02.929Z",
+      "_received": "2026-06-20T05:30:03.016Z",
       "_sample": false,
       "funding": {
         "fundingRate": -0.0000072620302222,
@@ -331,7 +331,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-20T05:30:03.093Z"
+        "_fetched": "2026-06-20T05:30:03.178Z"
       }
     },
     "4H": {
