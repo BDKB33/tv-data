@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-20T16:30:29.867Z",
+  "_updated": "2026-06-20T16:30:32.520Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2405,28 +2405,28 @@
     "15M": {
       "symbol": "XRPUSDT",
       "timeframe": "15M",
-      "open": 1.1509,
-      "high": 1.151,
-      "low": 1.1467,
-      "close": 1.1475,
-      "volume": 1089794.3,
-      "wickRange": 0.0043,
+      "open": 1.1476,
+      "high": 1.1489,
+      "low": 1.1454,
+      "close": 1.1459,
+      "volume": 319997.9,
+      "wickRange": 0.0035,
       "vwap": 1.1451,
-      "ema50": 1.1449,
+      "ema50": 1.145,
       "ema100": null,
       "ema200": 1.1479,
       "sma50": null,
       "sma200": null,
-      "rsi": 52.6292,
-      "stochK": 87.5078,
-      "stochD": 91.9914,
-      "macdLine": 0.0003,
-      "macdHist": 0.0008,
+      "rsi": 50.1796,
+      "stochK": 83.7415,
+      "stochD": 88.4382,
+      "macdLine": 0.0002,
+      "macdHist": 0.0006,
       "atr": 0.0043,
-      "volSMA20": 689787.345,
-      "bbWidth": 1.5843,
+      "volSMA20": 691709.3,
+      "bbWidth": 1.5664,
       "trendBias": 0,
-      "mfi": 48.45,
+      "mfi": 48.8,
       "fracResistance": 1.156,
       "fracSupport": 1.1342,
       "fracResActive": 1,
@@ -2479,9 +2479,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -21,
-        "longScore": 0,
-        "shortScore": 21,
+        "score": 1,
+        "longScore": 1,
+        "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -2489,8 +2489,8 @@
           "ema": 0.25,
           "cvd": 0,
           "funding": 0,
-          "oi": -1,
-          "delta": -1
+          "oi": 0,
+          "delta": -0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -2501,7 +2501,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-20T16:15:01.596Z",
+      "_received": "2026-06-20T16:30:05.039Z",
       "_sample": false
     },
     "4H": {
