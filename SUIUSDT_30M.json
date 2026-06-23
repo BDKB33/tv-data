@@ -100,8 +100,8 @@
   "_received": "2026-06-23T19:00:21.891Z",
   "_sample": false,
   "funding": {
-    "fundingRate": 0.0000134295617949,
-    "fundingRatePct": "0.0013%",
+    "fundingRate": 0.0000139661497749,
+    "fundingRatePct": "0.0014%",
     "fundingZone": "ELEVATED",
     "fundingSource": "OKX",
     "nextFundingTime": "1782288000000",
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-06-23T19:00:22.049Z"
+    "_fetched": "2026-06-23T19:00:22.074Z"
   }
 }
