@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-25T09:15:46.465Z",
+  "_updated": "2026-06-25T09:30:09.793Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -223,26 +223,26 @@
     "30M": {
       "symbol": "BTCUSDT",
       "timeframe": "30M",
-      "open": 61779.61,
-      "high": 61804.45,
-      "low": 61684.87,
-      "close": 61712.35,
-      "volume": 180.5292,
-      "wickRange": 119.58,
-      "vwap": 61305.6327,
-      "ema50": 61426.9079,
+      "open": 61712.36,
+      "high": 61792,
+      "low": 61614.32,
+      "close": 61696.01,
+      "volume": 186.1672,
+      "wickRange": 177.68,
+      "vwap": 61317.4938,
+      "ema50": 61437.4609,
       "ema100": null,
-      "ema200": 62606.7261,
+      "ema200": 62597.6643,
       "sma50": null,
       "sma200": null,
-      "rsi": 61.3125,
-      "stochK": 82.6493,
-      "stochD": 91.8989,
-      "macdLine": 212.3709,
-      "macdHist": 92.4914,
-      "atr": 274.514,
-      "volSMA20": 321.5938,
-      "bbWidth": 2.6605,
+      "rsi": 60.7428,
+      "stochK": 71.3904,
+      "stochD": 82.3623,
+      "macdLine": 209.5533,
+      "macdHist": 71.7391,
+      "atr": 267.5973,
+      "volSMA20": 319.0565,
+      "bbWidth": 2.6975,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -279,7 +279,7 @@
       "dailyOpenHour": null,
       "dailyOpenSession": null,
       "emaStackAligned": 0,
-      "volRegime": "NEUTRAL",
+      "volRegime": "COMPRESSION",
       "choch": 0,
       "chochLevel": null,
       "rsiDivBearish": 0,
@@ -297,8 +297,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 19,
-        "longScore": 19,
+        "score": 24,
+        "longScore": 24,
         "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
@@ -308,7 +308,7 @@
           "cvd": 0,
           "funding": -0.5,
           "oi": 0,
-          "delta": -0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -319,11 +319,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-25T09:00:11.058Z",
+      "_received": "2026-06-25T09:30:05.659Z",
       "_sample": false,
       "funding": {
-        "fundingRate": -0.0000781533702756,
-        "fundingRatePct": "-0.0078%",
+        "fundingRate": -0.0000759599392066,
+        "fundingRatePct": "-0.0076%",
         "fundingZone": "NEUTRAL_NEG",
         "fundingSource": "OKX",
         "nextFundingTime": "1782432000000",
@@ -331,7 +331,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-25T09:00:11.254Z"
+        "_fetched": "2026-06-25T09:30:05.853Z"
       }
     },
     "4H": {
