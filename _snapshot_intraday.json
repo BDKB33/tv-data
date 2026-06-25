@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-25T15:30:38.621Z",
+  "_updated": "2026-06-25T15:30:39.379Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2291,26 +2291,26 @@
     "30M": {
       "symbol": "XRPUSDT",
       "timeframe": "30M",
-      "open": 1.0332,
-      "high": 1.0494,
-      "low": 1.0301,
-      "close": 1.0334,
-      "volume": 7897881.7,
-      "wickRange": 0.0193,
-      "vwap": 1.0538,
-      "ema50": 1.0735,
+      "open": 1.0335,
+      "high": 1.0354,
+      "low": 1.0236,
+      "close": 1.0327,
+      "volume": 4996376.7,
+      "wickRange": 0.0118,
+      "vwap": 1.0526,
+      "ema50": 1.0719,
       "ema100": null,
-      "ema200": 1.1028,
+      "ema200": 1.1021,
       "sma50": null,
       "sma200": null,
-      "rsi": 31.7597,
-      "stochK": 22.6214,
-      "stochD": 23.4322,
-      "macdLine": -0.0097,
-      "macdHist": -0.0058,
+      "rsi": 31.521,
+      "stochK": 34.6099,
+      "stochD": 26.6034,
+      "macdLine": -0.0109,
+      "macdHist": -0.0056,
       "atr": 0.0116,
-      "volSMA20": 3791481.98,
-      "bbWidth": 7.4271,
+      "volSMA20": 3889800.12,
+      "bbWidth": 7.996,
       "trendBias": -0.5,
       "mfi": null,
       "fracResistance": null,
@@ -2373,9 +2373,9 @@
         "components": {
           "structure": -1,
           "ema": -1,
-          "cvd": 0,
+          "cvd": -0.5,
           "funding": 0.5,
-          "oi": -0.5,
+          "oi": 0.5,
           "delta": 0
         },
         "cvdSource": "obv_proxy",
@@ -2387,11 +2387,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-25T15:00:08.461Z",
+      "_received": "2026-06-25T15:30:10.216Z",
       "_sample": false,
       "funding": {
-        "fundingRate": -0.0001324886460423,
-        "fundingRatePct": "-0.0132%",
+        "fundingRate": -0.0001590235760144,
+        "fundingRatePct": "-0.0159%",
         "fundingZone": "SHORTS_CROWDED",
         "fundingSource": "OKX",
         "nextFundingTime": "1782432000000",
@@ -2399,7 +2399,7 @@
         "conflictShort": true,
         "confluenceLong": true,
         "confluenceShort": false,
-        "_fetched": "2026-06-25T15:00:08.666Z"
+        "_fetched": "2026-06-25T15:30:10.389Z"
       }
     },
     "15M": {
