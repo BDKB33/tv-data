@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-27T01:01:05.521Z",
+  "_updated": "2026-06-27T01:01:07.500Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1485,
-      "high": 0.1491,
-      "low": 0.1481,
-      "close": 0.1481,
-      "volume": 3178124.8,
+      "open": 0.1481,
+      "high": 0.1483,
+      "low": 0.1473,
+      "close": 0.1482,
+      "volume": 1478538.8,
       "wickRange": 0.001,
-      "vwap": 0.1484,
-      "ema50": 0.1461,
+      "vwap": 0.1483,
+      "ema50": 0.1462,
       "ema100": null,
       "ema200": 0.1489,
       "sma50": null,
       "sma200": null,
-      "rsi": 57.713,
-      "stochK": 53.2098,
-      "stochD": 44.7296,
+      "rsi": 58.241,
+      "stochK": 55.9099,
+      "stochD": 52.8965,
       "macdLine": 0.0008,
       "macdHist": -0.0001,
-      "atr": 0.0014,
-      "volSMA20": 3706774.59,
-      "bbWidth": 2.3444,
+      "atr": 0.0013,
+      "volSMA20": 3502422.2,
+      "bbWidth": 1.4244,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1916,8 +1916,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 3,
-        "longScore": 3,
+        "score": 8,
+        "longScore": 8,
         "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
@@ -1927,7 +1927,7 @@
           "cvd": 0,
           "funding": -0.5,
           "oi": 0,
-          "delta": -0.5
+          "delta": 0
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 1,
@@ -1938,10 +1938,10 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-27T00:30:07.312Z",
+      "_received": "2026-06-27T01:00:40.300Z",
       "_sample": false,
       "funding": {
-        "fundingRate": -0.0000369636962939,
+        "fundingRate": -0.0000370361399819,
         "fundingRatePct": "-0.0037%",
         "fundingZone": "NEUTRAL_NEG",
         "fundingSource": "OKX",
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-27T00:30:07.468Z"
+        "_fetched": "2026-06-27T01:00:40.459Z"
       }
     },
     "1H": {
