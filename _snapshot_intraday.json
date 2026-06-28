@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-28T09:00:16.303Z",
+  "_updated": "2026-06-28T09:00:19.371Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -540,26 +540,26 @@
     "30M": {
       "symbol": "SOLUSDT",
       "timeframe": "30M",
-      "open": 71.08,
-      "high": 71.32,
-      "low": 71.06,
-      "close": 71.24,
-      "volume": 34426.667,
-      "wickRange": 0.26,
-      "vwap": 70.6722,
-      "ema50": 71.1483,
+      "open": 71.24,
+      "high": 72.2,
+      "low": 71.23,
+      "close": 71.91,
+      "volume": 104704.774,
+      "wickRange": 0.97,
+      "vwap": 70.8815,
+      "ema50": 71.1782,
       "ema100": null,
-      "ema200": 70.5415,
+      "ema200": 70.5551,
       "sma50": null,
       "sma200": null,
-      "rsi": 55.3649,
+      "rsi": 64.7685,
       "stochK": 100,
-      "stochD": 86.6797,
-      "macdLine": -0.1615,
-      "macdHist": 0.0981,
-      "atr": 0.3663,
-      "volSMA20": 27073.5593,
-      "bbWidth": 1.3479,
+      "stochD": 95.8424,
+      "macdLine": -0.0606,
+      "macdHist": 0.1592,
+      "atr": 0.4095,
+      "volSMA20": 30898.1749,
+      "bbWidth": 1.9482,
       "trendBias": 0.5,
       "mfi": null,
       "fracResistance": null,
@@ -636,11 +636,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-28T08:30:05.699Z",
+      "_received": "2026-06-28T09:00:05.288Z",
       "_sample": false,
       "funding": {
-        "fundingRate": 0.0000778782293005,
-        "fundingRatePct": "0.0078%",
+        "fundingRate": 0.0000788280916241,
+        "fundingRatePct": "0.0079%",
         "fundingZone": "ELEVATED",
         "fundingSource": "OKX",
         "nextFundingTime": "1782691200000",
@@ -648,7 +648,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-06-28T08:30:05.854Z"
+        "_fetched": "2026-06-28T09:00:05.441Z"
       }
     },
     "1H": {
