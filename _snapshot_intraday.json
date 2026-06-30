@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-06-30T05:00:38.671Z",
+  "_updated": "2026-06-30T05:00:41.992Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1740,12 +1740,12 @@
     "15M": {
       "symbol": "ADAUSDT",
       "timeframe": "15M",
-      "open": 0.1446,
-      "high": 0.1449,
-      "low": 0.1445,
+      "open": 0.1448,
+      "high": 0.1448,
+      "low": 0.1446,
       "close": 0.1447,
-      "volume": 451304.1,
-      "wickRange": 0.0004,
+      "volume": 876002.2,
+      "wickRange": 0.0002,
       "vwap": 0.1446,
       "ema50": 0.1454,
       "ema100": null,
@@ -1753,15 +1753,15 @@
       "sma50": null,
       "sma200": null,
       "rsi": 44.7103,
-      "stochK": 94.255,
-      "stochD": 86.203,
-      "macdLine": -0.0004,
+      "stochK": 96.7014,
+      "stochD": 91.5626,
+      "macdLine": -0.0003,
       "macdHist": 0.0001,
-      "atr": 0.0006,
-      "volSMA20": 744306.965,
-      "bbWidth": 1.37,
+      "atr": 0.0005,
+      "volSMA20": 727159.02,
+      "bbWidth": 1.1638,
       "trendBias": 0,
-      "mfi": 65.85,
+      "mfi": 64.02,
       "fracResistance": 0.1452,
       "fracSupport": 0.1441,
       "fracResActive": 1,
@@ -1773,7 +1773,7 @@
       "fvgBearLo": 0.145,
       "fvgBearHi": 0.1451,
       "coffinFormed": 1,
-      "coffinHi": 0.1447,
+      "coffinHi": 0.1448,
       "coffinLo": 0.1446,
       "coffinArmed": 1,
       "coffinBreakLong": 0,
@@ -1814,9 +1814,9 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -6,
+        "score": -14,
         "longScore": 0,
-        "shortScore": 6,
+        "shortScore": 14,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -1825,7 +1825,7 @@
           "cvd": 0,
           "funding": 0.5,
           "oi": 0,
-          "delta": 0
+          "delta": -0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1836,7 +1836,7 @@
         "tradeReady15M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-06-30T04:45:08.741Z",
+      "_received": "2026-06-30T05:00:19.014Z",
       "_sample": false
     },
     "30M": {
