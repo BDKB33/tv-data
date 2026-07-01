@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-01T10:00:36.459Z",
+  "_updated": "2026-07-01T10:00:38.085Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1501,
-      "high": 0.1509,
-      "low": 0.1493,
-      "close": 0.1494,
-      "volume": 6102892,
-      "wickRange": 0.0016,
-      "vwap": 0.1492,
-      "ema50": 0.1467,
+      "open": 0.1511,
+      "high": 0.1512,
+      "low": 0.15,
+      "close": 0.1504,
+      "volume": 2070699,
+      "wickRange": 0.0012,
+      "vwap": 0.1493,
+      "ema50": 0.1471,
       "ema100": null,
-      "ema200": 0.146,
+      "ema200": 0.1462,
       "sma50": null,
       "sma200": null,
-      "rsi": 59.0224,
-      "stochK": 42.4661,
-      "stochD": 52.6238,
+      "rsi": 61.0428,
+      "stochK": 21.6986,
+      "stochD": 25.8864,
       "macdLine": 0.0015,
-      "macdHist": 0.0001,
+      "macdHist": 0,
       "atr": 0.0015,
-      "volSMA20": 5797223.405,
-      "bbWidth": 8.2074,
+      "volSMA20": 6180415.785,
+      "bbWidth": 7.4815,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1916,17 +1916,17 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 18,
-        "longScore": 18,
+        "score": 14,
+        "longScore": 14,
         "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
-          "structure": 1,
+          "structure": 0.25,
           "ema": 1,
           "cvd": 0,
           "funding": -0.5,
-          "oi": -1,
+          "oi": 0,
           "delta": -0.5
         },
         "cvdSource": "obv_proxy",
@@ -1938,7 +1938,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-01T08:30:08.642Z",
+      "_received": "2026-07-01T10:00:13.702Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-01T08:30:08.799Z"
+        "_fetched": "2026-07-01T10:00:13.892Z"
       }
     },
     "1H": {
