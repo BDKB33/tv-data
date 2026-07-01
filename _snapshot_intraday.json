@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-01T11:00:38.867Z",
+  "_updated": "2026-07-01T11:00:40.535Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1504,
-      "high": 0.1511,
-      "low": 0.1499,
-      "close": 0.1505,
-      "volume": 3649008.5,
-      "wickRange": 0.0012,
+      "open": 0.1505,
+      "high": 0.1515,
+      "low": 0.1504,
+      "close": 0.1509,
+      "volume": 2446825.6,
+      "wickRange": 0.0011,
       "vwap": 0.1494,
-      "ema50": 0.1473,
+      "ema50": 0.1474,
       "ema100": null,
-      "ema200": 0.1462,
+      "ema200": 0.1463,
       "sma50": null,
       "sma200": null,
-      "rsi": 61.4654,
-      "stochK": 17.3394,
-      "stochD": 21.1224,
+      "rsi": 63.1859,
+      "stochK": 13.392,
+      "stochD": 17.4767,
       "macdLine": 0.0014,
       "macdHist": -0.0001,
       "atr": 0.0015,
-      "volSMA20": 6284685.855,
-      "bbWidth": 6.8452,
+      "volSMA20": 6315904.945,
+      "bbWidth": 6.2921,
       "trendBias": 0.5,
       "mfi": null,
       "fracResistance": null,
@@ -1916,8 +1916,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 49,
-        "longScore": 49,
+        "score": 54,
+        "longScore": 54,
         "shortScore": 0,
         "state": "LONG_BIAS",
         "direction": "LONG",
@@ -1927,7 +1927,7 @@
           "cvd": 1,
           "funding": -0.5,
           "oi": 0,
-          "delta": 0
+          "delta": 0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1938,7 +1938,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-01T10:30:13.242Z",
+      "_received": "2026-07-01T11:00:12.244Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-01T10:30:13.400Z"
+        "_fetched": "2026-07-01T11:00:12.399Z"
       }
     },
     "1H": {
