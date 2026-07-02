@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-02T09:30:35.270Z",
+  "_updated": "2026-07-02T09:30:36.550Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -2285,26 +2285,26 @@
     "30M": {
       "symbol": "XRPUSDT",
       "timeframe": "30M",
-      "open": 1.062,
-      "high": 1.065,
-      "low": 1.0613,
-      "close": 1.0642,
-      "volume": 998820,
-      "wickRange": 0.0037,
-      "vwap": 1.0592,
-      "ema50": 1.0562,
+      "open": 1.0643,
+      "high": 1.0682,
+      "low": 1.0622,
+      "close": 1.0679,
+      "volume": 1757079.5,
+      "wickRange": 0.006,
+      "vwap": 1.0598,
+      "ema50": 1.0567,
       "ema100": null,
-      "ema200": 1.0529,
+      "ema200": 1.0531,
       "sma50": null,
       "sma200": null,
-      "rsi": 57.8303,
-      "stochK": 44.0235,
-      "stochD": 34.5181,
-      "macdLine": 0.0014,
-      "macdHist": -0.0001,
+      "rsi": 62.0518,
+      "stochK": 67.4851,
+      "stochD": 48.0727,
+      "macdLine": 0.0018,
+      "macdHist": 0.0003,
       "atr": 0.0052,
-      "volSMA20": 1154251.915,
-      "bbWidth": 1.9732,
+      "volSMA20": 1139803.03,
+      "bbWidth": 2.0843,
       "trendBias": 0.5,
       "mfi": null,
       "fracResistance": null,
@@ -2359,8 +2359,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 54,
-        "longScore": 54,
+        "score": 69,
+        "longScore": 69,
         "shortScore": 0,
         "state": "LONG_BIAS",
         "direction": "LONG",
@@ -2369,7 +2369,7 @@
           "ema": 1,
           "cvd": 1,
           "funding": -0.5,
-          "oi": 0,
+          "oi": 1,
           "delta": 0.5
         },
         "cvdSource": "obv_proxy",
@@ -2381,11 +2381,11 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-02T09:00:08.870Z",
+      "_received": "2026-07-02T09:30:07.189Z",
       "_sample": false,
       "funding": {
-        "fundingRate": -0.0000050757171312,
-        "fundingRatePct": "-0.0005%",
+        "fundingRate": -0.0000015087928293,
+        "fundingRatePct": "-0.0002%",
         "fundingZone": "NEUTRAL_NEG",
         "fundingSource": "OKX",
         "nextFundingTime": "1783036800000",
@@ -2393,7 +2393,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-02T09:00:09.028Z"
+        "_fetched": "2026-07-02T09:30:07.344Z"
       }
     },
     "15M": {
