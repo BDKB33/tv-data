@@ -1,27 +1,27 @@
 {
   "symbol": "ADAUSDT",
   "timeframe": "30M",
-  "open": 0.1595,
-  "high": 0.1603,
-  "low": 0.1589,
-  "close": 0.1597,
-  "volume": 7105044.5,
-  "wickRange": 0.0014,
-  "vwap": 0.1562,
-  "ema50": 0.1546,
+  "open": 0.1596,
+  "high": 0.1614,
+  "low": 0.1594,
+  "close": 0.1605,
+  "volume": 4988450.5,
+  "wickRange": 0.002,
+  "vwap": 0.1565,
+  "ema50": 0.1548,
   "ema100": null,
-  "ema200": 0.1498,
+  "ema200": 0.1499,
   "sma50": null,
   "sma200": null,
-  "rsi": 72.5554,
+  "rsi": 75.0801,
   "stochK": 100,
   "stochD": 100,
-  "macdLine": 0.0013,
+  "macdLine": 0.0014,
   "macdHist": 0.0004,
-  "atr": 0.0012,
-  "volSMA20": 3475847.09,
-  "bbWidth": 4.3893,
-  "trendBias": 0.5,
+  "atr": 0.0013,
+  "volSMA20": 3494568.33,
+  "bbWidth": 4.8501,
+  "trendBias": 1,
   "mfi": null,
   "fracResistance": null,
   "fracSupport": null,
@@ -75,10 +75,10 @@
   "obLow": null,
   "marketState": null,
   "bdkb": {
-    "score": 65,
-    "longScore": 65,
+    "score": 70,
+    "longScore": 70,
     "shortScore": 0,
-    "state": "LONG_BIAS",
+    "state": "STRONG_LONG",
     "direction": "LONG",
     "components": {
       "structure": 1,
@@ -86,7 +86,7 @@
       "cvd": 1,
       "funding": -1,
       "oi": 0,
-      "delta": 0
+      "delta": 0.5
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -97,7 +97,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-07-02T12:00:19.013Z",
+  "_received": "2026-07-02T12:30:08.326Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-07-02T12:00:19.176Z"
+    "_fetched": "2026-07-02T12:30:08.494Z"
   }
 }
