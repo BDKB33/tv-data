@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-02T12:30:31.132Z",
+  "_updated": "2026-07-02T12:30:32.539Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1584,
-      "high": 0.1594,
-      "low": 0.1583,
-      "close": 0.1591,
-      "volume": 4074006,
-      "wickRange": 0.0011,
-      "vwap": 0.1557,
-      "ema50": 0.1542,
+      "open": 0.1596,
+      "high": 0.1614,
+      "low": 0.1594,
+      "close": 0.1605,
+      "volume": 4988450.5,
+      "wickRange": 0.002,
+      "vwap": 0.1565,
+      "ema50": 0.1548,
       "ema100": null,
-      "ema200": 0.1496,
+      "ema200": 0.1499,
       "sma50": null,
       "sma200": null,
-      "rsi": 70.5518,
+      "rsi": 75.0801,
       "stochK": 100,
-      "stochD": 96.2024,
-      "macdLine": 0.001,
-      "macdHist": 0.0003,
-      "atr": 0.0012,
-      "volSMA20": 3119829.335,
-      "bbWidth": 3.5306,
+      "stochD": 100,
+      "macdLine": 0.0014,
+      "macdHist": 0.0004,
+      "atr": 0.0013,
+      "volSMA20": 3494568.33,
+      "bbWidth": 4.8501,
       "trendBias": 1,
       "mfi": null,
       "fracResistance": null,
@@ -1916,8 +1916,8 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 90,
-        "longScore": 90,
+        "score": 70,
+        "longScore": 70,
         "shortScore": 0,
         "state": "STRONG_LONG",
         "direction": "LONG",
@@ -1926,8 +1926,8 @@
           "ema": 1,
           "cvd": 1,
           "funding": -1,
-          "oi": 1,
-          "delta": 1
+          "oi": 0,
+          "delta": 0.5
         },
         "cvdSource": "obv_proxy",
         "liquidityEvent": 0,
@@ -1938,7 +1938,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-02T11:00:11.288Z",
+      "_received": "2026-07-02T12:30:08.326Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-02T11:00:11.453Z"
+        "_fetched": "2026-07-02T12:30:08.494Z"
       }
     },
     "1H": {
