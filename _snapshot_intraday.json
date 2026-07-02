@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-02T07:30:34.913Z",
+  "_updated": "2026-07-02T07:30:36.025Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1306,26 +1306,26 @@
     "30M": {
       "symbol": "SUIUSDT",
       "timeframe": "30M",
-      "open": 0.7282,
-      "high": 0.7291,
-      "low": 0.7249,
-      "close": 0.7267,
-      "volume": 420793.3,
-      "wickRange": 0.0042,
+      "open": 0.7264,
+      "high": 0.7272,
+      "low": 0.7234,
+      "close": 0.7251,
+      "volume": 437200,
+      "wickRange": 0.0038,
       "vwap": 0.7259,
-      "ema50": 0.7154,
+      "ema50": 0.7162,
       "ema100": null,
-      "ema200": 0.7015,
+      "ema200": 0.702,
       "sma50": null,
       "sma200": null,
-      "rsi": 57.7373,
-      "stochK": 51.0163,
-      "stochD": 69.0972,
-      "macdLine": 0.0047,
-      "macdHist": 0,
-      "atr": 0.0055,
-      "volSMA20": 633345.965,
-      "bbWidth": 3.1332,
+      "rsi": 54.971,
+      "stochK": 25.095,
+      "stochD": 38.049,
+      "macdLine": 0.0039,
+      "macdHist": -0.0006,
+      "atr": 0.0054,
+      "volSMA20": 625787.425,
+      "bbWidth": 2.9807,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1380,16 +1380,16 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": 33,
-        "longScore": 33,
+        "score": 5,
+        "longScore": 5,
         "shortScore": 0,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
           "structure": 1,
           "ema": 1,
-          "cvd": 0,
-          "funding": -0.5,
+          "cvd": -1,
+          "funding": 0,
           "oi": 0,
           "delta": -0.5
         },
@@ -1402,7 +1402,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-02T06:30:13.921Z",
+      "_received": "2026-07-02T07:30:06.804Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1414,7 +1414,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-02T06:30:14.079Z"
+        "_fetched": "2026-07-02T07:30:06.986Z"
       }
     },
     "15M": {
