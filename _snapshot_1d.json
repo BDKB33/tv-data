@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-02T00:00:48.749Z",
+  "_updated": "2026-07-03T00:00:39.672Z",
   "ETHUSDT": {
     "1D_history": [
       {
@@ -2024,25 +2024,25 @@
     "1D": {
       "symbol": "SUIUSDT",
       "timeframe": "1D",
-      "open": 0.6907,
-      "high": 0.7302,
-      "low": 0.6778,
-      "close": 0.7156,
-      "volume": 33512303.3,
-      "wickRange": 0.0524,
-      "vwap": 0.7079,
-      "ema50": 0.8096,
-      "ema100": 0.9122,
-      "ema200": 1.1926,
+      "open": 0.7157,
+      "high": 0.7536,
+      "low": 0.7102,
+      "close": 0.7354,
+      "volume": 30393600.6,
+      "wickRange": 0.0434,
+      "vwap": 0.7331,
+      "ema50": 0.8067,
+      "ema100": 0.9087,
+      "ema200": 1.1881,
       "sma50": null,
       "sma200": null,
-      "rsi": 43.3032,
-      "stochK": 82.1954,
-      "stochD": 59.4091,
-      "macdLine": -0.039,
-      "macdHist": 0.0077,
-      "atr": 0.0465,
-      "volSMA20": 35218636.455,
+      "rsi": 47.4882,
+      "stochK": 92.2629,
+      "stochD": 77.0144,
+      "macdLine": -0.0338,
+      "macdHist": 0.0103,
+      "atr": 0.0462,
+      "volSMA20": 35031894.18,
       "bbWidth": null,
       "trendBias": 0,
       "mfi": null,
@@ -2075,8 +2075,8 @@
       "ewFibRetrace": 0,
       "ewPriorW4High": 0,
       "ewPriorW4Low": 0,
-      "dailyHigh": 0.7302,
-      "dailyLow": 0.6778,
+      "dailyHigh": 0.7536,
+      "dailyLow": 0.7102,
       "dailyOpenHour": 20,
       "dailyOpenSession": "ASIA",
       "emaStackAligned": 1,
@@ -2098,9 +2098,9 @@
       "obLow": null,
       "marketState": "RANGE",
       "bdkb": {
-        "score": -24,
+        "score": -26,
         "longScore": 0,
-        "shortScore": 24,
+        "shortScore": 26,
         "state": "NEUTRAL",
         "direction": "NEUTRAL",
         "components": {
@@ -2108,7 +2108,7 @@
           "ew": 0.25,
           "ema": -1,
           "cvd": 0,
-          "funding": 0.5,
+          "funding": 0,
           "oi": 0
         },
         "cvdSource": "obv_proxy",
@@ -2118,7 +2118,7 @@
         "tradeReady1D": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-02T00:00:19.294Z",
+      "_received": "2026-07-03T00:00:12.346Z",
       "_sample": false
     }
   }
