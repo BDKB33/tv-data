@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-04T12:00:29.112Z",
+  "_updated": "2026-07-04T12:00:30.476Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -540,26 +540,26 @@
     "30M": {
       "symbol": "SOLUSDT",
       "timeframe": "30M",
-      "open": 81.64,
-      "high": 81.83,
-      "low": 81.53,
-      "close": 81.74,
-      "volume": 31247.835,
-      "wickRange": 0.3,
-      "vwap": 82.5807,
-      "ema50": 82.0033,
+      "open": 81.73,
+      "high": 81.93,
+      "low": 81.72,
+      "close": 81.82,
+      "volume": 40305.057,
+      "wickRange": 0.21,
+      "vwap": 82.5541,
+      "ema50": 81.9961,
       "ema100": null,
-      "ema200": 79.1109,
+      "ema200": 79.1378,
       "sma50": null,
       "sma200": null,
-      "rsi": 41.2637,
-      "stochK": 2.0656,
-      "stochD": 0.8179,
-      "macdLine": -0.1108,
-      "macdHist": -0.1544,
-      "atr": 0.4431,
-      "volSMA20": 50136.8963,
-      "bbWidth": 2.5765,
+      "rsi": 42.8961,
+      "stochK": 6.1275,
+      "stochD": 2.7957,
+      "macdLine": -0.1266,
+      "macdHist": -0.1362,
+      "atr": 0.4264,
+      "volSMA20": 50999.3699,
+      "bbWidth": 2.6077,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -628,15 +628,15 @@
           "delta": 0.5
         },
         "cvdSource": "obv_proxy",
-        "liquidityEvent": 0,
-        "liquidityType": "none",
+        "liquidityEvent": 1,
+        "liquidityType": "swing_break_reclaim",
         "setupReady30M": 0,
         "confirmed30M": 0,
         "stopLevel": null,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-04T11:30:04.042Z",
+      "_received": "2026-07-04T12:00:09.370Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -648,7 +648,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-04T11:30:04.199Z"
+        "_fetched": "2026-07-04T12:00:09.522Z"
       }
     },
     "1H": {
