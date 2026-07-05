@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-05T05:30:25.876Z",
+  "_updated": "2026-07-05T05:30:27.461Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.1916,
-      "high": 0.1918,
+      "open": 0.1904,
+      "high": 0.1906,
       "low": 0.1893,
-      "close": 0.1899,
-      "volume": 3651178.8,
-      "wickRange": 0.0025,
-      "vwap": 0.1918,
-      "ema50": 0.1865,
+      "close": 0.1896,
+      "volume": 3204627.1,
+      "wickRange": 0.0013,
+      "vwap": 0.1915,
+      "ema50": 0.1871,
       "ema100": null,
-      "ema200": 0.1706,
+      "ema200": 0.1714,
       "sma50": null,
       "sma200": null,
-      "rsi": 49.6487,
-      "stochK": 12.0606,
-      "stochD": 9.4304,
-      "macdLine": 0.0013,
-      "macdHist": -0.0008,
-      "atr": 0.0026,
-      "volSMA20": 5799076.25,
-      "bbWidth": 4.6282,
+      "rsi": 48.2307,
+      "stochK": 16.6548,
+      "stochD": 17.7843,
+      "macdLine": 0.0007,
+      "macdHist": -0.0007,
+      "atr": 0.0023,
+      "volSMA20": 4536794.385,
+      "bbWidth": 2.2269,
       "trendBias": -0.5,
       "mfi": null,
       "fracResistance": null,
@@ -1938,7 +1938,7 @@
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-05T03:30:05.386Z",
+      "_received": "2026-07-05T05:30:03.287Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-05T03:30:05.540Z"
+        "_fetched": "2026-07-05T05:30:03.463Z"
       }
     },
     "1H": {
