@@ -1,26 +1,26 @@
 {
   "symbol": "SUIUSDT",
   "timeframe": "30M",
-  "open": 0.7444,
-  "high": 0.7455,
-  "low": 0.7413,
-  "close": 0.7438,
-  "volume": 479087.4,
-  "wickRange": 0.0042,
-  "vwap": 0.7467,
-  "ema50": 0.7568,
+  "open": 0.7438,
+  "high": 0.7445,
+  "low": 0.7415,
+  "close": 0.7425,
+  "volume": 250637.5,
+  "wickRange": 0.003,
+  "vwap": 0.7466,
+  "ema50": 0.7563,
   "ema100": null,
   "ema200": 0.742,
   "sma50": null,
   "sma200": null,
-  "rsi": 33.5142,
-  "stochK": 29.3089,
-  "stochD": 23.1337,
-  "macdLine": -0.0063,
-  "macdHist": -0.001,
-  "atr": 0.0054,
-  "volSMA20": 582862.89,
-  "bbWidth": 6.3851,
+  "rsi": 32.1503,
+  "stochK": 34.4297,
+  "stochD": 29.1852,
+  "macdLine": -0.0062,
+  "macdHist": -0.0008,
+  "atr": 0.0052,
+  "volSMA20": 578881.985,
+  "bbWidth": 6.3686,
   "trendBias": -0.5,
   "mfi": null,
   "fracResistance": null,
@@ -75,9 +75,9 @@
   "obLow": null,
   "marketState": null,
   "bdkb": {
-    "score": -56,
+    "score": -61,
     "longScore": 0,
-    "shortScore": 56,
+    "shortScore": 61,
     "state": "SHORT_BIAS",
     "direction": "SHORT",
     "components": {
@@ -86,7 +86,7 @@
       "cvd": -1,
       "funding": 0.5,
       "oi": 0,
-      "delta": 0
+      "delta": -0.5
     },
     "cvdSource": "obv_proxy",
     "liquidityEvent": 0,
@@ -97,7 +97,7 @@
     "tradeReady30M": 0,
     "mode": "confirmed"
   },
-  "_received": "2026-07-05T06:00:10.394Z",
+  "_received": "2026-07-05T06:30:06.405Z",
   "_sample": false,
   "funding": {
     "fundingRate": 0.0001,
@@ -109,6 +109,6 @@
     "conflictShort": false,
     "confluenceLong": false,
     "confluenceShort": false,
-    "_fetched": "2026-07-05T06:00:10.679Z"
+    "_fetched": "2026-07-05T06:30:06.559Z"
   }
 }
