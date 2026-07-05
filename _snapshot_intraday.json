@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-05T19:30:31.314Z",
+  "_updated": "2026-07-05T19:30:33.060Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1306,26 +1306,26 @@
     "30M": {
       "symbol": "SUIUSDT",
       "timeframe": "30M",
-      "open": 0.7554,
-      "high": 0.7561,
-      "low": 0.7529,
-      "close": 0.755,
-      "volume": 178137.3,
-      "wickRange": 0.0032,
-      "vwap": 0.7476,
-      "ema50": 0.7521,
+      "open": 0.7559,
+      "high": 0.7581,
+      "low": 0.7533,
+      "close": 0.7555,
+      "volume": 208774.8,
+      "wickRange": 0.0048,
+      "vwap": 0.7478,
+      "ema50": 0.7525,
       "ema100": null,
-      "ema200": 0.7434,
+      "ema200": 0.7437,
       "sma50": null,
       "sma200": null,
-      "rsi": 58.2009,
-      "stochK": 83.8957,
-      "stochD": 86.4299,
-      "macdLine": 0.0016,
-      "macdHist": 0.0013,
-      "atr": 0.0046,
-      "volSMA20": 363409.035,
-      "bbWidth": 2.7805,
+      "rsi": 58.5394,
+      "stochK": 80.8083,
+      "stochD": 83.1871,
+      "macdLine": 0.0019,
+      "macdHist": 0.0008,
+      "atr": 0.0044,
+      "volSMA20": 353814.38,
+      "bbWidth": 2.8869,
       "trendBias": 0,
       "mfi": null,
       "fracResistance": null,
@@ -1394,15 +1394,15 @@
           "delta": 0
         },
         "cvdSource": "obv_proxy",
-        "liquidityEvent": 1,
-        "liquidityType": "wick_reclaim",
+        "liquidityEvent": 0,
+        "liquidityType": "none",
         "setupReady30M": 0,
         "confirmed30M": 0,
         "stopLevel": null,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-05T18:00:11.615Z",
+      "_received": "2026-07-05T19:30:03.882Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1414,7 +1414,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-05T18:00:11.767Z"
+        "_fetched": "2026-07-05T19:30:04.034Z"
       }
     },
     "15M": {
