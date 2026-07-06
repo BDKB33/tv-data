@@ -1,5 +1,5 @@
 {
-  "_updated": "2026-07-06T04:30:34.599Z",
+  "_updated": "2026-07-06T04:30:35.881Z",
   "BTCUSDT": {
     "15M": {
       "symbol": "BTCUSDT",
@@ -1842,26 +1842,26 @@
     "30M": {
       "symbol": "ADAUSDT",
       "timeframe": "30M",
-      "open": 0.189,
-      "high": 0.1896,
-      "low": 0.188,
-      "close": 0.1881,
-      "volume": 2159619.9,
+      "open": 0.1881,
+      "high": 0.1885,
+      "low": 0.1869,
+      "close": 0.1874,
+      "volume": 1856326.9,
       "wickRange": 0.0016,
-      "vwap": 0.1892,
-      "ema50": 0.1889,
+      "vwap": 0.1889,
+      "ema50": 0.1888,
       "ema100": null,
-      "ema200": 0.1777,
+      "ema200": 0.1779,
       "sma50": null,
       "sma200": null,
-      "rsi": 43.4403,
-      "stochK": 21.2409,
-      "stochD": 30.5357,
-      "macdLine": -0.0001,
-      "macdHist": -0.0001,
+      "rsi": 40.2772,
+      "stochK": 1.5584,
+      "stochD": 10.9739,
+      "macdLine": -0.0003,
+      "macdHist": -0.0002,
       "atr": 0.0017,
-      "volSMA20": 3042164.845,
-      "bbWidth": 1.8483,
+      "volSMA20": 3007497.275,
+      "bbWidth": 2.1045,
       "trendBias": -0.5,
       "mfi": null,
       "fracResistance": null,
@@ -1916,13 +1916,13 @@
       "obLow": null,
       "marketState": null,
       "bdkb": {
-        "score": -41,
+        "score": -59,
         "longScore": 0,
-        "shortScore": 41,
+        "shortScore": 59,
         "state": "SHORT_BIAS",
         "direction": "SHORT",
         "components": {
-          "structure": -0.25,
+          "structure": -1,
           "ema": -0.13,
           "cvd": -1,
           "funding": 0.5,
@@ -1934,11 +1934,11 @@
         "liquidityType": "none",
         "setupReady30M": 0,
         "confirmed30M": 0,
-        "stopLevel": 0.1943,
+        "stopLevel": 0.1927,
         "tradeReady30M": 0,
         "mode": "confirmed"
       },
-      "_received": "2026-07-06T03:30:08.898Z",
+      "_received": "2026-07-06T04:30:06.399Z",
       "_sample": false,
       "funding": {
         "fundingRate": 0.0001,
@@ -1950,7 +1950,7 @@
         "conflictShort": false,
         "confluenceLong": false,
         "confluenceShort": false,
-        "_fetched": "2026-07-06T03:30:09.053Z"
+        "_fetched": "2026-07-06T04:30:06.551Z"
       }
     },
     "1H": {
